@@ -1,0 +1,13 @@
+# --- System / Internal ---
+.gemini/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# --- Large artifacts if needed (but 158MB is okay for now) ---
+# assets/products/*/character/*.jpg
+
+# --- Node modules ---
+node_modules/
+dist/
+build/
