@@ -1,0 +1,31 @@
+{
+  "name": "Поцелуй нимфы",
+  "material": "Натуральный жемчуг, резной перламутр, позолота, фианиты",
+  "price": "1690",
+  "description": "Изящный лист, вырезанный из перламутра, на фоне чистого жемчуга. Замедлись, чтобы услышать шелест леса и дыхание природы.",
+  "lookCaption": "Естественная эстетика в каждом изгибе.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Поцелуй нимфы",
+      "material": "Натуральный жемчуг, резной перламутр, позолота, фианиты",
+      "price": "1690",
+      "description": "Изящный лист, вырезанный из перламутра, на фоне чистого жемчуга. Замедлись, чтобы услышать шелест леса и дыхание природы.",
+      "lookCaption": "Естественная эстетика в каждом изгибе."
+    },
+    "en": {
+      "name": "Nymph's Kiss",
+      "material": "Natural pearl, carved mother-of-pearl, gold plating, cubic zirconia",
+      "price": "On request",
+      "description": "A graceful leaf carved from mother-of-pearl against a background of pure pearls. Slow down to hear the rustle of the forest and the breath of nature.",
+      "lookCaption": "Natural aesthetics in every curve."
+    },
+    "kk": {
+      "name": "Нимфаның сүйісуі",
+      "material": "Табиғи меруерт, ойылған перламутр, алтынмен қапталған, фианиттер",
+      "price": "Сұраныс бойынша",
+      "description": "Таза меруерт аясындағы перламутрдан ойылған әсем жапырақ. Орманныңбдыры мен табиғаттың тынысын есту үшін баяулаңыз.",
+      "lookCaption": "Әрбір қисықтағы табиғи эстетика."
+    }
+  }
+}

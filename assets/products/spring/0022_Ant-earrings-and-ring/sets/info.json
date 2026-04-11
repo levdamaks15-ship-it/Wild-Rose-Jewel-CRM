@@ -1,0 +1,31 @@
+{
+  "name": "Тайная тропа",
+  "material": "Ювелирный сплав, позолота, прозрачные фианиты",
+  "price": "1240",
+  "description": "Детализация, достойная восхищения. Твое личное напоминание о том, что настоящая красота кроется в мельчайших деталях и упорстве на пути к мечте.",
+  "lookCaption": "Особенная красота для внимательных.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Тайная тропа",
+      "material": "Ювелирный сплав, позолота, прозрачные фианиты",
+      "price": "1240",
+      "description": "Детализация, достойная восхищения. Твое личное напоминание о том, что настоящая красота кроется в мельчайших деталях и упорстве на пути к мечте.",
+      "lookCaption": "Особенная красота для внимательных."
+    },
+    "en": {
+      "name": "Secret Path",
+      "material": "Jewelry alloy, gold plating, clear cubic zirconia",
+      "price": "On request",
+      "description": "Detailing worthy of admiration. Your personal reminder that true beauty lies in the smallest details and perseverance on the way to your dream.",
+      "lookCaption": "Special beauty for the attentive."
+    },
+    "kk": {
+      "name": "Құпия соқпақ",
+      "material": "Зергерлік қорытпа, алтынмен қапталған, мөлдір фианиттер",
+      "price": "Сұраныс бойынша",
+      "description": "Таңдануға тұрарлық бөлшектер. Нағыз сұлулық ең кішкентай бөлшектерде және арманға бастар жолдағы табандылықта екендігі туралы жеке ескертуіңіз.",
+      "lookCaption": "Мұқият жандарға арналған ерекше сұлулық."
+    }
+  }
+}

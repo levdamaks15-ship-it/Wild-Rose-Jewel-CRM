@@ -1,0 +1,31 @@
+{
+  "name": "Ритм страсти",
+  "material": "Стекло/эмаль, ювелирный сплав, позолота",
+  "price": "2490",
+  "description": "Глубокий карминный оттенок для моментов, когда ты выбираешь звучать громко и жить на полную. Это не просто акцент, это твое состояние влюбленности в жизнь.",
+  "lookCaption": "Для тех, кто не боится своих чувств.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Ритм страсти",
+      "material": "Стекло/эмаль, ювелирный сплав, позолота",
+      "price": "2490",
+      "description": "Глубокий карминный оттенок для моментов, когда ты выбираешь звучать громко и жить на полную. Это не просто акцент, это твое состояние влюбленности в жизнь.",
+      "lookCaption": "Для тех, кто не боится своих чувств."
+    },
+    "en": {
+      "name": "Rhythm of Passion",
+      "material": "Glass/enamel, jewelry alloy, gold plating",
+      "price": "On request",
+      "description": "A deep carmine shade for moments when you choose to sound loud and live life to the fullest. It's not just an accent, it's your state of being in love with life.",
+      "lookCaption": "For those who are not afraid of their feelings."
+    },
+    "kk": {
+      "name": "Құмарлық ырғағы",
+      "material": "Шыны/эмаль, зергерлік қорытпа, алтынмен қапталған",
+      "price": "Сұраныс бойынша",
+      "description": "Өмірді барынша сүруді және жарқын болуды таңдаған сәттерге арналған терең кармин реңкі. Бұл жай ғана екпін емес, бұл сіздің өмірге ғашық күйіңіз.",
+      "lookCaption": "Өз сезімдерінен қорықпайтындар үшін."
+    }
+  }
+}

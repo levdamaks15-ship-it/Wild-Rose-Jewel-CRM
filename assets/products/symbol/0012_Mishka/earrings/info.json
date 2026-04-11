@@ -1,0 +1,31 @@
+{
+  "name": "Игривая искра",
+  "material": "Ювелирный сплав, позолота, кубический цирконий, эмаль",
+  "price": "900",
+  "description": "Напоминание о том, что внутри каждой из нас живет девчонка, готовая смеяться без повода. Надевай, когда хочется сбросить маски и позволить себе легкость.",
+  "lookCaption": "Добавь в будни каплю беззаботности.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Игривая искра",
+      "material": "Ювелирный сплав, позолота, кубический цирконий, эмаль",
+      "price": "900",
+      "description": "Напоминание о том, что внутри каждой из нас живет девчонка, готовая смеяться без повода. Надевай, когда хочется сбросить маски и позволить себе легкость.",
+      "lookCaption": "Добавь в будни каплю беззаботности."
+    },
+    "en": {
+      "name": "Playful Spark",
+      "material": "Jewelry alloy, gold plating, cubic zirconia, enamel",
+      "price": "On request",
+      "description": "A reminder that inside each of us lives a girl ready to laugh for no reason. Wear it when you want to drop the masks and allow yourself some lightness.",
+      "lookCaption": "Add a drop of carefreeness to your everyday life."
+    },
+    "kk": {
+      "name": "Ойнақы ұшқын",
+      "material": "Зергерлік қорытпа, алтынмен қапталған, текше цирконий, эмаль",
+      "price": "Сұраныс бойынша",
+      "description": "Әрқайсымыздың ішімізде себепсіз күлуге дайын қыз өмір сүретінін еске салады. Бетперделерді тастап, өзіңізге жеңілдік сыйлағыңыз келгенде тағыңыз.",
+      "lookCaption": "Күнделікті өмірге қамсыздық тамшысын қосыңыз."
+    }
+  }
+}

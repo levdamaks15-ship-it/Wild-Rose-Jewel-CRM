@@ -1,0 +1,31 @@
+{
+  "name": "Наивная смелость",
+  "material": "Натуральный жемчуг, замок-тогл, позолота, фианиты",
+  "price": "По запросу",
+  "description": "Соединение классического жемчуга и ироничного кулона. Для девушек, которые умеют быть серьезными, но выбирают игру.",
+  "lookCaption": "Правил больше нет.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Наивная смелость",
+      "material": "Натуральный жемчуг, замок-тогл, позолота, фианиты",
+      "price": "По запросу",
+      "description": "Соединение классического жемчуга и ироничного кулона. Для девушек, которые умеют быть серьезными, но выбирают игру.",
+      "lookCaption": "Правил больше нет."
+    },
+    "en": {
+      "name": "Naive Courage",
+      "material": "Natural pearl, toggle clasp, gold plating, cubic zirconia",
+      "price": "On request",
+      "description": "A combination of classic pearls and an ironic pendant. For girls who know how to be serious but choose to play.",
+      "lookCaption": "There are no more rules."
+    },
+    "kk": {
+      "name": "Аңғал батылдық",
+      "material": "Табиғи меруерт, тогл ілгегі, алтынмен қапталған, фианиттер",
+      "price": "Сұраныс бойынша",
+      "description": "Классикалық меруерт пен ирониялық кулонның үйлесімі. Байсалды болуды білетін, бірақ ойынды таңдайтын қыздарға арналған.",
+      "lookCaption": "Енді ережелер жоқ."
+    }
+  }
+}

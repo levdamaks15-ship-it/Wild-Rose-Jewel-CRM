@@ -1,0 +1,31 @@
+{
+  "name": "Львиное сердце",
+  "material": "Натуральный речной жемчуг, ювелирный сплав, эмаль, позолота",
+  "price": "По запросу",
+  "description": "Символ твоей внутренней силы, обрамленный в нежность природного жемчуга. Для дней, когда ты сама устанавливаешь правила игры.",
+  "lookCaption": "Твой личный талисман уверенности.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Львиное сердце",
+      "material": "Натуральный речной жемчуг, ювелирный сплав, эмаль, позолота",
+      "price": "По запросу",
+      "description": "Символ твоей внутренней силы, обрамленный в нежность природного жемчуга. Для дней, когда ты сама устанавливаешь правила игры.",
+      "lookCaption": "Твой личный талисман уверенности."
+    },
+    "en": {
+      "name": "Lionheart",
+      "material": "Natural freshwater pearl, jewelry alloy, enamel, gold plating",
+      "price": "On request",
+      "description": "A symbol of your inner strength, framed in the tenderness of natural pearls. For days when you set the rules of the game yourself.",
+      "lookCaption": "Your personal talisman of confidence."
+    },
+    "kk": {
+      "name": "Арыстан жүрегі",
+      "material": "Табиғи өзен меруерті, зергерлік қорытпа, эмаль, алтынмен қапталған",
+      "price": "Сұраныс бойынша",
+      "description": "Табиғи меруерттің нәзіктігімен көмкерілген ішкі күшіңіздің символы. Ойын ережелерін өзіңіз белгілейтін күндер үшін.",
+      "lookCaption": "Сіздің жеке сенімділік тұмарыңыз."
+    }
+  }
+}

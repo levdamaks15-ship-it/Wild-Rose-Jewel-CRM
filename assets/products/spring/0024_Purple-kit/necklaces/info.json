@@ -1,0 +1,31 @@
+{
+  "name": "Аметистовый сон",
+  "material": "Натуральный аметист (крошка и огранка), позолоченная цепь",
+  "price": "1655",
+  "description": "Загадочный фиолетовый свет камня балансирует эмоции и дарит внутреннюю тишину. Истинная красота природы, не тронутая суетой.",
+  "lookCaption": "Глубина, в которой хочется раствориться.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Аметистовый сон",
+      "material": "Натуральный аметист (крошка и огранка), позолоченная цепь",
+      "price": "1655",
+      "description": "Загадочный фиолетовый свет камня балансирует эмоции и дарит внутреннюю тишину. Истинная красота природы, не тронутая суетой.",
+      "lookCaption": "Глубина, в которой хочется раствориться."
+    },
+    "en": {
+      "name": "Amethyst Dream",
+      "material": "Natural amethyst (chips and faceted), gold-plated chain",
+      "price": "On request",
+      "description": "The mysterious purple light of the stone balances emotions and gives inner silence. The true beauty of nature, untouched by fuss.",
+      "lookCaption": "A depth you want to dissolve in."
+    },
+    "kk": {
+      "name": "Аметист түсі",
+      "material": "Табиғи аметист (ұнтақ және қырлы), алтын жалатылған шынжыр",
+      "price": "Сұраныс бойынша",
+      "description": "Тастың жұмбақ күлгін сәулесі эмоцияларды теңестіреді және ішкі тыныштық береді. Күйбең тірлік тимеген табиғаттың нағыз сұлулығы.",
+      "lookCaption": "Сіңіп кеткің келетін тереңдік."
+    }
+  }
+}

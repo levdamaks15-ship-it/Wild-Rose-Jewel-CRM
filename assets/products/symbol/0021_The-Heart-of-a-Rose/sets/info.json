@@ -1,0 +1,31 @@
+{
+  "name": "Неизменная классика",
+  "material": "Натуральный речной жемчуг, красные кристаллы, позолота",
+  "price": "По запросу",
+  "description": "Встреча благородной сдержанности и яркого темперамента. Идеально для моментов, когда ты хочешь чувствовать себя безупречно уверенной.",
+  "lookCaption": "Для историй, которые запоминаются навсегда.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Неизменная классика",
+      "material": "Натуральный речной жемчуг, красные кристаллы, позолота",
+      "price": "По запросу",
+      "description": "Встреча благородной сдержанности и яркого темперамента. Идеально для моментов, когда ты хочешь чувствовать себя безупречно уверенной.",
+      "lookCaption": "Для историй, которые запоминаются навсегда."
+    },
+    "en": {
+      "name": "Timeless Classic",
+      "material": "Natural freshwater pearl, red crystals, gold plating",
+      "price": "On request",
+      "description": "A meeting of noble restraint and bright temperament. Perfect for moments when you want to feel flawlessly confident.",
+      "lookCaption": "For stories that are remembered forever."
+    },
+    "kk": {
+      "name": "Өзгермес классика",
+      "material": "Табиғи өзен меруерті, қызыл кристалдар, алтынмен қапталған",
+      "price": "Сұраныс бойынша",
+      "description": "Асыл ұстамдылық пен жарқын темпераменттің кездесуі. Өзіңізді мінсіз сенімді сезінгіңіз келетін сәттерге арналған.",
+      "lookCaption": "Мәңгі есте қалатын оқиғалар үшін."
+    }
+  }
+}

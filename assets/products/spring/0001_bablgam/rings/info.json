@@ -1,0 +1,31 @@
+{
+  "name": "Облако нежности",
+  "material": "Розовый кварц, лунный камень, фурнитура с позолотой",
+  "price": "890",
+  "description": "Кольцо, собранное вручную из десятков мягких камней. Тактильная радость и напоминание о том, что ты заслуживаешь заботы.",
+  "lookCaption": "Прикосновение заботы к себе.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Облако нежности",
+      "material": "Розовый кварц, лунный камень, фурнитура с позолотой",
+      "price": "890",
+      "description": "Кольцо, собранное вручную из десятков мягких камней. Тактильная радость и напоминание о том, что ты заслуживаешь заботы.",
+      "lookCaption": "Прикосновение заботы к себе."
+    },
+    "en": {
+      "name": "Cloud of Tenderness",
+      "material": "Rose quartz, moonstone, gold-plated hardware",
+      "price": "On request",
+      "description": "A ring assembled by hand from dozens of soft stones. Tactile joy and a reminder that you deserve care.",
+      "lookCaption": "A touch of care for yourself."
+    },
+    "kk": {
+      "name": "Нәзіктік бұлты",
+      "material": "Қызғылт кварц, ай тасы, алтын жалатылған фурнитура",
+      "price": "Сұраныс бойынша",
+      "description": "Ондаған жұмсақ тастардан қолмен жиналған сақина. Тактильді қуаныш және сіздің қамқорлыққа лайық екендігіңіз туралы ескерту.",
+      "lookCaption": "Өзіңізге деген қамқорлықтың жанасуы."
+    }
+  }
+}

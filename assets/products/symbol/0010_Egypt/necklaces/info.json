@@ -1,0 +1,31 @@
+{
+  "name": "Островной побег",
+  "material": "Белый агат, позолоченная фурнитура, эмаль",
+  "price": "1458",
+  "description": "Маленькие картины, запечатлевшие мгновения покоя. Надевай, когда городу не хватает солнца, а душе — неспешного ритма тропиков.",
+  "lookCaption": "Магия медленной жизни в каждом шарме.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Островной побег",
+      "material": "Белый агат, позолоченная фурнитура, эмаль",
+      "price": "1458",
+      "description": "Маленькие картины, запечатлевшие мгновения покоя. Надевай, когда городу не хватает солнца, а душе — неспешного ритма тропиков.",
+      "lookCaption": "Магия медленной жизни в каждом шарме."
+    },
+    "en": {
+      "name": "Island Escape",
+      "material": "White agate, gold-plated hardware, enamel",
+      "price": "On request",
+      "description": "Small pictures capturing moments of peace. Wear them when the city lacks sun, and the soul craves the unhurried rhythm of the tropics.",
+      "lookCaption": "The magic of slow living in every charm."
+    },
+    "kk": {
+      "name": "Аралға қашу",
+      "material": "Ақ агат, алтын жалатылған фурнитура, эмаль",
+      "price": "Сұраныс бойынша",
+      "description": "Тыныштық сәттерін бейнелейтін кішкентай суреттер. Қалаға күн жетіспегенде, ал жан тропиктердің асықпайтын ырғағын қалағанда тағыңыз.",
+      "lookCaption": "Әрбір тұмардағы баяу өмір сиқыры."
+    }
+  }
+}

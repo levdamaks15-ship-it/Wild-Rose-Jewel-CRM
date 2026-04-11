@@ -1,0 +1,31 @@
+{
+  "name": "Вечный странник",
+  "material": "Цветной полупрозрачный кварц/агат, эмаль, позолота",
+  "price": "823",
+  "description": "Яркие леденцовые камни и мечты о новых городах. Это не просто браслет, это твой личный компас, указывающий на радость.",
+  "lookCaption": "Жизнь в движении.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Вечный странник",
+      "material": "Цветной полупрозрачный кварц/агат, эмаль, позолота",
+      "price": "823",
+      "description": "Яркие леденцовые камни и мечты о новых городах. Это не просто браслет, это твой личный компас, указывающий на радость.",
+      "lookCaption": "Жизнь в движении."
+    },
+    "en": {
+      "name": "Eternal Wanderer",
+      "material": "Colored translucent quartz/agate, enamel, gold plating",
+      "price": "On request",
+      "description": "Bright candy-colored stones and dreams of new cities. This is not just a bracelet, it's your personal compass pointing to joy.",
+      "lookCaption": "Life in motion."
+    },
+    "kk": {
+      "name": "Мәңгілік кезбе",
+      "material": "Түрлі-түсті мөлдір кварц/агат, эмаль, алтынмен қапталған",
+      "price": "Сұраныс бойынша",
+      "description": "Жарқын кәмпит тастары және жаңа қалалар туралы армандар. Бұл жай ғана білезік емес, қуанышты көрсететін жеке компасыңыз.",
+      "lookCaption": "Қозғалыстағы өмір."
+    }
+  }
+}

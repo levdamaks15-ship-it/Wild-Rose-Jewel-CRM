@@ -1,0 +1,31 @@
+{
+  "name": "Полет фантазии",
+  "material": "Барочный жемчуг разных форм, красные фианиты, позолота",
+  "price": "930",
+  "description": "Два яруса несовершенного, живого жемчуга и дерзкий алый акцент. Для тех, кто ценит ручной труд и уникальность каждого изгиба.",
+  "lookCaption": "Естественность без фильтров.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Полет фантазии",
+      "material": "Барочный жемчуг разных форм, красные фианиты, позолота",
+      "price": "930",
+      "description": "Два яруса несовершенного, живого жемчуга и дерзкий алый акцент. Для тех, кто ценит ручной труд и уникальность каждого изгиба.",
+      "lookCaption": "Естественность без фильтров."
+    },
+    "en": {
+      "name": "Flight of Fancy",
+      "material": "Baroque pearls of various shapes, red cubic zirconia, gold plating",
+      "price": "On request",
+      "description": "Two tiers of imperfect, lively pearls and a daring scarlet accent. For those who value handmade work and the uniqueness of every curve.",
+      "lookCaption": "Naturalness without filters."
+    },
+    "kk": {
+      "name": "Қиял самғауы",
+      "material": "Әртүрлі пішіндегі барокко меруерті, қызыл фианиттер, алтынмен қапталған",
+      "price": "Сұраныс бойынша",
+      "description": "Мінсіз емес, жанды меруерттің екі қабаты және батыл қызыл екпін. Қол еңбегін және әрбір қисықтың бірегейлігін бағалайтындар үшін.",
+      "lookCaption": "Сүзгісіз табиғилық."
+    }
+  }
+}

@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог | Мастерская Дикая Роза</title>
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta name="description" content="Каталог украшений Мастерской Дикая Роза. Ручная работа, натуральные камни." data-i18n="meta_catalog">
+    <title data-i18n="catalog_main_title">Каталог | Мастерская Дикая Роза</title>
     
     <!-- Подключаем премиальные шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,63 +14,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     
     <!-- Стили -->
-    <link rel="stylesheet" href="style.css?v=1.3">
+    <link rel="stylesheet" href="style.css?v=13.9">
 </head>
 <body class="catalog-page">
 
     <!-- Навигация -->
-    <header id="mainHeader">
-        <div class="container nav-container">
-            <div class="header-left">
-                <button class="menu-btn" id="menuToggle">
-                    <div class="menu-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <span class="menu-text">МЕНЮ</span>
-                </button>
-            </div>
-            <div class="sticky-brand">
-                <span class="brand-ru">Мастерская Дикая Роза</span>
-                <span class="brand-en">Wild Rose <span class="jewel-text">Jewel</span></span>
-            </div>
-            <a href="index.html" class="logo">
-                <img src="assets/WRJ.png" alt="Wild Rose Jewel Logo">
-            </a>
-        </div>
-    </header>
+    <!-- Навигация (Загружается динамически) -->
+    <header id="mainHeader"></header>
 
     <!-- Заголовок страницы -->
     <section class="page-header">
         <div class="container">
-            <h1>Каталог украшений</h1>
-            <p>Изделия ручной работы с душой и историей</p>
+            <div class="section-title">
+                <h1 data-i18n="catalog_main_title">Каталог украшений</h1>
+            </div>
         </div>
     </section>
 
     <!-- Каталог -->
     <section class="catalog-section">
+        <!-- Группа управления (Sticky на мобильных) -->
+        <div class="catalog-controls">
+            <div class="container">
+                <!-- Сезоны -->
+                <div class="season-filter">
+                    <button class="season-btn" data-season="winter" data-i18n="season_winter">Зима</button>
+                    <button class="season-btn active" data-season="spring" data-i18n="season_spring">Весна</button>
+                    <button class="season-btn" data-season="summer" data-i18n="season_summer">Лето</button>
+                    <button class="season-btn" data-season="autumn" data-i18n="season_autumn">Осень</button>
+                    <button class="season-btn" data-season="symbol" data-i18n="season_symbol">Символы</button>
+                </div>
+ 
+                <!-- Фильтры категорий -->
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-filter="all" data-i18n="filter_all">Все</button>
+                    <button class="filter-btn" data-filter="necklaces" data-i18n="filter_necklaces">Колье</button>
+                    <button class="filter-btn" data-filter="bracelets" data-i18n="filter_bracelets">Браслеты</button>
+                    <button class="filter-btn" data-filter="earrings" data-i18n="filter_earrings">Серьги</button>
+                    <button class="filter-btn" data-filter="rings" data-i18n="filter_rings">Кольца</button>
+                    <button class="filter-btn" data-filter="sets" data-i18n="filter_sets">Комплекты</button>
+                </div>
+            </div>
+        </div>
+
         <div class="container">
-            <!-- Сезоны -->
-            <div class="season-filter">
-                <button class="season-btn" data-season="winter">Зима</button>
-                <button class="season-btn active" data-season="spring">Весна</button>
-                <button class="season-btn" data-season="summer">Лето</button>
-                <button class="season-btn" data-season="autumn">Осень</button>
-                <button class="season-btn" data-season="symbol">Символы</button>
-            </div>
-
-            <!-- Фильтры категорий -->
-            <div class="filter-bar">
-                <button class="filter-btn active" data-filter="all">Все</button>
-                <button class="filter-btn" data-filter="necklaces">Колье</button>
-                <button class="filter-btn" data-filter="bracelets">Браслеты</button>
-                <button class="filter-btn" data-filter="earrings">Серьги</button>
-                <button class="filter-btn" data-filter="rings">Кольца</button>
-                <button class="filter-btn" data-filter="sets">Комплекты</button>
-            </div>
-
             <div class="products-grid" id="productsGrid">
                 <!-- Контент загружается динамически из products-data.js -->
             </div>
@@ -75,69 +65,17 @@
     </section>
 
     <!-- Подвал (Footer) -->
-    <footer id="contacts">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="assets/WRJ.png" alt="Logo White">
-                    </div>
-                    <div class="consumer-corner" style="margin-top: 20px; font-size: 0.8rem; color: var(--brand-text-light);">
-                        <p><strong>Правовая информация:</strong></p>
-                        <p>Статус: Самозанятый гражданин (НПД)</p>
-                        <p>Исполнитель: [ВАШЕ ФИО]</p>
-                        <p>ИНН: [ВАШ ИНН]</p>
-                        <p style="margin-top: 10px;"><a href="privacy.html" style="color: var(--brand-gold); text-decoration: underline;">Политика конфиденциальности</a></p>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Свяжитесь с нами</h4>
-                    <ul>
-                        <li><a href="https://vk.com/wild_rose_19" target="_blank">ВКонтакте</a></li>
-                        <li><a href="mailto:rudenko.nataliyaxi@gmail.com">rudenko.nataliyaxi@gmail.com</a></li>
-                    </ul>
-                </div>
-            </div>
+    <!-- Подвал (Загружается динамически) -->
+    <footer id="contacts"></footer>
 
-            <div class="copyright">
-                <p>&copy; 2026 Мастерская Дикая Роза / Wild Rose Jewel. Все права защищены. Сделано с любовью.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Скрипты -->
+    <script src="translations.js"></script>
+    <script src="utils.js"></script>
+    <script src="components.js"></script>
+    <script src="products-data.js?v=4"></script>
+    <script src="script.js?v=4"></script>
 
-    <script src="products-data.js?v=1.4"></script>
-    <script src="script.js?v=1.4"></script>
-
-    <!-- Затемнение фона при открытом меню -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <!-- Боковое меню (Sidebar) -->
-    <div class="sidebar-menu" id="sidebarMenu">
-        <button class="close-menu" id="closeMenuBtn">&times;</button>
-        <div class="sidebar-content">
-            <ul class="sidebar-links">
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="catalog.html">Каталог</a></li>
-                <li><a href="lookbook.html">Lookbook</a></li>
-                <li><a href="index.html#about" class="page-link">О нас</a></li>
-                <li><a href="index.html#faq" class="page-link">Ответы</a></li>
-            </ul>
-            <div class="sidebar-footer">
-                <h4 class="sidebar-contacts-title">Контакты</h4>
-                <a href="https://vk.com/wild_rose_19" target="_blank" class="sidebar-social">ВКонтакте</a>
-                <a href="mailto:rudenko.nataliyaxi@gmail.com" class="sidebar-email">rudenko.nataliyaxi@gmail.com</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно Lookbook -->
-    <div id="lookModal" class="look-modal">
-        <span class="close-modal" id="closeLookModal">&times;</span>
-        <div class="modal-content">
-            <img id="lookModalImg" src="" alt="Образ модели">
-            <div class="modal-caption" id="lookModalCaption"></div>
-        </div>
-    </div>
+    <!-- Боковое меню (Загружается динамически) -->
+    <div id="sidebarComponents"></div>
 </body>
 </html>

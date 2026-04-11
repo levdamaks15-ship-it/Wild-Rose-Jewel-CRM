@@ -1,0 +1,31 @@
+{
+  "name": "Сестры по духу",
+  "material": "Пастельные камни, фианиты, позолоченная фурнитура",
+  "price": "878",
+  "description": "Мягкие оттенки, перетекающие друг в друга. Идеальный баланс формы и цвета, созданный руками с любовью к деталям.",
+  "lookCaption": "Гармония, которую можно примерить.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Сестры по духу",
+      "material": "Пастельные камни, фианиты, позолоченная фурнитура",
+      "price": "878",
+      "description": "Мягкие оттенки, перетекающие друг в друга. Идеальный баланс формы и цвета, созданный руками с любовью к деталям.",
+      "lookCaption": "Гармония, которую можно примерить."
+    },
+    "en": {
+      "name": "Sisters in Spirit",
+      "material": "Pastel stones, cubic zirconia, gold-plated hardware",
+      "price": "On request",
+      "description": "Soft shades flowing into each other. The perfect balance of form and color, created by hands with love for details.",
+      "lookCaption": "Harmony you can try on."
+    },
+    "kk": {
+      "name": "Рухтас апалы-сіңлілер",
+      "material": "Пастельді тастар, фианиттер, алтын жалатылған фурнитура",
+      "price": "Сұраныс бойынша",
+      "description": "Бір-біріне ұласатын жұмсақ реңктер. Бөлшектерге деген сүйіспеншілікпен қолмен жасалған пішін мен түстің тамаша теңгерімі.",
+      "lookCaption": "Өзіңіз киіп көруге болатын гармония."
+    }
+  }
+}

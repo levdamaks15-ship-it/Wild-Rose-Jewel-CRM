@@ -1,0 +1,31 @@
+{
+  "name": "Сладкий нектар",
+  "material": "Натуральный барочный жемчуг, перламутр, фианиты, позолота",
+  "price": "1152",
+  "description": "Природная асимметрия крупного жемчуга и дерзкий символ свободы на твоем запястье. Замедляйся и наслаждайся каждым прикосновением света.",
+  "lookCaption": "Свобода быть собой в каждой детали.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Сладкий нектар",
+      "material": "Натуральный барочный жемчуг, перламутр, фианиты, позолота",
+      "price": "1152",
+      "description": "Природная асимметрия крупного жемчуга и дерзкий символ свободы на твоем запястье. Замедляйся и наслаждайся каждым прикосновением света.",
+      "lookCaption": "Свобода быть собой в каждой детали."
+    },
+    "en": {
+      "name": "Sweet Nectar",
+      "material": "Natural baroque pearl, mother-of-pearl, cubic zirconia, gold plating",
+      "price": "On request",
+      "description": "The natural asymmetry of large pearls and a bold symbol of freedom on your wrist. Slow down and enjoy every touch of light.",
+      "lookCaption": "The freedom to be yourself in every detail."
+    },
+    "kk": {
+      "name": "Тәтті шырын",
+      "material": "Табиғи барокко меруерті, перламутр, фианиттер, алтынмен қапталған",
+      "price": "Сұраныс бойынша",
+      "description": "Ірі меруерттің табиғи асимметриясы және білегіңіздегі еркіндіктің батыл символы. Асықпаңыз және жарықтың әрбір жанасуынан ләззат алыңыз.",
+      "lookCaption": "Әр бөлшекте өзің болу еркіндігі."
+    }
+  }
+}

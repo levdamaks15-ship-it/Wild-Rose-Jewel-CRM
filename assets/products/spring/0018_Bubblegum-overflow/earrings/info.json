@@ -1,0 +1,31 @@
+{
+  "name": "Сад чудес",
+  "material": "Натуральный кварц, цветные фианиты, позолота",
+  "price": "По запросу",
+  "description": "Рассыпанные цветы и нежные оттенки. Позволь себе быть разной, меняя детали так же легко, как меняется настроение весеннего дня.",
+  "lookCaption": "Создай свою уникальную историю.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Сад чудес",
+      "material": "Натуральный кварц, цветные фианиты, позолота",
+      "price": "По запросу",
+      "description": "Рассыпанные цветы и нежные оттенки. Позволь себе быть разной, меняя детали так же легко, как меняется настроение весеннего дня.",
+      "lookCaption": "Создай свою уникальную историю."
+    },
+    "en": {
+      "name": "Garden of Wonders",
+      "material": "Natural quartz, colored cubic zirconia, gold plating",
+      "price": "On request",
+      "description": "Scattered flowers and delicate shades. Allow yourself to be different, changing details as easily as the mood of a spring day changes.",
+      "lookCaption": "Create your own unique story."
+    },
+    "kk": {
+      "name": "Кереметтер бағы",
+      "material": "Табиғи кварц, түрлі-түсті фианиттер, алтынмен қапталған",
+      "price": "Сұраныс бойынша",
+      "description": "Шашыраңқы гүлдер мен нәзік реңктер. Көктемгі күннің көңіл-күйі қаншалықты оңай өзгерсе, бөлшектерді де соншалықты оңай өзгертіп, әртүрлі болуға рұқсат етіңіз.",
+      "lookCaption": "Өзіңіздің қайталанбас тарихыңызды жасаңыз."
+    }
+  }
+}

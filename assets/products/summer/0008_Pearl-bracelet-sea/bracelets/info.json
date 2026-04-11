@@ -1,0 +1,31 @@
+{
+  "name": "Шепот волн",
+  "material": "Перламутр, барочный жемчуг, позолота, цветная эмаль",
+  "price": "По запросу",
+  "description": "Собери коллекцию воспоминаний о соленом ветре и бескрайнем горизонте. Пусть каждый элемент возвращает тебя в состояние абсолютной свободы.",
+  "lookCaption": "Твое море всегда с тобой.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Шепот волн",
+      "material": "Перламутр, барочный жемчуг, позолота, цветная эмаль",
+      "price": "По запросу",
+      "description": "Собери коллекцию воспоминаний о соленом ветре и бескрайнем горизонте. Пусть каждый элемент возвращает тебя в состояние абсолютной свободы.",
+      "lookCaption": "Твое море всегда с тобой."
+    },
+    "en": {
+      "name": "Whisper of Waves",
+      "material": "Mother-of-pearl, baroque pearl, gold plating, colored enamel",
+      "price": "On request",
+      "description": "Gather a collection of memories of the salty wind and the endless horizon. Let each element bring you back to a state of absolute freedom.",
+      "lookCaption": "Your sea is always with you."
+    },
+    "kk": {
+      "name": "Толқындар сыбдыры",
+      "material": "Перламутр, барокко меруерті, алтынмен қапталған, түрлі-түсті эмаль",
+      "price": "Сұраныс бойынша",
+      "description": "Тұзды жел мен шексіз көкжиек туралы естеліктер топтамасын жинаңыз. Әрбір элемент сізді абсолютті еркіндік күйіне қайтарсын.",
+      "lookCaption": "Сенің теңізің әрқашан өзіңмен бірге."
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Гранатовый сок",
+  "material": "Барочные бусины (керамика/стекло), позолоченные вставки",
+  "price": "893",
+  "description": "Неидеальные, живые формы глубокого винного цвета. Это вызов стерильности, манифест твоей дикой и настоящей природы.",
+  "lookCaption": "Отказ от шаблонов.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Гранатовый сок",
+      "material": "Барочные бусины (керамика/стекло), позолоченные вставки",
+      "price": "893",
+      "description": "Неидеальные, живые формы глубокого винного цвета. Это вызов стерильности, манифест твоей дикой и настоящей природы.",
+      "lookCaption": "Отказ от шаблонов."
+    },
+    "en": {
+      "name": "Pomegranate Juice",
+      "material": "Baroque beads (ceramics/glass), gold-plated inserts",
+      "price": "On request",
+      "description": "Imperfect, lively shapes of deep wine color. It is a challenge to sterility, a manifesto of your wild and true nature.",
+      "lookCaption": "Rejection of templates."
+    },
+    "kk": {
+      "name": "Анар шырыны",
+      "material": "Барокко моншақтары (керамика/шыны), алтын жалатылған кірістірулер",
+      "price": "Сұраныс бойынша",
+      "description": "Терең шарап түсінің мінсіз емес, жанды пішіндері. Бұл стерильділікке шақыру, сіздің жабайы және шынайы табиғатыңыздың манифесі.",
+      "lookCaption": "Шаблондардан бас тарту."
+    }
+  }
+}

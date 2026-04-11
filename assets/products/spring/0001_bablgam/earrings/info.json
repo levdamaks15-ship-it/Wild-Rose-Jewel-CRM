@@ -1,0 +1,31 @@
+{
+  "name": "Розовый закат",
+  "material": "Пастельные бусины, ювелирный сплав, розовые фианиты",
+  "price": "950",
+  "description": "Мягкий свет уходящего дня, застывший в камне. Для моментов, когда важно просто быть в моменте и слушать тишину.",
+  "lookCaption": "Нежность, говорящая за тебя.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Розовый закат",
+      "material": "Пастельные бусины, ювелирный сплав, розовые фианиты",
+      "price": "950",
+      "description": "Мягкий свет уходящего дня, застывший в камне. Для моментов, когда важно просто быть в моменте и слушать тишину.",
+      "lookCaption": "Нежность, говорящая за тебя."
+    },
+    "en": {
+      "name": "Pink Sunset",
+      "material": "Pastel beads, jewelry alloy, pink cubic zirconia",
+      "price": "On request",
+      "description": "The soft light of the fading day, frozen in stone. For moments when it is important to just be in the moment and listen to the silence.",
+      "lookCaption": "Tenderness speaking for you."
+    },
+    "kk": {
+      "name": "Қызғылт күн батуы",
+      "material": "Пастельді моншақтар, зергерлік қорытпа, қызғылт фианиттер",
+      "price": "Сұраныс бойынша",
+      "description": "Өтіп бара жатқан күннің таста қатып қалған жұмсақ сәулесі. Осы сәтте болып, үнсіздікті тыңдау маңызды болатын кездерге арналған.",
+      "lookCaption": "Сіз үшін сөйлейтін нәзіктік."
+    }
+  }
+}

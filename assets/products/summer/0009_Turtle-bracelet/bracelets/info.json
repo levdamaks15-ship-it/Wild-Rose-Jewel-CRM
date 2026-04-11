@@ -1,0 +1,31 @@
+{
+  "name": "Зов горизонта",
+  "material": "Речной жемчуг, ювелирный сплав, эмаль",
+  "price": "По запросу",
+  "description": "Билет в лето, который всегда с тобой. Жемчужные линии в сочетании с талисманами странствий для тех, кто не мыслит себя без движения.",
+  "lookCaption": "Твоя путеводная звезда.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Зов горизонта",
+      "material": "Речной жемчуг, ювелирный сплав, эмаль",
+      "price": "По запросу",
+      "description": "Билет в лето, который всегда с тобой. Жемчужные линии в сочетании с талисманами странствий для тех, кто не мыслит себя без движения.",
+      "lookCaption": "Твоя путеводная звезда."
+    },
+    "en": {
+      "name": "Call of the Horizon",
+      "material": "Freshwater pearl, jewelry alloy, enamel",
+      "price": "On request",
+      "description": "A ticket to summer that is always with you. Pearl lines combined with travel talismans for those who cannot imagine themselves without movement.",
+      "lookCaption": "Your guiding star."
+    },
+    "kk": {
+      "name": "Көкжиек шақыруы",
+      "material": "Өзен меруерті, зергерлік қорытпа, эмаль",
+      "price": "Сұраныс бойынша",
+      "description": "Әрқашан өзіңізбен бірге жүретін жазға билет. Өзін қозғалыссыз елестете алмайтындарға арналған саяхат тұмарларымен үйлесетін меруерт сызықтар.",
+      "lookCaption": "Сенің темірқазығың."
+    }
+  }
+}

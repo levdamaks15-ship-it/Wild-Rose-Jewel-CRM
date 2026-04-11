@@ -1,73 +1,66 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мастерская Дикая Роза | Wild Rose Jewel</title>
-    
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <!-- MOBILE_FIX_v9.8_FORCE_RELOAD_ID_419283 -->
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta name="description"
+        content="Мастерская Дикая Роза - эксклюзивные украшения ручной работы из натуральных камней." data-i18n="meta_index">
+    <title data-i18n="nav_home">Мастерская Дикая Роза | Wild Rose Jewel</title>
+
     <!-- Подключаем премиальные шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-    
-    <!-- Стили -->
-    <link rel="stylesheet" href="style.css?v=1.1">
-</head>
-<body>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
 
-    <!-- Навигация -->
-    <header id="mainHeader">
-        <div class="container nav-container">
-            <div class="header-left">
-                <button class="menu-btn" id="menuToggle">
-                    <div class="menu-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <span class="menu-text">МЕНЮ</span>
-                </button>
-            </div>
-            <div class="sticky-brand">
-                <span class="brand-ru">Мастерская Дикая Роза</span>
-                <span class="brand-en">Wild Rose <span class="jewel-text">Jewel</span></span>
-            </div>
-            <a href="index.html" class="logo">
-                <img src="assets/WRJ.png" alt="Wild Rose Jewel Logo">
-            </a>
-        </div>
-    </header>
+    <!-- Стили -->
+    <link rel="stylesheet" href="style.css?v=12.1">
+</head>
+
+<body>
+    <div id="sidebarComponents"></div>
+
+    <!-- Навигация (Загружается динамически) -->
+    <header id="mainHeader"></header>
 
     <!-- Главный блок (Hero) -->
-    <section class="hero">
-        <div class="hero-huge-text">WILD ROSE</div>
-        <!-- Роскошная векторная заглушка -->
-        <div class="hero-video-placeholder" style="position: absolute; top:0; left:0; width:100%; height:100%; background: var(--brand-cream); z-index: 1;">
-            <div style="position: absolute; top:0; left:0; right:0; bottom:0; background: url('assets/rose_bg.png') repeat; background-size: 350px; opacity: 0.1; mix-blend-mode: multiply;"></div>
-        </div>
-        
-        <!-- Декоративные элементы -->
-        <div class="hero-decoration-top" style="position: absolute; top: 0; right: 0; width: 400px; height: 400px; background: url('assets/rose_bg.png') no-repeat top right; background-size: cover; opacity: 0.15; z-index: 1; filter: sepia(1) saturate(2) hue-rotate(-20deg);"></div>
+    <section class="hero" id="heroSection">
+        <!-- Видео-фон -->
+        <video autoplay muted loop playsinline poster="assets/rose_bg.png" class="hero-video">
+            <source src="assets/video/hero-bg.mp4" type="video/mp4">
+            <!-- Здесь можно будет добавить .webm версию -->
+        </video>
+
+        <!-- Затемняющий оверлей для читаемости текста -->
+        <div class="hero-overlay"></div>
 
         <div class="hero-content" id="heroContent" style="z-index: 2;">
-            <div class="hero-ru-title">Мастерская Дикая Роза</div>
+            <div class="hero-ru-title" data-i18n="hero_ru_title">Мастерская Дикая Роза</div>
             <h1>Wild Rose <span class="jewel-text">Jewel</span></h1>
-            <p class="hero-tagline">Украшения с дикой душой</p>
-            <a href="catalog.html" class="btn-primary">В каталог <span class="arrow">→</span></a>
+            <p class="hero-tagline" data-i18n="hero_tagline">Украшения с дикой душой</p>
+            <div class="hero-buttons">
+                <a href="catalog.html" class="btn-primary" data-i18n="hero_btn_catalog">В каталог <span class="arrow">→</span></a>
+                <a href="lookbook.html" class="btn-secondary" data-i18n="hero_btn_lookbook">Смотреть образы <span class="arrow">→</span></a>
+            </div>
         </div>
 
         <!-- Цитата Наталии -->
         <div class="author-quote" style="z-index: 2;">
-            <p>«В каждом камне — шепот природы, в каждом изгибе — капля вашей истории.»</p>
-            <span class="author-name">— Наталия, создатель бренда</span>
+            <p data-i18n="author_quote">«В каждом камне — шепот природы, в каждом изгибе — капля вашей истории.»</p>
+            <span class="author-name" data-i18n="author_name">— Наталия, создатель бренда</span>
         </div>
 
         <!-- Индикатор скролла -->
-        <div class="scroll-indicator" style="z-index: 2;">
+        <div class="scroll-indicator">
             <div class="mouse">
                 <div class="wheel"></div>
             </div>
-            <div class="scroll-text">Листайте вниз</div>
+            <div class="scroll-text" data-i18n="scroll_text">Листайте вниз</div>
         </div>
     </section>
 
@@ -75,93 +68,66 @@
     <section id="catalog" class="collections">
         <div class="container">
             <div class="section-title">
-                <h2>Наши Коллекции</h2>
+                <h2 data-i18n="collections_title">Наши Коллекции</h2>
                 <div class="underline"></div>
             </div>
-            
+
             <div class="categories-grid">
                 <!-- Карта: Колье -->
-                <a href="catalog.html?category=necklaces" class="category-card">
-                    <img src="assets/products/summer/0014_Морской жемчуг белый/necklace/IMG_20250617_210134_709.jpg" alt="Колье">
+                <a href="catalog.html?category=necklaces" class="category-card" data-category="necklaces">
+                    <img src="assets/products/summer/0014_White-Sea-Pearl/necklaces/0014-1_main.webp"
+                        alt="Колье">
                     <div class="category-overlay">
-                        <h3>Колье</h3>
-                        <p>Акцент на вашей индивидуальности</p>
+                        <h3 data-i18n="filter_necklaces">Колье</h3>
+                        <p data-i18n="cat_necklaces_tag">Акцент на вашей индивидуальности</p>
                     </div>
                 </a>
 
                 <!-- Карта: Браслеты -->
-                <a href="catalog.html?category=bracelets" class="category-card">
-                    <img src="assets/products/spring/0005_Браслет жемчуг муха/bracelets/character/IMG_20260323_164118_169.jpg" alt="Браслеты">
+                <a href="catalog.html?category=bracelets" class="category-card" data-category="bracelets">
+                    <img src="assets/products/spring/0005_Pearl-fly-bracelet/bracelets/0005-2_look.webp"
+                        alt="Браслеты">
                     <div class="category-overlay">
-                        <h3>Браслеты</h3>
-                        <p>Изящество на вашем запястье</p>
+                        <h3 data-i18n="filter_bracelets">Браслеты</h3>
+                        <p data-i18n="cat_bracelets_tag">Изящество на вашем запястье</p>
                     </div>
                 </a>
 
                 <!-- Карта: Серьги -->
-                <a href="catalog.html?category=earrings" class="category-card">
-                    <img src="assets/products/symbol/0012_Мишка/earrings/IMG_20260210_152252_515.jpg" alt="Серьги">
+                <a href="catalog.html?category=earrings" class="category-card" data-category="earrings">
+                    <img src="assets/products/symbol/0012_Mishka/earrings/0012-3_main.webp" alt="Серьги">
                     <div class="category-overlay">
-                        <h3>Серьги</h3>
-                        <p>Легкость в каждой детали</p>
+                        <h3 data-i18n="filter_earrings">Серьги</h3>
+                        <p data-i18n="cat_earrings_tag">Легкость в каждой детали</p>
                     </div>
                 </a>
 
                 <!-- Карта: Кольца -->
-                <a href="catalog.html?category=rings" class="category-card">
-                    <img src="assets/products/spring/0001_Баблгам/rings/main.jpg" alt="Кольца">
+                <a href="catalog.html?category=rings" class="category-card" data-category="rings">
+                    <img src="assets/products/spring/0001_bablgam/rings/0001-4_main.webp" alt="Кольца">
                     <div class="category-overlay">
-                        <h3>Кольца</h3>
-                        <p>Отражение вашего стиля</p>
+                        <h3 data-i18n="filter_rings">Кольца</h3>
+                        <p data-i18n="cat_rings_tag">Отражение вашего стиля</p>
                     </div>
                 </a>
 
                 <!-- Карта: Символы -->
-                <a href="catalog.html?season=symbol" class="category-card">
-                    <img src="assets/products/symbol/0011_Клеопатра/necklace/IMG_20251105_162412_055.jpg" alt="Символы">
+                <a href="catalog.html?season=symbol" class="category-card" data-season="symbol">
+                    <img src="assets/products/symbol/0011_Cleopatra/necklaces/0011-1_main.webp" alt="Символы">
                     <div class="category-overlay">
-                        <h3>Символы</h3>
-                        <p>Украшения со смыслом</p>
+                        <h3 data-i18n="season_symbol">Символы</h3>
+                        <p data-i18n="cat_symbol_tag">Украшения со смыслом</p>
                     </div>
                 </a>
 
                 <!-- Карта: Сеты -->
-                <a href="catalog.html?category=sets" class="category-card">
-                    <img src="assets/products/symbol/0002_Белый лев/set/IMG_20250430_181528_790.jpg" alt="Сеты">
+                <a href="catalog.html?category=sets" class="category-card" data-category="sets">
+                    <img src="assets/products/symbol/0002_The-White-Lion/sets/0002-5_main.webp" alt="Сеты">
                     <div class="category-overlay">
-                        <h3>Сеты</h3>
-                        <p>Гармония в каждом комплекте</p>
+                        <h3 data-i18n="filter_sets">Сеты</h3>
+                        <p data-i18n="cat_sets_tag">Гармония в каждом комплекте</p>
                     </div>
                 </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Бестселлеры -->
-    <section id="bestsellers" class="bestsellers">
-        <div class="container">
-            <div class="section-title">
-                <h2>Бестселлеры</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="carousel-container">
-                <!-- Карточки бестселлеров (заполнятся из папки bestsellers) -->
-                <div class="carousel-item">
-                    <div class="carousel-image"><img src="assets/products/symbol/0003_Большой жемчуг/necklace/character/IMG_20260320_230532_002.png" alt="Колье «Гранатовое вино»"></div>
-                    <div class="carousel-info"><h3>Колье «Гранатовое вино»</h3><p class="carousel-price">По запросу</p></div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-image"><img src="assets/products/summer/0014_Морской жемчуг белый/set/IMG_20260119_215335_866.jpeg" alt="Сет «Жемчужина моря»"></div>
-                    <div class="carousel-info"><h3>Сет «Жемчужина моря»</h3><p class="carousel-price">По запросу</p></div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-image"><img src="assets/products/symbol/0011_Клеопатра/necklace/IMG_20251105_162412_055.jpg" alt="Колье «Клеопатра»"></div>
-                    <div class="carousel-info"><h3>Колье «Клеопатра»</h3><p class="carousel-price">По запросу</p></div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-image"><img src="assets/products/summer/0013_Морской жемчуг  синий/bracelets/IMG_20250614_175832_027.jpg" alt="Браслет «Лазурный берег»"></div>
-                    <div class="carousel-info"><h3>Браслет «Лазурный берег»</h3><p class="carousel-price">По запросу</p></div>
-                </div>
             </div>
         </div>
     </section>
@@ -175,9 +141,11 @@
                     <img src="assets/about/natalia.png" alt="Создатель Мастерской Дикая Роза">
                 </div>
                 <div class="about-text">
-                    <h2>Сердце Дикой Розы</h2>
-                    <p>Здравствуйте! Меня зовут Наталия, и каждое украшение, которое вы видите здесь, создано моими руками. Для меня это не просто бизнес — это способ поделиться любовью к природе и искусству.</p>
-                    <p>Я использую только натуральные камни и качественные материалы, чтобы каждое изделие радовало вас долгие годы.</p>
+                    <h2 data-i18n="about_title">Сердце Дикой Розы</h2>
+                    <p data-i18n="about_p1">Здравствуйте! Меня зовут Наталия, и каждое украшение, которое вы видите здесь, создано моими
+                        руками. Для меня это не просто бизнес — это способ поделиться любовью к природе и искусству.</p>
+                    <p data-i18n="about_p2">Я использую только натуральные камни и качественные материалы, чтобы каждое изделие радовало вас
+                        долгие годы.</p>
                 </div>
             </div>
         </div>
@@ -188,88 +156,46 @@
     <section id="faq" class="faq">
         <div class="container">
             <div class="section-title">
-                <h2>Вопросы и ответы</h2>
+                <h2 data-i18n="faq_title">Вопросы и ответы</h2>
                 <div class="underline"></div>
             </div>
 
             <div class="faq-container">
                 <div class="faq-item">
-                    <button class="faq-question">Как узнать цену или заказать изделие? <span>+</span></button>
+                    <button class="faq-question"><span data-i18n="faq_q1">Как узнать цену или заказать изделие?</span> <span>+</span></button>
                     <div class="faq-answer">
-                        <p>Выберите понравившееся украшение в каталоге и нажмите кнопку «Связаться с автором». Вы сможете обсудить варианты под заказ.</p>
+                        <p data-i18n="faq_a1">Выберите понравившееся украшение в каталоге и нажмите кнопку «Связаться с автором». Вы
+                            сможете обсудить варианты под заказ.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">Из каких материалов вы делаете украшения? <span>+</span></button>
+                    <button class="faq-question"><span data-i18n="faq_q2">Из каких материалов вы делаете украшения?</span> <span>+</span></button>
                     <div class="faq-answer">
-                        <p>Мы используем качественный бижутерный сплав без вредных примесей и только натуральные камни, прошедшие проверку.</p>
+                        <p data-i18n="faq_a2">Мы используем качественный бижутерный сплав без вредных примесей и только натуральные камни, прошедшие проверку.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">Есть ли доставка по России? <span>+</span></button>
+                    <button class="faq-question"><span data-i18n="faq_q3">Есть ли доставка по России?</span> <span>+</span></button>
                     <div class="faq-answer">
-                        <p>Да, мы отправляем украшения СДЭКом или Почтой России в любую точку страны. Срок доставки обычно составляет от 3 до 7 дней.</p>
+                        <p data-i18n="faq_a3">Да, мы отправляем украшения СДЭКом или Почтой России в любую точку страны. Срок доставки обычно составляет от 3 до 7 дней.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Подвал (Footer) -->
-    <footer id="contacts">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="assets/WRJ.png" alt="Logo White">
-                    </div>
-                    <div class="consumer-corner" style="margin-top: 20px; font-size: 0.8rem; color: var(--brand-text-light);">
-                        <p><strong>Правовая информация:</strong></p>
-                        <p>Статус: Самозанятый гражданин (НПД)</p>
-                        <p>Исполнитель: [ВАШЕ ФИО]</p>
-                        <p>ИНН: [ВАШ ИНН]</p>
-                        <p style="margin-top: 10px;"><a href="privacy.html" style="color: var(--brand-gold); text-decoration: underline;">Политика конфиденциальности</a></p>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                     <h4>Свяжитесь с нами</h4>
-                     <ul>
-                         <li><a href="https://vk.com/wild_rose_19" target="_blank">ВКонтакте</a></li>
-                         <li><a href="mailto:rudenko.nataliyaxi@gmail.com">rudenko.nataliyaxi@gmail.com</a></li>
-                     </ul>
-                 </div>
-            </div>
+    <!-- Подвал (Загружается динамически) -->
+    <footer id="contacts"></footer>
 
-            <div class="copyright">
-                <p>&copy; 2026 Мастерская Дикая Роза / Wild Rose Jewel. Все права защищены. Сделано с любовью.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Скрипты -->
+    <script src="translations.js"></script>
+    <script src="utils.js"></script>
+    <script src="components.js"></script>
+    <script src="products-data.js?v=4"></script>
+    <script src="script.js?v=4"></script>
 
-    <script src="script.js"></script>
-
-    <!-- Затемнение фона при открытом меню -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <!-- Боковое меню (Sidebar) -->
-    <div class="sidebar-menu" id="sidebarMenu">
-        <button class="close-menu" id="closeMenuBtn">&times;</button>
-        <div class="sidebar-content">
-            <ul class="sidebar-links">
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="catalog.html">Каталог</a></li>
-                <li><a href="index.html#about" class="page-link">О нас</a></li>
-                <li><a href="index.html#faq" class="page-link">Ответы</a></li>
-            </ul>
-            <div class="sidebar-footer">
-                <h4 class="sidebar-contacts-title">Контакты</h4>
-                <a href="https://vk.com/wild_rose_19" target="_blank" class="sidebar-social">ВКонтакте</a>
-                <a href="mailto:rudenko.nataliyaxi@gmail.com" class="sidebar-email">rudenko.nataliyaxi@gmail.com</a>
-            </div>
-        </div>
-    </div>
 </body>
+
 </html>

@@ -1,0 +1,31 @@
+{
+  "name": "Дух саванны",
+  "material": "Натуральный тигровый глаз, позолота, кубический цирконий",
+  "price": "1083",
+  "description": "Теплые, землистые оттенки камня заземляют и дарят уверенность. Сильный характер в каждой бусине ручной сборки.",
+  "lookCaption": "Сила, подаренная природой.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Дух саванны",
+      "material": "Натуральный тигровый глаз, позолота, кубический цирконий",
+      "price": "1083",
+      "description": "Теплые, землистые оттенки камня заземляют и дарят уверенность. Сильный характер в каждой бусине ручной сборки.",
+      "lookCaption": "Сила, подаренная природой."
+    },
+    "en": {
+      "name": "Spirit of the Savannah",
+      "material": "Natural tiger's eye, gold plating, cubic zirconia",
+      "price": "On request",
+      "description": "The warm, earthy shades of the stone ground you and give confidence. A strong character in every hand-assembled bead.",
+      "lookCaption": "Strength gifted by nature."
+    },
+    "kk": {
+      "name": "Саванна рухы",
+      "material": "Табиғи жолбарыс көзі, алтынмен қапталған, текше цирконий",
+      "price": "Сұраныс бойынша",
+      "description": "Тастың жылы, жер реңктері сенімділік сыйлайды. Қолмен жиналған әрбір моншақтағы күшті мінез.",
+      "lookCaption": "Табиғат сыйлаған күш."
+    }
+  }
+}

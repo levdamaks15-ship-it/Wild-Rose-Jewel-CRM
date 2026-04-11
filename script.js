@@ -1,363 +1,856 @@
-/* Wild Rose Jewel - Interactive Logic */
+/**
+ * Wild Rose Jewel - Global Application Logic
+ * Централизованное управление состоянием, мультиязычностью, корзиной и интерактивом.
+ */
 
-// Глобальный флаг для предотвращения многократной инициализации
-if (typeof window.wrjInitialized === 'undefined') {
-    window.wrjInitialized = false;
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-    if (window.wrjInitialized) return;
-    window.wrjInitialized = true;
-    
-    // 1. Управление шапкой при скролле
-    const header = document.getElementById('mainHeader');
-    
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
 
-    // 2. Боковое меню (Sidebar)
-    const menuToggle = document.getElementById('menuToggle');
-    const closeMenuBtn = document.getElementById('closeMenuBtn');
-    const sidebarMenu = document.getElementById('sidebarMenu');
-    const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-    if (menuToggle && sidebarMenu && closeMenuBtn && sidebarOverlay) {
-        // Открытие меню
-        menuToggle.addEventListener('click', () => {
-            sidebarMenu.classList.add('active');
-            sidebarOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden'; 
-        });
 
-        // Закрытие меню
-        const closeSidebar = () => {
-            sidebarMenu.classList.remove('active');
-            sidebarOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        };
 
-        closeMenuBtn.addEventListener('click', closeSidebar);
-        sidebarOverlay.addEventListener('click', closeSidebar);
-    }
+const WRJ_CART_DRAWER = {
+    render: function() {
+        const container = document.getElementById('cartItemsContainer');
+        const totalPriceEl = document.getElementById('cartTotalPrice');
+        if (!container || !totalPriceEl || typeof productsData === 'undefined') return;
 
-    // 3. FAQ Аккордеон (только для главной страницы)
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        
-        question.addEventListener('click', () => {
-            item.classList.toggle('active');
-            const icon = question.querySelector('span');
-            if (icon) {
-                icon.textContent = item.classList.contains('active') ? '-' : '+';
-            }
-        });
-    });
+        const lang = WRJ_APP.state.currentLang;
+        const cur = WRJ_APP.state.currentCurrency;
+        const items = WRJ_CART.items;
 
-    // 4. Динамическая отрисовка и фильтрация в каталоге
-    const productsGrid = document.getElementById('productsGrid');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const seasonBtns = document.querySelectorAll('.season-btn');
-
-    let currentSeason = 'spring';
-    let currentCategory = 'all';
-
-    function renderProducts() {
-        if (!productsGrid || typeof productsData === 'undefined') return;
-
-        productsGrid.innerHTML = ''; // Очищаем сетку
-        
-        // Управляем весенней атмосферой
-        toggleSpringAtmosphere(currentSeason === 'spring');
-
-        const filteredProducts = productsData.filter(product => 
-            product.season === currentSeason && (currentCategory === 'all' || product.category === currentCategory)
-        );
-
-        if (filteredProducts.length === 0) {
-            productsGrid.innerHTML = `
-                <div class="coming-soon-message" style="grid-column: 1/-1; text-align: center; padding: 100px 20px; opacity: 0.7;">
-                    <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 20px;">Скоро здесь будет новая коллекция...</h2>
-                    <p>Мы готовим нечто особенное для этого сезона. Следите за обновлениями!</p>
-                </div>
-            `;
+        if (items.length === 0) {
+            container.innerHTML = `<div class="cart-empty-msg" data-i18n="cart_empty">${WRJ_UTILS.t('cart_empty', lang)}</div>`;
+            totalPriceEl.textContent = WRJ_UTILS.formatPrice(0, lang, cur);
             return;
         }
 
-        filteredProducts.forEach(product => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.setAttribute('data-category', product.category);
-            card.style.animation = 'fadeIn 0.5s ease forwards';
+        
+        let total = 0;
+        container.innerHTML = items.map(id => {
+            const p = productsData.find(item => String(item.id) === String(id));
+            if (!p) return '';
+            
+            const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
+            const price = Number(t.price || p.price || 0); // ПРИНУДИТЕЛЬНО В ЧИСЛО
+            total += price;
 
-            card.innerHTML = `
-                <div class="product-image">
-                    <img src="${product.mainImage}" alt="${product.name}">
-                    ${product.lookModel ? `
-                    <div class="look-link" data-model="${product.lookModel}" data-caption="${product.lookCaption || ''}">
-                        <i class="eye-icon"></i>
-                        <span>Образ</span>
+            return `
+                <div class="cart-item">
+                    <img src="${p.mainImage}" alt="${WRJ_UTILS.sanitize(t.name || p.name)}">
+                    <div class="cart-item-info">
+                        <h4>${WRJ_UTILS.sanitize(t.name || p.name)}</h4>
+                        <p class="cart-item-price">${WRJ_UTILS.formatPrice(price, lang, cur)}</p>
                     </div>
-                    ` : ''}
-                </div>
-                <div class="product-info">
-                    <h3>${product.collection ? `<span class="product-collection">${product.collection}:</span> ` : ''}${product.name}</h3>
-                    <p class="product-material">${product.material}</p>
-                    <p class="product-price">${product.price}</p>
-                    <a href="https://vk.com/im?sel=-211475731" target="_blank" class="btn-secondary">Узнать подробности</a>
+                    <button class="remove-cart-item" onclick="WRJ_CART.remove('${String(p.id)}')">&times;</button>
                 </div>
             `;
-            productsGrid.appendChild(card);
-        });
-    }
+        }).join('');
 
-    // Слушатели для сезонов
-    if (seasonBtns.length > 0) {
+
+        totalPriceEl.textContent = WRJ_UTILS.formatPrice(total, lang, cur);
+
+        // Биндим кнопку чекаута
+        const checkoutBtn = document.getElementById('cartCheckoutBtn');
+        if (checkoutBtn) {
+            checkoutBtn.onclick = () => {
+                const message = WRJ_UTILS.formatWhatsAppMessage(items, productsData, lang, cur, total);
+                const url = `https://api.whatsapp.com/send/?phone=${WRJ_CONFIG.whatsappNumber}&text=${encodeURIComponent(message)}`;
+                window.open(url, '_blank');
+            };
+        }
+    }
+};
+
+
+const WRJ_CART = {
+    items: [],
+    
+    init: function() {
+        const saved = localStorage.getItem('wrj_cart');
+        if (saved) {
+            try {
+                this.items = JSON.parse(saved).map(id => String(id));
+            } catch (e) {
+                this.items = [];
+            }
+        }
+        this.updateUI();
+    },
+
+    save: function() {
+        localStorage.setItem('wrj_cart', JSON.stringify(this.items));
+        this.updateUI();
+    },
+
+    has: function(productId) {
+        return this.items.includes(String(productId));
+    },
+
+    add: function(productId) {
+        const id = String(productId);
+        if (!this.has(id)) {
+            this.items.push(id);
+            this.save();
+        }
+    },
+
+    remove: function(productId) {
+        const id = String(productId);
+        this.items = this.items.filter(i => i !== id);
+        this.save();
+    },
+
+    updateUI: function() {
+        const lang = WRJ_APP.state.currentLang;
+        const count = this.items.length;
+        
+        // Обновляем бейдж корзины (по ID из components.js)
+        const badge = document.getElementById('cartBadge');
+        if (badge) {
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+        }
+
+        // Обновляем кнопки товаров в каталоге
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            const id = btn.getAttribute('data-id');
+            if (this.has(id)) {
+                btn.textContent = WRJ_UTILS.t('btn_cart_added', lang);
+                btn.classList.add('added');
+            } else {
+                btn.textContent = WRJ_UTILS.t('btn_cart_add', lang);
+                btn.classList.remove('added');
+            }
+        });
+
+        if (typeof WRJ_CART_DRAWER !== 'undefined') {
+            WRJ_CART_DRAWER.render();
+        }
+    }
+};
+
+
+
+
+
+const WRJ_APP = {
+    state: {
+        currentSeason: 'spring',
+        currentCategory: 'all',
+        currentLang: 'ru',
+        currentCurrency: 'RUB',
+        initialized: false
+    },
+
+    init: function() {
+        if (this.state.initialized) return;
+        this.state.initialized = true;
+
+        console.log("%c🌿 WRJ Application Starting...", "color: #c09a53; font-weight: bold;");
+
+        // 1. Проверка здоровья данных
+        if (typeof WRJ_UTILS !== 'undefined' && typeof productsData !== 'undefined') {
+            WRJ_UTILS.runHealthCheck(productsData, typeof looksData !== 'undefined' ? looksData : null);
+        }
+
+        // 2. Язык и параметры
+        this.initI18n();
+        this.parseParams();
+
+        // 3. Инициализация функциональных модулей
+        WRJ_CART.init();
+        this.initHeaderLogic();
+        this.initCartDrawer();
+        this.initSidebarLogic();
+        this.initCatalogLogic();
+        this.initAlbumLogic();
+        this.initFAQ();
+        this.initDynamicCards();
+        this.initCookieBanner();
+        this.initVideoLoop();
+
+        console.log("%c✅ WRJ Application Ready", "color: #27ae60; font-weight: bold;");
+    },
+
+    
+    
+    
+    initI18n: function() {
+        // 1. Загружаем сохраненный язык
+        const savedLang = localStorage.getItem('wrj_lang');
+        if (savedLang && ['ru', 'en', 'kk'].includes(savedLang)) {
+            this.state.currentLang = savedLang;
+        }
+
+        this.state.currentCurrency = this.state.currentLang === 'kk' ? 'KZT' : 'RUB';
+
+        const updateButtons = () => {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                const bLang = btn.getAttribute('data-lang');
+                if (bLang === this.state.currentLang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        };
+
+        // Делегирование событий
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.lang-btn');
+            if (!btn) return;
+
+            const l = btn.getAttribute('data-lang');
+            if (!l) return;
+
+            console.log("Language switch identified:", l);
+            
+            // Сохраняем и обновляем состояние
+            this.state.currentLang = l;
+            localStorage.setItem('wrj_lang', l);
+            this.state.currentCurrency = l === 'kk' ? 'KZT' : 'RUB';
+            
+            // Моментальное обновление без перезагрузки
+            updateButtons();
+            if(this.applyTranslations) this.applyTranslations();
+            
+            // Если мы находимся в каталоге, перерисовываем его, чтобы обновить данные из БД
+            if (this.initCatalogLogic && document.getElementById('productsGrid')) {
+                this.initCatalogLogic(); 
+            }
+
+            // Обновляем корзину
+            if (WRJ_CART) WRJ_CART.updateUI();
+
+            // Если открыто боковое меню, закрываем через небольшую паузу для наглядности
+            const sidebar = document.getElementById('sidebarMenu');
+            if (sidebar && sidebar.classList.contains('active')) {
+                setTimeout(() => document.getElementById('closeMenuBtn')?.click(), 300);
+            }
+        });
+
+        // Первичная настройка
+        updateButtons();
+        if(this.applyTranslations) this.applyTranslations();
+    },
+
+
+
+
+    applyTranslations: function() {
+        const lang = this.state.currentLang;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            const text = WRJ_UTILS.t(key, lang);
+            if (text) {
+                if (el.tagName === 'INPUT' && el.type === 'placeholder') {
+                    el.placeholder = text;
+                } else {
+                    el.textContent = text;
+                }
+            }
+        });
+    },
+
+    
+    initCartDrawer: function() {
+        const drawer = document.getElementById('cartDrawer');
+        const overlay = document.getElementById('cartOverlay');
+        const toggle = document.getElementById('cartToggleBtn');
+        const closeBtn = document.getElementById('closeCartBtn');
+        
+        if (!drawer || !overlay) return;
+
+        const close = () => {
+            drawer.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        const open = () => {
+            drawer.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (typeof WRJ_CART_DRAWER !== 'undefined') WRJ_CART_DRAWER.render();
+        };
+
+        if (toggle) toggle.addEventListener('click', open);
+        if (overlay) overlay.addEventListener('click', close);
+        if (closeBtn) closeBtn.addEventListener('click', close);
+    },
+
+    initVideoLoop: function() {
+        const video = document.querySelector('.hero-video');
+        if (!video) return;
+
+        video.addEventListener('timeupdate', () => {
+            if (video.currentTime > video.duration - 0.6) {
+                video.classList.add('fading');
+            }
+        });
+
+        video.addEventListener('play', () => {
+            video.classList.remove('fading');
+        });
+
+        video.addEventListener('seeked', () => {
+            if (video.currentTime < 0.5) {
+                video.classList.remove('fading');
+            }
+        });
+    },
+
+    parseParams: function() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('season')) this.state.currentSeason = params.get('season');
+        if (params.get('category')) this.state.currentCategory = params.get('category');
+    },
+
+    initHeaderLogic: function() {
+        const header = document.getElementById('mainHeader');
+        if (header) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) header.classList.add('scrolled');
+                else header.classList.remove('scrolled');
+            }, { passive: true });
+        }
+    },
+
+    initSidebarLogic: function() {
+        const sidebar = document.getElementById('sidebarMenu');
+        const overlay = document.getElementById('sidebarOverlay');
+        const toggle = document.getElementById('menuToggle');
+        
+        if (!sidebar || !overlay) return;
+
+        const close = () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        const open = () => {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        if (toggle) toggle.addEventListener('click', open);
+
+        document.addEventListener('click', (e) => {
+            const isClose = e.target.closest('#closeMenuBtn') || e.target.closest('.close-menu');
+            const isMenuLink = e.target.closest('.sidebar-links a');
+            if (isClose || e.target === overlay || isMenuLink) close();
+        });
+    },
+
+    initCatalogLogic: function() {
+        const grid = document.getElementById('productsGrid');
+        if (!grid || typeof productsData === 'undefined') return;
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const seasonBtns = document.querySelectorAll('.season-btn');
+        const lang = this.state.currentLang;
+        const cur = this.state.currentCurrency;
+
+        // Синхронизация состояния кнопок с начальным состоянием (из URL)
+        seasonBtns.forEach(btn => {
+            if (btn.getAttribute('data-season') === this.state.currentSeason) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        filterBtns.forEach(btn => {
+            if (btn.getAttribute('data-filter') === this.state.currentCategory) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        const render = () => {
+            grid.innerHTML = '';
+            
+            // Атмосфера (лепестки)
+            this.toggleAtmosphere(this.state.currentSeason === 'spring');
+
+            const filtered = productsData.filter(p => 
+                p.season === this.state.currentSeason && 
+                (this.state.currentCategory === 'all' || p.category === this.state.currentCategory)
+            );
+
+            if (filtered.length === 0) {
+                const comingSoon = WRJ_UTILS.t('coming_soon', lang);
+                grid.innerHTML = `<div class="coming-soon-message" style="grid-column: 1/-1; text-align: center; padding: 100px 20px; opacity: 0.7;">
+                    <h2 style="font-family: 'Playfair Display', serif;">${comingSoon}</h2>
+                </div>`;
+                return;
+            }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.id = `product-${p.id}`;
+                card.style.animation = 'fadeIn 0.5s ease forwards';
+
+                // Мультиязычность данных товара
+                const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
+                const name = t.name || p.name;
+                const material = t.material || p.material;
+                const colName = t.collection || p.collection;
+                const collection = colName ? `<span class="product-collection">${WRJ_UTILS.sanitize(colName)}:</span> ` : '';
+                const lookCaption = t.lookCaption || p.lookCaption || '';
+                
+                const sPrice = WRJ_UTILS.formatPrice(t.price || p.price, lang, cur);
+                
+                const isAdded = WRJ_CART.has(p.id);
+                const btnText = isAdded ? WRJ_UTILS.t('btn_cart_added', lang) : WRJ_UTILS.t('btn_cart_add', lang);
+                const btnClass = isAdded ? 'btn-secondary add-to-cart-btn added' : 'btn-secondary add-to-cart-btn';
+
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${p.mainImage}" alt="${WRJ_UTILS.sanitize(name)}" loading="lazy">
+                        ${p.lookModel ? `<div class="look-link" data-model="${p.lookModel}" data-caption="${WRJ_UTILS.sanitize(lookCaption)}"><span>${WRJ_UTILS.t('look_btn', lang)}</span></div>` : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3>${collection}${WRJ_UTILS.sanitize(name)}</h3>
+                        <p class="product-material">${WRJ_UTILS.sanitize(material)}</p>
+                        <p class="product-price">${sPrice}</p>
+                        <button class="${btnClass}" data-id="${p.id}">${btnText}</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Биндим кнопки корзины (с логикой переключателя)
+            grid.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = e.currentTarget.getAttribute('data-id');
+                    if (WRJ_CART.has(id)) {
+                        WRJ_CART.remove(id);
+                    } else {
+                        WRJ_CART.add(id);
+                    }
+                });
+            });
+
+            this.handleDeepLink();
+        };
+
+        const scrollToStart = () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
+
         seasonBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 seasonBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                currentSeason = btn.getAttribute('data-season');
-                // При смене сезона сбрасываем категорию на "Все"
-                currentCategory = 'all';
+                this.state.currentSeason = btn.getAttribute('data-season');
+                this.state.currentCategory = 'all';
                 filterBtns.forEach(b => b.classList.remove('active'));
                 const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
                 if (allBtn) allBtn.classList.add('active');
-                
-                renderProducts();
+                render();
+                scrollToStart();
             });
         });
-    }
 
-    // Слушатели для категорий
-    if (filterBtns.length > 0) {
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                currentCategory = btn.getAttribute('data-filter');
-                renderProducts();
+                this.state.currentCategory = btn.getAttribute('data-filter');
+                render();
+                scrollToStart();
             });
         });
-    }
 
-    // --- Весенняя атмосфера (Лепестки) ---
-    let springAtmosphereTimeout;
+        render();
+        this.initLookModal(grid);
+    },
 
-    function toggleSpringAtmosphere(show) {
-        let atmosphere = document.querySelector('.spring-atmosphere');
-        
+    toggleAtmosphere: function(show) {
+        let atm = document.querySelector('.spring-atmosphere');
         if (show) {
-            if (!atmosphere) {
-                atmosphere = document.createElement('div');
-                atmosphere.className = 'spring-atmosphere';
-                const catalogSection = document.querySelector('.catalog-section');
-                if (catalogSection) catalogSection.appendChild(atmosphere);
+            if (!atm) {
+                atm = document.createElement('div');
+                atm.className = 'spring-atmosphere';
+                const parent = document.querySelector('.catalog-section');
+                if (parent) parent.appendChild(atm);
+                for (let i = 0; i < 20; i++) this.createPetal(atm);
                 
-                // Создаем лепестки
-                for (let i = 0; i < 20; i++) {
-                    createPetal(atmosphere);
-                }
+                setTimeout(() => {
+                    if (atm && atm.parentElement) {
+                        atm.style.transition = 'opacity 5s ease';
+                        atm.style.opacity = '0';
+                        setTimeout(() => atm.remove(), 5000);
+                    }
+                }, 15000);
             }
-
-            // Перезапускаем таймер на удаление через 5 секунд (всегда, если Весна активна)
-            if (springAtmosphereTimeout) clearTimeout(springAtmosphereTimeout);
-            springAtmosphereTimeout = setTimeout(() => {
-                toggleSpringAtmosphere(false);
-            }, 5000);
-
-        } else {
-            if (atmosphere) {
-                atmosphere.style.opacity = '0';
-                atmosphere.style.transition = 'opacity 2s ease'; // Более плавное исчезновение
-                setTimeout(() => { 
-                    if(atmosphere && atmosphere.parentNode) atmosphere.remove(); 
-                }, 2000);
-            }
+        } else if (atm) {
+            atm.remove();
         }
-    }
+    },
 
-    function createPetal(container) {
-        const petal = document.createElement('div');
-        petal.className = 'petal';
-        
-        const size = Math.random() * 10 + 5;
-        const left = Math.random() * 100;
-        const delay = Math.random() * 10;
-        const duration = Math.random() * 10 + 10;
-        
-        petal.style.width = `${size}px`;
-        petal.style.height = `${size}px`;
-        petal.style.left = `${left}%`;
-        petal.style.animationDelay = `${delay}s`;
-        petal.style.animationDuration = `${duration}s`;
-        
-        container.appendChild(petal);
-    }
+    createPetal: function(container) {
+        const p = document.createElement('div');
+        p.className = 'petal';
+        p.style.width = p.style.height = `${Math.random() * 10 + 5}px`;
+        p.style.left = `${Math.random() * 100}%`;
+        p.style.animationDelay = `${Math.random() * 10}s`;
+        p.style.animationDuration = `${Math.random() * 10 + 10}s`;
+        container.appendChild(p);
+    },
 
-    // 5. Плавный скролл до якорей
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-
-            // Если мы находимся не на главной странице (где есть секции), 
-            // а кликаем на ссылку вида "index.html#faq", то стандартный переход сработает.
-            // Этот скрипт нужен для плавного скролла только в рамках текущей страницы.
-            
-            // Проверяем, существует ли якорь на текущей странице
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                e.preventDefault();
-                
-                // Закрываем боковое меню при клике на ссылку
-                if (sidebarMenu && sidebarMenu.classList.contains('active')) {
-                    sidebarMenu.classList.remove('active');
-                    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
+    handleDeepLink: function() {
+        const productId = new URLSearchParams(window.location.search).get('productId');
+        if (productId) {
+            setTimeout(() => {
+                const el = document.getElementById(`product-${productId}`);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const grid = document.getElementById('productsGrid');
+                    grid.classList.add('spotlight-active');
+                    el.classList.add('highlight');
+                    setTimeout(() => {
+                        grid.classList.remove('spotlight-active');
+                        el.classList.remove('highlight');
+                    }, 3500);
                 }
+            }, 500);
+        }
+    },
 
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
+    initLookModal: function(grid) {
+        const modal = document.getElementById('lookModal');
+        const img = document.getElementById('lookModalImg');
+        const caption = document.getElementById('lookModalCaption');
+        
+        if (!grid || !modal) return;
+
+        grid.addEventListener('click', (e) => {
+            const link = e.target.closest('.look-link');
+            if (link) {
+                img.src = link.getAttribute('data-model');
+                caption.textContent = link.getAttribute('data-caption');
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
         });
-    });
 
-    // Карусель (горизонтальная прокрутка мышью)
-    const carouselContainer = document.querySelector('.carousel-container');
-    if (carouselContainer) {
-        let isDown = false;
-        let startX;
-        let scrollLeft;
+        const close = () => { modal.classList.remove('active'); document.body.style.overflow = ''; };
+        document.getElementById('closeLookModal')?.addEventListener('click', close);
+        modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    },
 
-        carouselContainer.addEventListener('mousedown', (e) => {
-            isDown = true;
-            carouselContainer.style.cursor = 'grabbing';
-            startX = e.pageX - carouselContainer.offsetLeft;
-            scrollLeft = carouselContainer.scrollLeft;
-        });
-        carouselContainer.addEventListener('mouseleave', () => {
-            isDown = false;
-            carouselContainer.style.cursor = 'grab';
-        });
-        carouselContainer.addEventListener('mouseup', () => {
-            isDown = false;
-            carouselContainer.style.cursor = 'grab';
-        });
-        carouselContainer.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - carouselContainer.offsetLeft;
-            const walk = (x - startX) * 2; // скорость прокрутки
-            carouselContainer.scrollLeft = scrollLeft - walk;
-        });
-    }
+    initAlbumLogic: function() {
+        const album = document.getElementById('luxuryAlbum');
+        const filterBtns = document.querySelectorAll('#lookFilters .filter-btn');
+        const seasonNavItems = document.querySelectorAll('#lookSeasons .season-btn');
 
-    // --- Cookie Banner Logic ---
-    if (!localStorage.getItem('cookieConsent')) {
+        if (!album || typeof looksData === 'undefined') return;
+
+        // Применяем переводы к фильтрам образа
+        const lang = this.state.currentLang;
+        document.querySelectorAll('#lookFilters .filter-btn, #lookSeasons .season-btn').forEach(b => {
+             const filterKey = b.getAttribute('data-filter') ? 'filter_' + b.getAttribute('data-filter') : null;
+             const seasonKey = b.getAttribute('data-season') ? 'season_' + b.getAttribute('data-season') : null;
+             const key = filterKey || seasonKey;
+             if(key) {
+                 b.textContent = WRJ_UTILS.t(key, lang);
+             }
+        });
+
+        let filteredLooks = [];
+        let currentIndex = 0;
+        let isAnimating = false;
+
+        const render = () => {
+            filteredLooks = looksData.filter(look => {
+                const matchSeason = look.season === this.state.currentSeason || !look.season;
+                const matchCategory = this.state.currentCategory === 'all' || 
+                    look.hotspots.some(hs => {
+                        const prod = productsData.find(p => p.id === hs.productId);
+                        return prod && prod.category === this.state.currentCategory;
+                    });
+                return matchSeason && matchCategory;
+            });
+
+            album.innerHTML = '';
+            if (filteredLooks.length === 0) {
+                album.innerHTML = `<div style="text-align:center; padding-top:100px; opacity:0.5;">${WRJ_UTILS.t('empty_lookbook', lang)}</div>`;
+                return;
+            }
+
+            filteredLooks.forEach((look, idx) => {
+                const card = document.createElement('div');
+                card.className = 'look-card';
+                card.dataset.index = idx;
+                
+                // Мультиязычность данных образа
+                const t = look.translations && look.translations[lang] ? look.translations[lang] : look;
+                const title = t.title || look.title;
+                const tagline = t.tagline || look.tagline;
+                const speech = t.speech || look.speech;
+
+                card.innerHTML = `
+                    <div class="look-card-image">
+                        <img src="${look.backgroundImage}" alt="${WRJ_UTILS.sanitize(title)}">
+                    </div>
+                    <div class="look-card-info">
+                        <span class="season-tag">${WRJ_UTILS.sanitize(tagline)}</span>
+                        <h3>${WRJ_UTILS.sanitize(title)}</h3>
+                        <p>${WRJ_UTILS.sanitize(speech)}</p>
+                    </div>
+                `;
+                
+                album.appendChild(card);
+            });
+
+            updateStack();
+        };
+
+        const updateStack = () => {
+            const cards = album.querySelectorAll('.look-card');
+            const total = filteredLooks.length;
+            if (total === 0) return;
+
+            cards.forEach((card, i) => {
+                const idx = parseInt(card.dataset.index);
+                card.classList.remove('top', 'mid', 'bottom', 'hidden', 'exit-right', 'exit-left');
+
+                let pos = (idx - currentIndex + total) % total;
+
+                if (pos === 0) {
+                    card.classList.add('top');
+                } else if (pos === 1) {
+                    card.classList.add('mid');
+                } else if (pos === 2) {
+                    card.classList.add('bottom');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        };
+
+        const prevCard = () => {
+            if (isAnimating || filteredLooks.length <= 1) return;
+            isAnimating = true;
+
+            const topCard = album.querySelector('.look-card.top');
+            if (topCard) {
+                topCard.classList.add('hidden');
+                
+                currentIndex = (currentIndex - 1 + filteredLooks.length) % filteredLooks.length;
+                updateStack();
+
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 500);
+            }
+        };
+
+        const nextCard = () => {
+            if (isAnimating || filteredLooks.length <= 1) return;
+            isAnimating = true;
+
+            const topCard = album.querySelector('.look-card.top');
+            if (topCard) {
+                topCard.classList.add('exit-right');
+                
+                const midCard = album.querySelector('.look-card.mid');
+                if (midCard) {
+                    midCard.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    midCard.classList.remove('mid');
+                    midCard.classList.add('top');
+                }
+
+                setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % filteredLooks.length;
+                    updateStack();
+                }, 300);
+
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 600);
+            } else {
+                isAnimating = false;
+            }
+        };
+
+        album.addEventListener('click', (e) => {
+            if (e.target.closest('.look-card-info')) return;
+            nextCard();
+        });
+
+        let startX = 0;
+        album.addEventListener('mousedown', (e) => startX = e.clientX);
+        album.addEventListener('mouseup', (e) => {
+            const diffX = e.clientX - startX;
+            if (diffX < -50) nextCard();
+            if (diffX > 50) prevCard(); 
+        });
+
+        album.addEventListener('touchstart', (e) => startX = e.touches[0].clientX, {passive: true});
+        album.addEventListener('touchend', (e) => {
+            const diffX = e.changedTouches[0].clientX - startX;
+            if (diffX < -50) nextCard();
+            if (diffX > 50) prevCard(); 
+        });
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.state.currentCategory = btn.getAttribute('data-filter');
+                currentIndex = 0;
+                render();
+            });
+        });
+
+        seasonNavItems.forEach(item => {
+            item.addEventListener('click', () => {
+                seasonNavItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                this.state.currentSeason = item.getAttribute('data-season');
+                currentIndex = 0;
+                render();
+            });
+        });
+
+        document.getElementById('prevCard')?.addEventListener('click', prevCard);
+        document.getElementById('nextCardBtn')?.addEventListener('click', nextCard);
+
+        render();
+    },
+
+    renderHotspots: function() {
+        hsCard = document.getElementById('hotspotCard');
+        hsName = document.getElementById('hsName');
+        hsPrice = document.getElementById('hsPrice');
+        
+        const containers = document.querySelectorAll('.look-explorer-container[data-look-id]');
+
+        containers.forEach(container => {
+            const look = looksData.find(l => l.id === container.getAttribute('data-look-id'));
+            if (!look) return;
+
+            if (!container.querySelector('img')) {
+                const img = document.createElement('img');
+                img.src = look.backgroundImage;
+                container.appendChild(img);
+            }
+
+            container.querySelectorAll('.hotspot').forEach(h => h.remove());
+            look.hotspots.forEach(spot => {
+                const hs = document.createElement('div');
+                hs.className = 'hotspot magic';
+                hs.style.top = spot.top;
+                hs.style.left = spot.left;
+                hs.setAttribute('data-product-id', spot.productId);
+                container.appendChild(hs);
+            });
+        });
+
+        let hideTimeout;
+        const lang = this.state.currentLang;
+        const cur = this.state.currentCurrency;
+
+        document.addEventListener('mouseover', (e) => {
+            const hs = e.target.closest('.hotspot');
+            const card = e.target.closest('.hotspot-card');
+            
+            if (hs) {
+                if (!hsCard) initHotspotElements();
+                if (!hsCard) return;
+                clearTimeout(hideTimeout);
+                const p = productsData.find(item => item.id === hs.getAttribute('data-product-id'));
+                if (p) {
+                    const cont = hs.closest('.look-explorer-container');
+                    if (hsCard.parentElement !== cont) cont.appendChild(hsCard);
+                    
+                    const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
+                    hsName.textContent = t.name || p.name;
+                    hsPrice.textContent = WRJ_UTILS.formatPrice(t.price || p.price, lang, cur);
+                    
+                    const link = hsCard.querySelector('.btn-mini');
+                    if (link) link.href = `catalog.html?productId=${p.id}`;
+                    
+                    let left = hs.offsetLeft + 35;
+                    if (left > (cont.offsetWidth - 250)) left = hs.offsetLeft - 240;
+                    hsCard.style.left = `${left}px`;
+                    hsCard.style.top = `${hs.offsetTop - 50}px`;
+                    hsCard.classList.add('active');
+                }
+            } else if (card) clearTimeout(hideTimeout);
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest('.hotspot') || e.target.closest('.hotspot-card')) {
+                hideTimeout = setTimeout(() => hsCard.classList.remove('active'), 300);
+            }
+        });
+    },
+
+    initFAQ: function() {
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-question')?.addEventListener('click', () => {
+                item.classList.toggle('active');
+                const span = item.querySelector('.faq-question span');
+                if (span) span.textContent = item.classList.contains('active') ? '-' : '+';
+            });
+        });
+    },
+
+    initDynamicCards: function() {
+        const cards = document.querySelectorAll('.category-card');
+        if (!cards.length || typeof productsData === 'undefined') return;
+
+        const usedIds = new Set();
+        const lang = this.state.currentLang;
+
+        cards.forEach(card => {
+            const cat = card.getAttribute('data-category');
+            const sea = card.getAttribute('data-season');
+            
+            let items = productsData.filter(p => (cat ? p.category === cat : p.season === sea));
+            let availableItems = items.filter(item => !usedIds.has(item.id));
+            if (!availableItems.length) availableItems = items;
+            if (!availableItems.length) return;
+
+            const img = card.querySelector('img');
+            const randomIdx = Math.floor(Math.random() * availableItems.length);
+            const randomProduct = availableItems[randomIdx];
+
+            usedIds.add(randomProduct.id);
+
+            img.src = randomProduct.mainImage;
+        });
+    },
+
+    initCookieBanner: function() {
+        if (localStorage.getItem('cookieConsent')) return;
         const banner = document.createElement('div');
         banner.className = 'cookie-banner';
-        banner.innerHTML = `
-            <div class="cookie-content">
-                <p>Мы используем обязательные технические файлы cookie для улучшения работы сайта. Продолжая использование сайта, вы даете согласие на обработку данных согласно нашей <a href="privacy.html">Политике конфиденциальности</a>.</p>
-            </div>
-            <button class="cookie-btn" id="acceptCookies">Принять все</button>
-        `;
+        banner.innerHTML = `<div class="cookie-content"><p>Мы используем файлы cookie. <a href="privacy.html">Подробнее</a></p></div><button class="cookie-btn" id="acceptCookies">Принять</button>`;
         document.body.appendChild(banner);
-
-        // Small delay to trigger CSS transition
         setTimeout(() => banner.classList.add('show'), 100);
-
         document.getElementById('acceptCookies').addEventListener('click', () => {
             localStorage.setItem('cookieConsent', 'true');
             banner.classList.remove('show');
             setTimeout(() => banner.remove(), 500);
         });
     }
+};
 
-    // --- Look Modal Logic (Event Delegation) ---
-    // productsGrid уже объявлена выше в секции 4
-    const lookModal = document.getElementById('lookModal');
-    const lookModalImg = document.getElementById('lookModalImg');
-    const lookModalCaption = document.getElementById('lookModalCaption');
-    const closeLookModal = document.getElementById('closeLookModal');
-
-    if (productsGrid && lookModal && lookModalImg && lookModalCaption) {
-        // Делегирование событий: слушаем клики на всей сетке
-        productsGrid.addEventListener('click', (e) => {
-            const link = e.target.closest('.look-link');
-            if (link) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const imgSrc = link.getAttribute('data-model');
-                const caption = link.getAttribute('data-caption');
-                
-                if (imgSrc) {
-                    lookModalImg.src = imgSrc;
-                    lookModalCaption.textContent = caption || '';
-                    lookModal.classList.add('active');
-                    document.body.style.overflow = 'hidden'; 
-                }
-            }
-        });
-    }
-
-    if (lookModal && closeLookModal) {
-        const closeModal = () => {
-            lookModal.classList.remove('active');
-            document.body.style.overflow = '';
-        };
-
-        closeLookModal.addEventListener('click', closeModal);
-        lookModal.addEventListener('click', (e) => {
-            if (e.target === lookModal) {
-                closeModal();
-            }
-        });
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && lookModal.classList.contains('active')) {
-                closeModal();
-            }
-        });
-    }
-
-    // --- ФИНАЛЬНАЯ ИНИЦИАЛИЗАЦИЯ ---
-    // Сначала проверяем URL параметры
-    const urlParams = new URLSearchParams(window.location.search);
-    const categoryParam = urlParams.get('category');
-    const seasonParam = urlParams.get('season');
-
-    if (seasonParam) {
-        currentSeason = seasonParam;
-        const sBtn = document.querySelector(`.season-btn[data-season="${seasonParam}"]`);
-        if (sBtn) {
-            seasonBtns.forEach(b => b.classList.remove('active'));
-            sBtn.classList.add('active');
-        }
-    }
-
-    if (categoryParam) {
-        currentCategory = categoryParam;
-        const cBtn = document.querySelector(`.filter-btn[data-filter="${categoryParam}"]`);
-        if (cBtn) {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            cBtn.classList.add('active');
-        }
-    }
-
-    // Теперь вызываем отрисовку ОДИН РАЗ в самом конце
-    renderProducts();
-
-    console.log("Wild Rose Jewel Site Skills Initialized");
+document.addEventListener('wrjComponentsReady', () => {
+    WRJ_APP.init();
 });
+
+if (!document.getElementById('mainHeader') && !document.getElementById('contacts')) {
+    document.addEventListener('DOMContentLoaded', () => WRJ_APP.init());
+}

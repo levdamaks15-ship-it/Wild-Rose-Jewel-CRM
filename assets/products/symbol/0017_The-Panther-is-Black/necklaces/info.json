@@ -1,0 +1,31 @@
+{
+  "name": "Первозданный инстинкт",
+  "material": "Натуральный тигровый глаз, ювелирный сплав с позолотой, фианиты",
+  "price": "1360",
+  "description": "Глубокая магия природного камня пробуждает внутреннюю энергию. Стань создательницей своих правил и хозяйкой своей реальности.",
+  "lookCaption": "Энергия, которую можно ощутить кожей.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Первозданный инстинкт",
+      "material": "Натуральный тигровый глаз, ювелирный сплав с позолотой, фианиты",
+      "price": "1360",
+      "description": "Глубокая магия природного камня пробуждает внутреннюю энергию. Стань создательницей своих правил и хозяйкой своей реальности.",
+      "lookCaption": "Энергия, которую можно ощутить кожей."
+    },
+    "en": {
+      "name": "Primal Instinct",
+      "material": "Natural tiger's eye, gold-plated jewelry alloy, cubic zirconia",
+      "price": "On request",
+      "description": "The deep magic of the natural stone awakens inner energy. Become the creator of your own rules and the mistress of your reality.",
+      "lookCaption": "Energy that can be felt by the skin."
+    },
+    "kk": {
+      "name": "Бастапқы инстинкт",
+      "material": "Табиғи жолбарыс көзі, алтынмен қапталған зергерлік қорытпа, фианиттер",
+      "price": "Сұраныс бойынша",
+      "description": "Табиғи тастың терең сиқыры ішкі энергияны оятады. Өз ережелеріңіздің жасаушысы және өз шындығыңыздың қожайыны болыңыз.",
+      "lookCaption": "Терімен сезінетін энергия."
+    }
+  }
+}

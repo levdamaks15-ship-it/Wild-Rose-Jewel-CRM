@@ -1,0 +1,31 @@
+{
+  "name": "Тайны глубин",
+  "material": "Крупный жемчуг, позолоченные цепи, эмалевые шармы",
+  "price": "2100",
+  "description": "Роскошное падение золотых нитей и белоснежная эмаль морских символов. Состояние торжественной уверенности перед выходом в свет.",
+  "lookCaption": "Отражение звездного неба в океане.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Тайны глубин",
+      "material": "Крупный жемчуг, позолоченные цепи, эмалевые шармы",
+      "price": "2100",
+      "description": "Роскошное падение золотых нитей и белоснежная эмаль морских символов. Состояние торжественной уверенности перед выходом в свет.",
+      "lookCaption": "Отражение звездного неба в океане."
+    },
+    "en": {
+      "name": "Secrets of the Depths",
+      "material": "Large pearl, gold-plated chains, enamel charms",
+      "price": "On request",
+      "description": "A luxurious fall of golden threads and snow-white enamel of sea symbols. A state of solemn confidence before stepping out.",
+      "lookCaption": "Reflection of the starry sky in the ocean."
+    },
+    "kk": {
+      "name": "Тұңғиық құпиялары",
+      "material": "Ірі меруерт, алтын жалатылған шынжырлар, эмаль тұмарлары",
+      "price": "Сұраныс бойынша",
+      "description": "Алтын жіптердің сәнді құлауы және теңіз символдарының аппақ эмалі. Көпшілік алдына шығар алдындағы салтанатты сенімділік күйі.",
+      "lookCaption": "Мұхиттағы жұлдызды аспанның көрінісі."
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Золото Нила",
+  "material": "Белый матовый агат, ювелирный сплав с позолотой",
+  "price": "1360",
+  "description": "Аристократичная многослойность и профиль великой царицы. Носи как символ своего безусловного достоинства.",
+  "lookCaption": "Царственная осанка и внутренний свет.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Золото Нила",
+      "material": "Белый матовый агат, ювелирный сплав с позолотой",
+      "price": "1360",
+      "description": "Аристократичная многослойность и профиль великой царицы. Носи как символ своего безусловного достоинства.",
+      "lookCaption": "Царственная осанка и внутренний свет."
+    },
+    "en": {
+      "name": "Gold of the Nile",
+      "material": "White matte agate, jewelry alloy with gold plating",
+      "price": "On request",
+      "description": "Aristocratic layering and the profile of a great queen. Wear it as a symbol of your unconditional dignity.",
+      "lookCaption": "Regal posture and inner light."
+    },
+    "kk": {
+      "name": "Ніл алтыны",
+      "material": "Ақ күңгірт агат, алтын жалатылған зергерлік қорытпа",
+      "price": "Сұраныс бойынша",
+      "description": "Ақсүйектік көпқабаттылық және ұлы патшайымның профилі. Мұны сіздің сөзсіз қадір-қасиетіңіздің белгісі ретінде тағыңыз.",
+      "lookCaption": "Патшайымға тән мүсін және ішкі нұр."
+    }
+  }
+}

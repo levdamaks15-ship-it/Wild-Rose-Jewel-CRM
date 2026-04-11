@@ -1,13 +1,25 @@
-# --- System / Internal ---
+# Folders
+scratch/
 .gemini/
+dist/
+node_modules/
+
+# Technical scripts
+check-assets.js
+fix-database.js
+import-gemini-data.js
+sanitize-catalog.js
+sync-products.js
+
+# Temporary / Test files
+*.bak
+*.tmp
+gemini-output.json
+files_list.txt
+image-test.html
+webp-test.html
+
+# IDE / System
+.vscode/
 .DS_Store
 Thumbs.db
-Desktop.ini
-
-# --- Large artifacts if needed (but 158MB is okay for now) ---
-# assets/products/*/character/*.jpg
-
-# --- Node modules ---
-node_modules/
-dist/
-build/

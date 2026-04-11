@@ -1,0 +1,31 @@
+{
+  "name": "Бирюзовая лагуна",
+  "material": "Натуральный жемчуг, голубая эмаль, позолоченные подвески",
+  "price": "По запросу",
+  "description": "Цвет прозрачной воды и теплый блеск золота. Замедлись и почувствуй, как дыхание становится ровнее, а мысли светлее.",
+  "lookCaption": "Твоя личная стихия.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Бирюзовая лагуна",
+      "material": "Натуральный жемчуг, голубая эмаль, позолоченные подвески",
+      "price": "По запросу",
+      "description": "Цвет прозрачной воды и теплый блеск золота. Замедлись и почувствуй, как дыхание становится ровнее, а мысли светлее.",
+      "lookCaption": "Твоя личная стихия."
+    },
+    "en": {
+      "name": "Turquoise Lagoon",
+      "material": "Natural pearl, blue enamel, gold-plated pendants",
+      "price": "On request",
+      "description": "The color of clear water and the warm gleam of gold. Slow down and feel your breathing become more even and your thoughts clearer.",
+      "lookCaption": "Your personal element."
+    },
+    "kk": {
+      "name": "Көгілдір лагуна",
+      "material": "Табиғи меруерт, көк эмаль, алтын жалатылған кулондар",
+      "price": "Сұраныс бойынша",
+      "description": "Мөлдір судың түсі және алтынның жылы жарқырауы. Баяулаңыз және тынысыңыздың қалыпқа түсіп, ойларыңыздың жарқын болғанын сезініңіз.",
+      "lookCaption": "Сіздің жеке стихияңыз."
+    }
+  }
+}

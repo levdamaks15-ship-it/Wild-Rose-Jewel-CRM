@@ -1,0 +1,31 @@
+{
+  "name": "Дикая грация",
+  "material": "Натуральный жемчуг, ювелирный сплав с позолотой, изумрудные фианиты",
+  "price": "1650",
+  "description": "Холодный блеск проницательных глаз и благородная теплота жемчуга. Украшение, которое говорит о твоем свободолюбивом характере без единого слова.",
+  "lookCaption": "Характер, который невозможно приручить.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Дикая грация",
+      "material": "Натуральный жемчуг, ювелирный сплав с позолотой, изумрудные фианиты",
+      "price": "1650",
+      "description": "Холодный блеск проницательных глаз и благородная теплота жемчуга. Украшение, которое говорит о твоем свободолюбивом характере без единого слова.",
+      "lookCaption": "Характер, который невозможно приручить."
+    },
+    "en": {
+      "name": "Wild Grace",
+      "material": "Natural pearl, gold-plated jewelry alloy, emerald cubic zirconia",
+      "price": "On request",
+      "description": "The cold gleam of piercing eyes and the noble warmth of pearls. Jewelry that speaks of your freedom-loving character without a single word.",
+      "lookCaption": "A character that cannot be tamed."
+    },
+    "kk": {
+      "name": "Жабайы грация",
+      "material": "Табиғи меруерт, алтынмен қапталған зергерлік қорытпа, изумруд фианиттері",
+      "price": "Сұраныс бойынша",
+      "description": "Өткір көздердің суық жылтыры және меруерттің текті жылуы. Сіздің еркіндік сүйгіш мінезіңіз туралы бірде-бір сөзсіз айтатын әшекей.",
+      "lookCaption": "Бағындыру мүмкін емес мінез."
+    }
+  }
+}

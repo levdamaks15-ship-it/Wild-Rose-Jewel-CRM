@@ -1,0 +1,31 @@
+{
+  "name": "Белые пески",
+  "material": "Белый матовый агат, ювелирный сплав, кристаллы",
+  "price": "По запросу",
+  "description": "Чистота формы и спокойствие матового камня. Браслет, который словно просит остановиться, сделать глубокий вдох и прислушаться к себе.",
+  "lookCaption": "Идеальная база для спокойных дней.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Белые пески",
+      "material": "Белый матовый агат, ювелирный сплав, кристаллы",
+      "price": "По запросу",
+      "description": "Чистота формы и спокойствие матового камня. Браслет, который словно просит остановиться, сделать глубокий вдох и прислушаться к себе.",
+      "lookCaption": "Идеальная база для спокойных дней."
+    },
+    "en": {
+      "name": "White Sands",
+      "material": "White matte agate, jewelry alloy, crystals",
+      "price": "On request",
+      "description": "Purity of form and the calmness of matte stone. A bracelet that seems to ask you to stop, take a deep breath, and listen to yourself.",
+      "lookCaption": "The perfect base for calm days."
+    },
+    "kk": {
+      "name": "Ақ құмдар",
+      "material": "Ақ күңгірт агат, зергерлік қорытпа, кристалдар",
+      "price": "Сұраныс бойынша",
+      "description": "Пішіннің тазалығы және күңгірт тастың тыныштығы. Тоқтап, терең дем алып, өзіңізді тыңдауға шақыратын білезік.",
+      "lookCaption": "Тыныш күндерге арналған мінсіз негіз."
+    }
+  }
+}

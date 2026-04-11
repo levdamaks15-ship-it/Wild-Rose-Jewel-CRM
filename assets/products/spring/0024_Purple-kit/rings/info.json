@@ -1,0 +1,31 @@
+{
+  "name": "Сердце мага",
+  "material": "Ювелирный сплав, позолота, ограненный аметист",
+  "price": "По запросу",
+  "description": "Фактурное кольцо с камнем, который ловит каждый луч света. Твое тайное оружие в искусстве оставлять незабываемое впечатление.",
+  "lookCaption": "Магия в твоих руках.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Сердце мага",
+      "material": "Ювелирный сплав, позолота, ограненный аметист",
+      "price": "По запросу",
+      "description": "Фактурное кольцо с камнем, который ловит каждый луч света. Твое тайное оружие в искусстве оставлять незабываемое впечатление.",
+      "lookCaption": "Магия в твоих руках."
+    },
+    "en": {
+      "name": "Heart of a Mage",
+      "material": "Jewelry alloy, gold plating, faceted amethyst",
+      "price": "On request",
+      "description": "A textured ring with a stone that catches every ray of light. Your secret weapon in the art of leaving an unforgettable impression.",
+      "lookCaption": "Magic in your hands."
+    },
+    "kk": {
+      "name": "Сиқыршы жүрегі",
+      "material": "Зергерлік қорытпа, алтынмен қапталған, қырлы аметист",
+      "price": "Сұраныс бойынша",
+      "description": "Әрбір жарық сәулесін ұстайтын тасы бар фактуралық сақина. Ұмытылмас әсер қалдыру өнеріндегі сіздің құпия қаруыңыз.",
+      "lookCaption": "Сиқыр сенің қолыңда."
+    }
+  }
+}

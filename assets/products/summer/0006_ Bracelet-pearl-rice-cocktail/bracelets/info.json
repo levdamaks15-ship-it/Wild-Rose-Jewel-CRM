@@ -1,0 +1,31 @@
+{
+  "name": "Теплое течение",
+  "material": "Речной жемчуг, ювелирный сплав, цветная эмаль",
+  "price": "По запросу",
+  "description": "Каждый шарм — это маленькая глава твоей книги о лете. Мы сохранили для тебя состояние расслабленности и теплого песка под ногами.",
+  "lookCaption": "Забери лето с собой.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Теплое течение",
+      "material": "Речной жемчуг, ювелирный сплав, цветная эмаль",
+      "price": "По запросу",
+      "description": "Каждый шарм — это маленькая глава твоей книги о лете. Мы сохранили для тебя состояние расслабленности и теплого песка под ногами.",
+      "lookCaption": "Забери лето с собой."
+    },
+    "en": {
+      "name": "Warm Current",
+      "material": "Freshwater pearl, jewelry alloy, colored enamel",
+      "price": "On request",
+      "description": "Every charm is a small chapter of your book about summer. We have preserved for you the state of relaxation and warm sand under your feet.",
+      "lookCaption": "Take summer with you."
+    },
+    "kk": {
+      "name": "Жылы ағыс",
+      "material": "Өзен меруерті, зергерлік қорытпа, түрлі-түсті эмаль",
+      "price": "Сұраныс бойынша",
+      "description": "Әрбір тұмар — жаз туралы кітабыңыздың кішкентай тарауы. Біз сіз үшін релаксация күйін және аяғыңыздың астындағы жылы құмды сақтап қалдық.",
+      "lookCaption": "Жазды өзіңмен бірге алып жүр."
+    }
+  }
+}

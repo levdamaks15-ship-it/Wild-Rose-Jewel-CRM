@@ -1,0 +1,31 @@
+{
+  "name": "Утренняя роса",
+  "material": "Натуральные пастельные камни, ювелирный сплав, фианиты",
+  "price": "По запросу",
+  "description": "Переливы утреннего неба на твоем запястье. Это состояние гармонии и обещание того, что впереди только самое лучшее.",
+  "lookCaption": "Мягкое свечение для души.",
+  "isBestseller": false,
+  "translations": {
+    "ru": {
+      "name": "Утренняя роса",
+      "material": "Натуральные пастельные камни, ювелирный сплав, фианиты",
+      "price": "По запросу",
+      "description": "Переливы утреннего неба на твоем запястье. Это состояние гармонии и обещание того, что впереди только самое лучшее.",
+      "lookCaption": "Мягкое свечение для души."
+    },
+    "en": {
+      "name": "Morning Dew",
+      "material": "Natural pastel stones, jewelry alloy, cubic zirconia",
+      "price": "On request",
+      "description": "The iridescence of the morning sky on your wrist. It's a state of harmony and a promise that only the best is ahead.",
+      "lookCaption": "A soft glow for the soul."
+    },
+    "kk": {
+      "name": "Таңғы шық",
+      "material": "Табиғи пастельді тастар, зергерлік қорытпа, фианиттер",
+      "price": "Сұраныс бойынша",
+      "description": "Білегіңіздегі таңғы аспанның құбылуы. Бұл гармония күйі және алда тек жақсылық күтіп тұрғанына уәде.",
+      "lookCaption": "Жанға арналған жұмсақ жарқырау."
+    }
+  }
+}
