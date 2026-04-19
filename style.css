@@ -1862,14 +1862,15 @@ footer {
         position: relative !important;
         bottom: auto !important;
         right: auto !important;
-        margin: 40px auto 0 !important;
-        text-align: center;
+        margin: 40px 0 0 auto !important;
+        align-self: flex-end !important;
+        text-align: right;
         width: 100% !important;
         max-width: 320px !important;
         transform: none !important;
         opacity: 1 !important;
         font-size: 1rem !important;
-        padding: 0 20px !important;
+        padding: 0 30px 0 20px !important;
         display: block !important;
     }
 
