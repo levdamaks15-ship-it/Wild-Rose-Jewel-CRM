@@ -2078,12 +2078,12 @@ footer {
     .catalog-controls {
         position: -webkit-sticky !important;
         position: sticky !important;
-        top: 64px !important; /* На 1px выше для устранения просвета */
+        top: 60px !important; /* Большой нахлест для гарантии отсутствия просвета */
         z-index: 900 !important;
-        /* Современный эффект стекла (Glassmorphism) */
-        background: rgba(249, 247, 240, 0.8) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
+        /* Совпадаем по цвету с шапкой для бесшовности */
+        background: rgba(253, 251, 247, 0.85) !important;
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
 
         padding: 12px 0 !important;
         margin-bottom: 30px;
