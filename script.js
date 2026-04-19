@@ -133,6 +133,102 @@ const WRJ_CART = {
 
 
 
+const SUPABASE_URL = 'https://oaemthhzdyypnbregxxh.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hZW10aGh6ZHl5cG5icmVneHhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1ODY3NDAsImV4cCI6MjA5MjE2Mjc0MH0.srnGItP3v4wbhbFVZZaHUaol8Ce16zcjzEFV6rEEFMk';
+
+// Базовый URL для медиа-файлов (оставьте пустым для локальной разработки)
+// Когда загрузите фото в Supabase, замените на: 'https://oaemthhzdyypnbregxxh.supabase.co/storage/v1/object/public/media/'
+let MEDIA_BASE_URL = ''; 
+
+async function loadSupabaseData() {
+    console.log("🌐 Fetching data from Supabase...");
+    try {
+        const headers = { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` };
+        const [pRes, tRes, cRes] = await Promise.all([
+            fetch(`${SUPABASE_URL}/rest/v1/products?select=*`, { headers }),
+            fetch(`${SUPABASE_URL}/rest/v1/product_translations?select=*`, { headers }),
+            fetch(`${SUPABASE_URL}/rest/v1/site_config?select=*`, { headers })
+        ]);
+
+        if (!pRes.ok) throw new Error(`HTTP error! status: ${pRes.status}`);
+        
+        const dbProducts = await pRes.json();
+        const dbTrans = await tRes.json();
+        const dbConfig = await cRes.json();
+        
+        console.log(`📦 Received ${dbProducts.length} products and ${dbTrans.length} translations`);
+
+        if (!dbProducts || dbProducts.length === 0) {
+            console.warn("⚠️ Supabase returned no products. Keeping local data.");
+            return;
+        }
+
+        // Settings via Config Table
+        dbConfig.forEach(c => {
+            if (c.key === 'currency_rates' && typeof WRJ_CURRENCY_RATES !== 'undefined') {
+                Object.assign(WRJ_CURRENCY_RATES, c.value);
+            }
+            if (c.key === 'contact_info') {
+                if (typeof WRJ_CONFIG !== 'undefined') {
+                    WRJ_CONFIG.whatsappNumber = c.value.whatsapp || WRJ_CONFIG.whatsappNumber;
+                    WRJ_CONFIG.instagram = c.value.instagram || WRJ_CONFIG.instagram;
+                    
+                    // Update media URL if set in DB
+                    if (c.value.media_base_url) MEDIA_BASE_URL = c.value.media_base_url;
+
+                    document.querySelectorAll('a[href*="wa.me/77000000000"]').forEach(a => {
+                        a.href = `https://wa.me/${WRJ_CONFIG.whatsappNumber}`;
+                    });
+                    document.querySelectorAll('a[href*="instagram.com/wild_rose_jewel"]').forEach(a => {
+                        a.href = `https://www.instagram.com/${WRJ_CONFIG.instagram}`;
+                    });
+                }
+            }
+        });
+
+        // Функция-помощник для нормализации путей
+        const getUrl = (path) => {
+            if (!path) return '';
+            if (path.startsWith('http')) return path;
+            return MEDIA_BASE_URL ? `${MEDIA_BASE_URL}${path}` : path;
+        };
+
+        // Remap to legacy struct
+        const mappedProducts = dbProducts.map(p => {
+            const trs = {};
+            const itemTrans = dbTrans.filter(t => t.product_id === p.id);
+            itemTrans.forEach(t => {
+                trs[t.lang] = {
+                    name: t.name, material: t.material,
+                    price: t.price_display && t.price_display !== 'null' ? t.price_display : (p.price_base || 'По запросу'),
+                    description: t.description || '', lookCaption: t.look_caption || ''
+                };
+            });
+            const ru = trs.ru || {};
+            return {
+                id: p.id, season: p.season, category: p.category, 
+                collection: p.collection || '', name: ru.name || 'Ожидание названия',
+                material: ru.material || '', price: ru.price || (p.price_base || 'По запросу'),
+                description: ru.description || '', lookCaption: ru.lookCaption || '',
+                mainImage: getUrl(p.main_image), 
+                lookModel: getUrl(p.look_model), 
+                isBestseller: !!p.is_bestseller, translations: trs
+            };
+        });
+
+        // Mutate the original const bindings
+        if (typeof productsData !== 'undefined') {
+            productsData.length = 0;
+            productsData.push(...mappedProducts);
+            console.log("✅ productsData successfully updated from Supabase");
+        }
+
+    } catch(err) {
+        console.error("❌ Supabase Load Failed:", err);
+        console.log("ℹ️ Falling back to local data.");
+    }
+}
+
 const WRJ_APP = {
     state: {
         currentSeason: 'spring',
@@ -142,11 +238,14 @@ const WRJ_APP = {
         initialized: false
     },
 
-    init: function() {
+    init: async function() {
         if (this.state.initialized) return;
         this.state.initialized = true;
 
         console.log("%c🌿 WRJ Application Starting...", "color: #c09a53; font-weight: bold;");
+        
+        // Load Database
+        await loadSupabaseData();
 
         // 1. Проверка здоровья данных
         if (typeof WRJ_UTILS !== 'undefined' && typeof productsData !== 'undefined') {
@@ -164,7 +263,6 @@ const WRJ_APP = {
         this.initSidebarLogic();
         this.initCatalogLogic();
         this.initAlbumLogic();
-        this.initFAQ();
         this.initDynamicCards();
         this.initCookieBanner();
         this.initVideoLoop();
@@ -283,19 +381,27 @@ const WRJ_APP = {
         const video = document.querySelector('.hero-video');
         if (!video) return;
 
-        video.addEventListener('timeupdate', () => {
-            if (video.currentTime > video.duration - 0.6) {
-                video.classList.add('fading');
-            }
-        });
+        let fadeTimeout;
 
         video.addEventListener('play', () => {
             video.classList.remove('fading');
+            clearTimeout(fadeTimeout);
+            
+            // Schedule the fade right before the video ends to loop smoothly
+            if (video.duration) {
+                const timeUntilFade = (video.duration - video.currentTime - 0.6) * 1000;
+                if (timeUntilFade > 0) {
+                    fadeTimeout = setTimeout(() => {
+                        video.classList.add('fading');
+                    }, timeUntilFade);
+                }
+            }
         });
 
-        video.addEventListener('seeked', () => {
-            if (video.currentTime < 0.5) {
-                video.classList.remove('fading');
+        // Handle case where duration isn't available immediately
+        video.addEventListener('loadedmetadata', () => {
+            if (!video.paused) {
+                video.dispatchEvent(new Event('play'));
             }
         });
     },
@@ -796,39 +902,42 @@ const WRJ_APP = {
         });
     },
 
-    initFAQ: function() {
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.querySelector('.faq-question')?.addEventListener('click', () => {
-                item.classList.toggle('active');
-                const span = item.querySelector('.faq-question span');
-                if (span) span.textContent = item.classList.contains('active') ? '-' : '+';
-            });
-        });
-    },
-
     initDynamicCards: function() {
+        console.log("🎲 Initializing Dynamic Cards (Randomizer)...");
         const cards = document.querySelectorAll('.category-card');
-        if (!cards.length || typeof productsData === 'undefined') return;
+        if (cards.length > 0 && typeof productsData !== 'undefined' && productsData.length > 0) {
+            cards.forEach(card => {
+                const cat = card.getAttribute('data-category');
+                if (!cat) return;
+                
+                const categoryItems = productsData.filter(p => p.category === cat);
+                console.log(`🔎 Category [${cat}]: found ${categoryItems.length} items`);
 
-        const usedIds = new Set();
-        const lang = this.state.currentLang;
+                if (categoryItems.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * categoryItems.length);
+                    const randomItem = categoryItems[randomIndex];
+                    
+                    const img = card.querySelector('img');
+                    if (img) {
+                        console.log(`✨ Setting random img for ${cat}: ${randomItem.id}`);
+                        img.src = randomItem.mainImage;
+                    }
+                }
+            });
+        } else {
+            console.warn("⚠️ productsData is empty or cards not found for randomizer");
+        }
 
-        cards.forEach(card => {
-            const cat = card.getAttribute('data-category');
-            const sea = card.getAttribute('data-season');
-            
-            let items = productsData.filter(p => (cat ? p.category === cat : p.season === sea));
-            let availableItems = items.filter(item => !usedIds.has(item.id));
-            if (!availableItems.length) availableItems = items;
-            if (!availableItems.length) return;
-
-            const img = card.querySelector('img');
-            const randomIdx = Math.floor(Math.random() * availableItems.length);
-            const randomProduct = availableItems[randomIdx];
-
-            usedIds.add(randomProduct.id);
-
-            img.src = randomProduct.mainImage;
+        // 2. Секция FAQ
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            if (!question) return;
+            question.addEventListener('click', () => {
+                const isOpen = item.classList.contains('active');
+                faqItems.forEach(i => i.classList.remove('active'));
+                if (!isOpen) item.classList.add('active');
+            });
         });
     },
 
@@ -847,10 +956,24 @@ const WRJ_APP = {
     }
 };
 
-document.addEventListener('wrjComponentsReady', () => {
-    WRJ_APP.init();
-});
+// Инициализация
+const startApp = () => {
+    if (typeof WRJ_APP !== 'undefined') {
+        WRJ_APP.init();
+    }
+};
 
-if (!document.getElementById('mainHeader') && !document.getElementById('contacts')) {
-    document.addEventListener('DOMContentLoaded', () => WRJ_APP.init());
+// 1. Слушаем событие от компонентов
+document.addEventListener('wrjComponentsReady', startApp);
+
+// 2. Если скрипт загрузился ПОЗЖЕ компонентов (они уже в DOM)
+if (document.getElementById('mainHeader') && document.getElementById('mainHeader').innerHTML !== '') {
+    startApp();
+}
+
+// 3. Резервный запуск, если что-то пошло не так
+if (document.readyState === 'complete') {
+    setTimeout(startApp, 500);
+} else {
+    window.addEventListener('load', () => setTimeout(startApp, 500));
 }
