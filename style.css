@@ -1794,10 +1794,12 @@ footer {
     /* Hero Responsive */
     .hero {
         height: auto;
-        min-height: 100vh;
+        min-height: 100svh;
         padding: 100px 0 60px !important;
-        display: block !important;
-        /* Уходим от флекса для надежной вертикальной верстки */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
         text-align: center;
         overflow: hidden;
     }
