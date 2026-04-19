@@ -905,41 +905,33 @@ const WRJ_APP = {
     },
 
     initDynamicCards: function() {
-        console.log("🎲 Initializing Dynamic Cards (Randomizer)...");
+        console.log("🎲 Initializing Dynamic Cards...");
         const cards = document.querySelectorAll('.category-card');
         if (cards.length > 0 && typeof productsData !== 'undefined' && productsData.length > 0) {
             cards.forEach(card => {
                 const cat = card.getAttribute('data-category');
-                if (!cat) return;
+                const sea = card.getAttribute('data-season');
+                if (!cat && !sea) return;
                 
-                const categoryItems = productsData.filter(p => p.category === cat);
-                console.log(`🔎 Category [${cat}]: found ${categoryItems.length} items`);
-
-                if (categoryItems.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * categoryItems.length);
-                    const randomItem = categoryItems[randomIndex];
-                    
+                const items = productsData.filter(p => (cat ? p.category === cat : p.season === sea));
+                if (items.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * items.length);
                     const img = card.querySelector('img');
-                    if (img) {
-                        console.log(`✨ Setting random img for ${cat}: ${randomItem.id}`);
-                        img.src = randomItem.mainImage;
-                    }
+                    if (img) img.src = items[randomIndex].mainImage;
                 }
             });
-        } else {
-            console.warn("⚠️ productsData is empty or cards not found for randomizer");
         }
 
-        // 2. Секция FAQ
         const faqItems = document.querySelectorAll('.faq-item');
         faqItems.forEach(item => {
             const question = item.querySelector('.faq-question');
-            if (!question) return;
-            question.addEventListener('click', () => {
-                const isOpen = item.classList.contains('active');
-                faqItems.forEach(i => i.classList.remove('active'));
-                if (!isOpen) item.classList.add('active');
-            });
+            if (question) {
+                question.onclick = () => {
+                    const isOpen = item.classList.contains('active');
+                    faqItems.forEach(i => i.classList.remove('active'));
+                    if (!isOpen) item.classList.add('active');
+                };
+            }
         });
     },
 
@@ -950,30 +942,28 @@ const WRJ_APP = {
         banner.innerHTML = `<div class="cookie-content"><p>Мы используем файлы cookie. <a href="privacy.html">Подробнее</a></p></div><button class="cookie-btn" id="acceptCookies">Принять</button>`;
         document.body.appendChild(banner);
         setTimeout(() => banner.classList.add('show'), 100);
-        document.getElementById('acceptCookies').addEventListener('click', () => {
-            localStorage.setItem('cookieConsent', 'true');
-            banner.classList.remove('show');
-            setTimeout(() => banner.remove(), 500);
-        });
+        const btn = document.getElementById('acceptCookies');
+        if (btn) {
+            btn.onclick = () => {
+                localStorage.setItem('cookieConsent', 'true');
+                banner.classList.remove('show');
+                setTimeout(() => banner.remove(), 500);
+            };
+        }
     }
 };
 
-// Инициализация
 const startApp = () => {
     if (typeof WRJ_APP !== 'undefined') {
         WRJ_APP.init();
+        console.log("✅ WRJ Application Ready");
     }
 };
 
-// 1. Слушаем событие от компонентов
 document.addEventListener('wrjComponentsReady', startApp);
-
-// 2. Если скрипт загрузился ПОЗЖЕ компонентов (они уже в DOM)
 if (document.getElementById('mainHeader') && document.getElementById('mainHeader').innerHTML !== '') {
     startApp();
 }
-
-// 3. Резервный запуск, если что-то пошло не так
 if (document.readyState === 'complete') {
     setTimeout(startApp, 500);
 } else {
