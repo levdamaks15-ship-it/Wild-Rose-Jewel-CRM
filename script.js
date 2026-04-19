@@ -54,7 +54,9 @@ const WRJ_CART_DRAWER = {
         if (checkoutBtn) {
             checkoutBtn.onclick = () => {
                 const message = WRJ_UTILS.formatWhatsAppMessage(items, productsData, lang, cur, total);
-                const url = `https://api.whatsapp.com/send/?phone=${WRJ_CONFIG.whatsappNumber}&text=${encodeURIComponent(message)}`;
+                // Очищаем номер от всего кроме цифр для надежности ссылки
+                const cleanPhone = String(WRJ_CONFIG.whatsappNumber).replace(/\D/g, '');
+                const url = `https://api.whatsapp.com/send/?phone=${cleanPhone}&text=${encodeURIComponent(message)}`;
                 window.open(url, '_blank');
             };
         }

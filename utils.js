@@ -153,5 +153,33 @@ const WRJ_UTILS = {
         console.groupEnd();
         
         return { errors, warnings };
+    },
+
+    /**
+     * Формирование сообщения для WhatsApp
+     */
+    formatWhatsAppMessage: function(items, productsData, lang = 'ru', currency = 'RUB', total = 0) {
+        const title = this.t('order_msg_title', lang) || 'Новый заказ:';
+        let msg = `${title}\n\n`;
+
+        items.forEach((id, index) => {
+            const p = productsData.find(item => String(item.id) === String(id));
+            if (p) {
+                const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
+                const name = t.name || p.name;
+                const material = t.material || p.material;
+                const price = this.formatPrice(t.price || p.price, lang, currency);
+                
+                msg += `${index + 1}. *${name}*\n`;
+                if (material) msg += `   _${material}_\n`;
+                msg += `   Цена: ${price}\n\n`;
+            }
+        });
+
+        const totalLabel = this.t('order_msg_total', lang) || 'Итого:';
+        msg += `*${totalLabel} ${this.formatPrice(total, lang, currency)}*\n\n`;
+        msg += `Здравствуйте! Хочу приобрести эти украшения. Есть ли они в наличии?`;
+
+        return msg;
     }
 };
