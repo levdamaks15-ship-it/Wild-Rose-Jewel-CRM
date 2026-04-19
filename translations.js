@@ -56,11 +56,17 @@ const WRJ_TRANSLATIONS = {
 
         // FAQ Items
         faq_q1: "Как узнать цену или заказать изделие?",
-        faq_a1: "Выберите понравившееся украшение в каталоге и нажмите кнопку «Связаться с автором». Вы сможете обсудить варианты под заказ.",
-        faq_q2: "Из каких материалов вы делаете украшения?",
-        faq_a2: "Мы используем качественный бижутерный сплав без вредных примесей и только натуральные камни, прошедшие проверку.",
-        faq_q3: "Есть ли доставка по России?",
-        faq_a3: "Да, мы отправляем украшения СДЭКом или Почтой России в любую точку страны. Срок доставки обычно составляет от 3 до 7 дней.",
+        faq_a1: "Выберите понравившееся украшение в каталоге и нажмите кнопку «Оформить заказ в WhatsApp». Мы обсудим все детали покупки и доставки.",
+        faq_q2: "Из каких материалов выполнены украшения?",
+        faq_a2: "Мы используем только натуральные камни, жемчуг и качественную фурнитуру из латуни с родиевым или позолоченном покрытием.",
+        faq_q3: "Есть ли доставка в другие города?",
+        faq_a3: "Да, мы бережно упаковываем и отправляем украшения СДЭКом или Почтой России в любую точку мира.",
+        faq_q5: "Как ухаживать за родиевым покрытием?",
+        faq_a5: "Избегайте прямого контакта с водой (душ, бассейн), парфюмом и кремами. Для очистки достаточно мягко протереть изделие сухой микрофиброй.",
+        faq_q6: "Как лучше всего хранить украшения?",
+        faq_a6: "Рекомендуем хранить изделия в сухом месте, отдельно друг от друга, чтобы металл и камни не царапались.",
+        faq_q7: "Главное правило владельца украшений?",
+        faq_a7: "Украшения должны быть последним, что вы надеваете утром, и первым, что снимаете вечером. Всегда снимайте их перед домашними делами.",
 
         // Category Card Taglines
         cat_necklaces_tag: "Акцент на вашей индивидуальности",
@@ -137,12 +143,18 @@ const WRJ_TRANSLATIONS = {
         faq_title: "Questions and Answers",
 
         // FAQ Items
-        faq_q1: "How to find out the price or order a product?",
-        faq_a1: "Select the jewelry you like in the catalog and click the 'Contact Creator' button. You can discuss options for custom orders.",
-        faq_q2: "What materials do you use for jewelry?",
-        faq_a2: "We use high-quality jewelry alloys without harmful impurities and only tested natural stones.",
-        faq_q3: "Is there international delivery?",
-        faq_a3: "Yes, we ship jewelry via CDEK or Russian Post to any location. Delivery time usually takes 3 to 14 days depending on destination.",
+        faq_q1: "How to check the price or order a product?",
+        faq_a1: "Select the jewelry you like in the catalog and click 'Order via WhatsApp'. We will discuss all the details of purchase and shipping.",
+        faq_q2: "What materials are the jewelry made of?",
+        faq_a2: "We use only natural stones, pearls and high-quality brass fittings with rhodium or gold plating.",
+        faq_q3: "Is there international shipping?",
+        faq_a3: "Yes, we carefully pack and ship jewelry via SDEK or Post to anywhere in the world.",
+        faq_q5: "How to care for rhodium-plated jewelry?",
+        faq_a5: "Avoid direct contact with water (shower, pool), perfume, and creams. To clean, simply wipe the piece gently with a dry microfiber cloth.",
+        faq_q6: "What is the best way to store jewelry?",
+        faq_a6: "We recommend storing items in a dry place, preferably separately from each other, to avoid scratches on the metal and stones.",
+        faq_q7: "What is the main rule for a jewelry owner?",
+        faq_a7: "Jewelry should be the last thing you put on in the morning and the first thing you take off in the evening. Always remove them before doing household chores.",
 
         // Category Card Taglines
         cat_necklaces_tag: "Accentuate your individuality",
@@ -225,11 +237,17 @@ const WRJ_TRANSLATIONS = {
 
         // FAQ Items
         faq_q1: "Бағасын қалай білуге немесе бұйымға тапсырыс беруге болады?",
-        faq_a1: "Каталогтан өзіңізге ұнаған зергерлік бұйымды таңдап, «Жасаушымен байланысу» түймесін басыңыз. Сіз тапсырыс бойынша нұсқаларды талқылай аласыз.",
-        faq_q2: "Зергерлік бұйымдарды қандай материалдардан жасайсыз?",
-        faq_a2: "Біз зиянды қоспалары жоқ сапалы зергерлік қорытпаны және тек тексерілген табиғи тастарды пайдаланамыз.",
-        faq_q3: "Қазақстан бойынша жеткізу бар ма?",
-        faq_a3: "Иә, біз зергерлік бұйымдарды СДЭК немесе Пошта арқылы кез келген жерге жібереміз. Жеткізу мерзімі әдетте баратын жеріне байланысты 3-тен 14 күнге дейін созылады.",
+        faq_a1: "Каталогтан өзіңізге ұнаған зергерлік бұйымды таңдап, «WhatsApp арқылы тапсырыс беру» түймесін басыңыз. Біз сатып алу және жеткізудің барлық егжей-тегжейлерін талқылаймыз.",
+        faq_q2: "Әшекейлер қандай материалдардан жасалған?",
+        faq_a2: "Біз тек табиғи тастарды, інжу-маржандарды және родий немесе алтын жалатылған латуньнен жасалған сапалы фурнитураны қолданамыз.",
+        faq_q3: "Жеткізу қызметі бар ма?",
+        faq_a3: "Иә, біз әшекейлерді мұқият орап, СДЭК немесе Пошта арқылы әлемнің кез келген нүктесіне жібереміз.",
+        faq_q5: "Родий жалатылған бұйымдарға қалай күтім жасау керек?",
+        faq_a5: "Сумен (душ, бассейн), парфюмериямен және кремдермен тікелей жанасудан аулақ болыңыз. Тазалау үшін бұйымды құрғақ микрофибрамен ақырын сүрту жеткілікті.",
+        faq_q6: "Әшекейлерді қалай сақтаған дұрыс?",
+        faq_a6: "Металл мен тастар сырылып қалмас үшін бұйымдарды құрғақ жерде, жақсысы бір-бірінен бөлек сақтауды ұсынамыз.",
+        faq_q7: "Әшекей иесінің басты ережесі қандай?",
+        faq_a7: "Әшекейлер таңертең ең соңғы киетін және кешке ең бірінші шешетін нәрсе болуы керек. Үй жұмыстарының алдында оларды міндетті түрде шешіңіз.",
 
         // Category Card Taglines
         cat_necklaces_tag: "Даралығыңызды айқындаңыз",
