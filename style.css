@@ -494,6 +494,26 @@ header.scrolled .header-nav {
     text-transform: uppercase;
 }
 
+.social-links-side {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 15px;
+}
+
+.social-links-side a {
+    color: var(--brand-text);
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-links-side a:hover {
+    color: var(--brand-burgundy);
+    transform: translateY(-3px);
+}
+
 .sidebar-email {
     font-size: 0.9rem;
     color: var(--brand-text-light);
@@ -999,11 +1019,22 @@ footer strong {
 
 .social-links {
     display: flex;
-    gap: 20px;
+    gap: 25px;
+    justify-content: center;
+    margin-top: 15px;
 }
 
 .social-links a {
-    font-size: 1.5rem;
+    color: var(--brand-burgundy);
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-links a:hover {
+    color: var(--brand-gold);
+    transform: scale(1.15) translateY(-2px);
 }
 
 .footer-links {
@@ -2047,7 +2078,7 @@ footer {
     .catalog-controls {
         position: -webkit-sticky !important;
         position: sticky !important;
-        top: 65px !important;
+        top: 64px !important; /* На 1px выше для устранения просвета */
         z-index: 900 !important;
         /* Современный эффект стекла (Glassmorphism) */
         background: rgba(249, 247, 240, 0.8) !important;
