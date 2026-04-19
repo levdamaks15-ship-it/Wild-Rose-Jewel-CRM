@@ -113,12 +113,7 @@ const WRJ_COMPONENTS = {
     `,
 
     common: `
-        <!-- Карточка-подсказка хотспота -->
-        <div class="hotspot-card" id="hotspotCard">
-            <h4 id="hsName">Украшение</h4>
-            <p id="hsPrice">По запросу</p>
-            <a href="catalog.html" class="btn-mini" data-i18n="btn_details">В каталог</a>
-        </div>
+        <!-- Модальное окно Образы -->
 
         <!-- Модальное окно Образы -->
         <div id="lookModal" class="look-modal">

@@ -343,7 +343,9 @@ const WRJ_APP = {
             const key = el.getAttribute('data-i18n');
             const text = WRJ_UTILS.t(key, lang);
             if (text) {
-                if (el.tagName === 'INPUT' && el.type === 'placeholder') {
+                if (el.tagName === 'META') {
+                    el.setAttribute('content', text);
+                } else if (el.tagName === 'INPUT' && el.placeholder !== undefined) {
                     el.placeholder = text;
                 } else {
                     el.textContent = text;
@@ -508,7 +510,6 @@ const WRJ_APP = {
                 const material = t.material || p.material;
                 const colName = t.collection || p.collection;
                 const collection = colName ? `<span class="product-collection">${WRJ_UTILS.sanitize(colName)}:</span> ` : '';
-                const lookCaption = t.lookCaption || p.lookCaption || '';
                 
                 const sPrice = WRJ_UTILS.formatPrice(t.price || p.price, lang, cur);
                 
@@ -519,7 +520,7 @@ const WRJ_APP = {
                 card.innerHTML = `
                     <div class="product-image">
                         <img src="${p.mainImage}" alt="${WRJ_UTILS.sanitize(name)}" loading="lazy">
-                        ${p.lookModel ? `<div class="look-link" data-model="${p.lookModel}" data-caption="${WRJ_UTILS.sanitize(lookCaption)}"><span>${WRJ_UTILS.t('look_btn', lang)}</span></div>` : ''}
+                        ${p.lookModel ? `<div class="look-link" data-model="${p.lookModel}"><span>${WRJ_UTILS.t('look_btn', lang)}</span></div>` : ''}
                     </div>
                     <div class="product-info">
                         <h3>${collection}${WRJ_UTILS.sanitize(name)}</h3>
@@ -644,7 +645,6 @@ const WRJ_APP = {
             const link = e.target.closest('.look-link');
             if (link) {
                 img.src = link.getAttribute('data-model');
-                caption.textContent = link.getAttribute('data-caption');
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
@@ -660,10 +660,38 @@ const WRJ_APP = {
         const filterBtns = document.querySelectorAll('#lookFilters .filter-btn');
         const seasonNavItems = document.querySelectorAll('#lookSeasons .season-btn');
 
-        if (!album || typeof looksData === 'undefined') return;
+        if (!album || typeof productsData === 'undefined') return;
+
+        const lang = this.state.currentLang;
+        
+        // --- ДИНАМИЧЕСКАЯ ГЕНЕРАЦИЯ ОБРАЗОВ ---
+        // Собираем все товары, у которых есть фото "в образе" (lookModel)
+        const dynamicLooks = productsData
+            .filter(p => p.lookModel)
+            .map(p => {
+                const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
+                
+                // Тэглайн: либо коллекция, либо просто указание сезона
+                let tagline = p.collection || "";
+                if (!tagline) {
+                    const seasonKey = 'season_' + p.season;
+                    tagline = WRJ_UTILS.t(seasonKey, lang);
+                }
+
+                return {
+                    id: `look-${p.id}`,
+                    productId: p.id,
+                    title: t.name || p.name,
+                    tagline: tagline,
+                    speech: t.lookCaption || p.lookCaption || "",
+                    backgroundImage: p.lookModel,
+                    season: p.season,
+                    category: p.category,
+                    translations: p.translations // сохраняем для мультиязычности
+                };
+            });
 
         // Применяем переводы к фильтрам образа
-        const lang = this.state.currentLang;
         document.querySelectorAll('#lookFilters .filter-btn, #lookSeasons .season-btn').forEach(b => {
              const filterKey = b.getAttribute('data-filter') ? 'filter_' + b.getAttribute('data-filter') : null;
              const seasonKey = b.getAttribute('data-season') ? 'season_' + b.getAttribute('data-season') : null;
@@ -678,13 +706,9 @@ const WRJ_APP = {
         let isAnimating = false;
 
         const render = () => {
-            filteredLooks = looksData.filter(look => {
+            filteredLooks = dynamicLooks.filter(look => {
                 const matchSeason = look.season === this.state.currentSeason || !look.season;
-                const matchCategory = this.state.currentCategory === 'all' || 
-                    look.hotspots.some(hs => {
-                        const prod = productsData.find(p => p.id === hs.productId);
-                        return prod && prod.category === this.state.currentCategory;
-                    });
+                const matchCategory = this.state.currentCategory === 'all' || look.category === this.state.currentCategory;
                 return matchSeason && matchCategory;
             });
 
@@ -836,73 +860,6 @@ const WRJ_APP = {
         render();
     },
 
-    renderHotspots: function() {
-        hsCard = document.getElementById('hotspotCard');
-        hsName = document.getElementById('hsName');
-        hsPrice = document.getElementById('hsPrice');
-        
-        const containers = document.querySelectorAll('.look-explorer-container[data-look-id]');
-
-        containers.forEach(container => {
-            const look = looksData.find(l => l.id === container.getAttribute('data-look-id'));
-            if (!look) return;
-
-            if (!container.querySelector('img')) {
-                const img = document.createElement('img');
-                img.src = look.backgroundImage;
-                container.appendChild(img);
-            }
-
-            container.querySelectorAll('.hotspot').forEach(h => h.remove());
-            look.hotspots.forEach(spot => {
-                const hs = document.createElement('div');
-                hs.className = 'hotspot magic';
-                hs.style.top = spot.top;
-                hs.style.left = spot.left;
-                hs.setAttribute('data-product-id', spot.productId);
-                container.appendChild(hs);
-            });
-        });
-
-        let hideTimeout;
-        const lang = this.state.currentLang;
-        const cur = this.state.currentCurrency;
-
-        document.addEventListener('mouseover', (e) => {
-            const hs = e.target.closest('.hotspot');
-            const card = e.target.closest('.hotspot-card');
-            
-            if (hs) {
-                if (!hsCard) initHotspotElements();
-                if (!hsCard) return;
-                clearTimeout(hideTimeout);
-                const p = productsData.find(item => item.id === hs.getAttribute('data-product-id'));
-                if (p) {
-                    const cont = hs.closest('.look-explorer-container');
-                    if (hsCard.parentElement !== cont) cont.appendChild(hsCard);
-                    
-                    const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
-                    hsName.textContent = t.name || p.name;
-                    hsPrice.textContent = WRJ_UTILS.formatPrice(t.price || p.price, lang, cur);
-                    
-                    const link = hsCard.querySelector('.btn-mini');
-                    if (link) link.href = `catalog.html?productId=${p.id}`;
-                    
-                    let left = hs.offsetLeft + 35;
-                    if (left > (cont.offsetWidth - 250)) left = hs.offsetLeft - 240;
-                    hsCard.style.left = `${left}px`;
-                    hsCard.style.top = `${hs.offsetTop - 50}px`;
-                    hsCard.classList.add('active');
-                }
-            } else if (card) clearTimeout(hideTimeout);
-        });
-
-        document.addEventListener('mouseout', (e) => {
-            if (e.target.closest('.hotspot') || e.target.closest('.hotspot-card')) {
-                hideTimeout = setTimeout(() => hsCard.classList.remove('active'), 300);
-            }
-        });
-    },
 
     initDynamicCards: function() {
         console.log("🎲 Initializing Dynamic Cards...");

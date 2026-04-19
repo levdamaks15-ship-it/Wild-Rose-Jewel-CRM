@@ -1293,8 +1293,17 @@ const productsData = [
     }
 ];
 
-const looksData = [
-    {
+const looksData = [];
+
+if (typeof module !== 'undefined') {
+    module.exports = { productsData, WRJ_CURRENCY_RATES };
+}
+
+/**
+ * Устаревшие данные looksData (удалены для перехода на автоматику)
+ */
+/*
+const looksData_OLD = [
         id: "look-amethyst-sky",
         title: "Аметистовое Небо",
         tagline: "Весенняя коллекция '24",
@@ -1380,7 +1389,4 @@ const looksData = [
         }
     }
 ];
-
-if (typeof module !== 'undefined') {
-    module.exports = { productsData, WRJ_CURRENCY_RATES };
-}
+*/

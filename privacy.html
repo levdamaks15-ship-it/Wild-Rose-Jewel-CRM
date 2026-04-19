@@ -11,7 +11,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="stylesheet" href="style.css?v=13.9">
+
+    <!-- Скрипты -->
+    <script defer src="translations.js"></script>
+    <script defer src="utils.js"></script>
+    <script defer src="components.js"></script>
+    <script defer src="products-data.js?v=5"></script>
+    <script defer src="script.js?v=5"></script>
 </head>
 <body>
     <!-- Навигация (Загружается динамически) -->
@@ -23,8 +30,8 @@
     <!-- Заголовок страницы -->
     <section class="page-header">
         <div class="container">
-            <h1>Политика конфиденциальности</h1>
-            <p>Правовая информация об обработке данных</p>
+            <h1 data-i18n="footer_privacy">Политика конфиденциальности</h1>
+            <p data-i18n="legal_title">Правовая информация об обработке данных</p>
         </div>
     </section>
 
@@ -32,7 +39,7 @@
     <section class="privacy-content" style="padding: 60px 0; max-width: 800px; margin: 0 auto; line-height: 1.8;">
         <div class="container">
             <h3>1. Общие положения</h3>
-            <p>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» (в редакции 2026 года) и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые самозанятым гражданином Ивановым И.И. (далее – Оператор).</p>
+            <p>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» (в редакции 2026 года) и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые самозанятым гражданином Руденко Наталией Владимировной (далее – Оператор).</p>
             
             <h3>2. Цели сбора данных</h3>
             <p>Оператор собирает данные посетителей (включая технические файлы cookie) исключительно в целях ведения веб-аналитики, улучшения качества работы визуальной галереи-портфолио "Мастерская Дикая Роза" и предоставления консультаций по художественным изделиям через сторонние мессенджеры.</p>
@@ -48,7 +55,5 @@
     <!-- Подвал (Загружается динамически) -->
     <footer id="contacts"></footer>
 
-    <script src="components.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
