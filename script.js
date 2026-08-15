@@ -498,9 +498,11 @@ const WRJ_APP = {
 
         const filterBtns = document.querySelectorAll('.filter-btn');
         const seasonBtns = document.querySelectorAll('.season-btn');
+        const mineralChips = document.querySelectorAll('.mineral-chip');
         const searchInput = document.getElementById('catalogSearchInput');
         const clearSearchBtn = document.getElementById('clearSearchBtn');
         let searchQuery = '';
+        let selectedMineral = '';
 
         const lang = this.state.currentLang;
         const cur = this.state.currentCurrency;
@@ -528,21 +530,27 @@ const WRJ_APP = {
             this.toggleAtmosphere(this.state.currentSeason === 'spring' && !searchQuery);
 
             const q = searchQuery.toLowerCase().trim();
+            const mineralQ = selectedMineral.toLowerCase().trim();
 
             const filtered = productsData.filter(p => {
+                const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
+                const searchCorpus = [
+                    t.name || p.name || '',
+                    t.material || p.material || '',
+                    t.collection || p.collection || '',
+                    t.description || p.description || '',
+                    p.category || '',
+                    p.season || '',
+                    p.id || ''
+                ].join(' ').toLowerCase();
+
+                // Фильтр по минералу
+                if (mineralQ && !searchCorpus.includes(mineralQ)) {
+                    return false;
+                }
+
                 // Если есть активный поисковый запрос, ищем по всей базе
                 if (q) {
-                    const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
-                    const searchCorpus = [
-                        t.name || p.name || '',
-                        t.material || p.material || '',
-                        t.collection || p.collection || '',
-                        t.description || p.description || '',
-                        p.category || '',
-                        p.season || '',
-                        p.id || ''
-                    ].join(' ').toLowerCase();
-
                     const matchesSearch = searchCorpus.includes(q);
                     const matchesCategory = (this.state.currentCategory === 'all' || p.category === this.state.currentCategory);
                     return matchesSearch && matchesCategory;
@@ -667,6 +675,16 @@ const WRJ_APP = {
                 behavior: 'smooth'
             });
         };
+
+        // Слушатели для фильтра по минералам
+        mineralChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                mineralChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                selectedMineral = chip.getAttribute('data-mineral') || '';
+                render();
+            });
+        });
 
         seasonBtns.forEach(btn => {
             btn.addEventListener('click', () => {
