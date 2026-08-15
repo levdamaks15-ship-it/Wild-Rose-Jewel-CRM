@@ -277,7 +277,37 @@ const WRJ_TRANSLATIONS = {
         packaging_cloth_title: "Күтімге арналған майлық",
         packaging_cloth_desc: "Родийді, алтын жалатуды жылтыратуға және тастардың жарқылын сақтауға арналған арнайы нәзік микрофибра.",
         packaging_delivery_title: "Қауіпсіз жеткізу",
-        packaging_delivery_desc: "Жолда бұйымның бүтіндігіне кепілдік беретін сенімді тасымалдау қорабы."
+        packaging_delivery_desc: "Жолда бұйымның бүтіндігіне кепілдік беретін сенімді тасымалдау қорабы.",
+
+        // Слайдер Hero (KK)
+        hero_slide1_badge: "100% Қолдан жасалған • Табиғи минералдар",
+        hero_slide1_title: "Wild Rose Jewel",
+        hero_slide1_desc: "Табиғаттың еркін рухымен шабыттанған авторлық зергерлік бұйымдар",
+        hero_slide2_badge: "Авторлық серия • Терең мағына",
+        hero_slide2_title: "Символдар топтамасы",
+        hero_slide2_desc: "Әрбір минерал мен пішіндегі үйлесімділік пен ішкі қуат",
+        hero_slide3_badge: "Мәңгілік классика • 18K Алтын жалату",
+        hero_slide3_title: "Органикалық інжу",
+        hero_slide3_desc: "Барокко інжу-маржанының жұмсақ жарқылы мен родийдің асыл сұлулығы",
+
+        // Философия минералов (KK)
+        philosophy_title: "Табиғаттың асыл философиясы",
+        philosophy_subtitle: "Біз тек таңдаулы табиғи тастарды, органикалық інжуді және гипоаллергенді премиум металдарды қолданамыз",
+        mat_pearl_title: "Органикалық інжу",
+        mat_pearl_desc: "Табиғи асимметрия, барокко пішіндерінің терең жұмсақ жарқылы мен мәңгілік әсемдік.",
+        mat_pearl_tag: "Барокко және тұщы су інжуі",
+        mat_minerals_title: "Табиғи минералдар",
+        mat_minerals_desc: "Қызғылт кварц, ай тасы, агат және аметист — әр тас қайталанбас өрнек пен жылулыққа ие.",
+        mat_minerals_tag: "100% Табиғи тастар",
+        mat_zircon_title: "Зергерлік циркон",
+        mat_zircon_desc: "Бриллианттық қырлау және жарықтың керемет ойыны, әрбір образға ерекше сән береді.",
+        mat_zircon_tag: "Премиум қырлау",
+        mat_plating_title: "18K Алтын және Родий",
+        mat_plating_desc: "Қарайып кетпейтін, айнадай жылтыр сақтайтын және теріге қауіпсіз гипоаллергенді жабын.",
+        mat_plating_tag: "Гипоаллергенді премиум",
+        quality_badge_craft: "100% Авторлық қолөнер",
+        quality_badge_hypo: "Гипоаллергенді жабын",
+        quality_badge_delivery: "Дүниежүзілік жеткізу"
     }
 };
 
@@ -297,7 +327,37 @@ if (WRJ_TRANSLATIONS.ru) {
         packaging_cloth_title: "Салфетка для ухода",
         packaging_cloth_desc: "Специальная микрофибра для деликатной очистки родия, позолоты и камней.",
         packaging_delivery_title: "Надежная доставка",
-        packaging_delivery_desc: "Плотный защитный бокс гарантирует 100% сохранность при транспортировке."
+        packaging_delivery_desc: "Плотный защитный бокс гарантирует 100% сохранность при транспортировке.",
+
+        // Слайдер Hero (RU)
+        hero_slide1_badge: "100% Ручная работа • Натуральные минералы",
+        hero_slide1_title: "Wild Rose Jewel",
+        hero_slide1_desc: "Авторские украшения ручной работы, вдохновленные дикой красотой природы",
+        hero_slide2_badge: "Флагманская серия • Энергия камней",
+        hero_slide2_title: "Коллекция Символы",
+        hero_slide2_desc: "Глубина смыслов, природная гармония и акцент на вашей уникальности",
+        hero_slide3_badge: "Вечная элегантность • Позолота 18K & Родий",
+        hero_slide3_title: "Органический жемчуг",
+        hero_slide3_desc: "Неповторимый барочный жемчуг и благородное сияние гипоаллергенных металлов",
+
+        // Философия минералов (RU)
+        philosophy_title: "Философия природных материалов",
+        philosophy_subtitle: "Мы создаем украшения исключительно из отборных натуральных минералов, жемчуга и премиальных металлов",
+        mat_pearl_title: "Органический жемчуг",
+        mat_pearl_desc: "Природная асимметрия, глубинное перламутровое свечение и непреходящая элегантность барочных форм.",
+        mat_pearl_tag: "Барочный и культивированный жемчуг",
+        mat_minerals_title: "Энергия минералов",
+        mat_minerals_desc: "Розовый кварц, лунный камень, агаты и аметисты — каждый камень хранит миллионы лет природной гармонии.",
+        mat_minerals_tag: "100% Натуральные камни",
+        mat_zircon_title: "Ювелирный циркон",
+        mat_zircon_desc: "Бриллиантовая огранка и непревзойденная игра света, создающая акцент роскоши в каждой детали.",
+        mat_zircon_tag: "Премиальная огранка",
+        mat_plating_title: "Позолота 18K и Родий",
+        mat_plating_desc: "Стойкое гипоаллергенное покрытие, защищающее от потемнения и обеспечивающее зеркальный блеск.",
+        mat_plating_tag: "Гипоаллергенный сплав",
+        quality_badge_craft: "100% Ручная авторская работа",
+        quality_badge_hypo: "Гипоаллергенное покрытие",
+        quality_badge_delivery: "Бережная доставка по миру"
     });
 }
 
@@ -316,7 +376,37 @@ if (WRJ_TRANSLATIONS.en) {
         packaging_cloth_title: "Jewelry Care Cloth",
         packaging_cloth_desc: "Delicate polishing cloth for rhodium, gold, and mineral sparkle.",
         packaging_delivery_title: "Safe Delivery",
-        packaging_delivery_desc: "Protective shipping container ensuring perfect condition upon arrival."
+        packaging_delivery_desc: "Protective shipping container ensuring perfect condition upon arrival.",
+
+        // Hero Slider (EN)
+        hero_slide1_badge: "100% Handcrafted • Natural Minerals",
+        hero_slide1_title: "Wild Rose Jewel",
+        hero_slide1_desc: "Artisan handcrafted jewelry inspired by the wild soul of untouched nature",
+        hero_slide2_badge: "Signature Series • Energy of Gems",
+        hero_slide2_title: "Symbols Collection",
+        hero_slide2_desc: "Profound meaning, organic harmony, and a true celebration of your individuality",
+        hero_slide3_badge: "Timeless Elegance • 18K Gold & Rhodium",
+        hero_slide3_title: "Organic Pearls",
+        hero_slide3_desc: "Exquisite baroque pearls paired with luminous hypoallergenic noble metals",
+
+        // Philosophy of Materials (EN)
+        philosophy_title: "Philosophy of Natural Materials",
+        philosophy_subtitle: "We craft jewelry exclusively with hand-selected natural minerals, organic pearls, and luxury findings",
+        mat_pearl_title: "Organic Pearls",
+        mat_pearl_desc: "Natural asymmetry, deep lustrous iridescence, and timeless beauty of organic baroque forms.",
+        mat_pearl_tag: "Baroque & Cultured Pearls",
+        mat_minerals_title: "Energy of Minerals",
+        mat_minerals_desc: "Rose quartz, moonstone, agates, and amethysts — each gem holds millennia of natural harmony.",
+        mat_minerals_tag: "100% Genuine Gemstones",
+        mat_zircon_title: "Fine Zircon Accents",
+        mat_zircon_desc: "Diamond-grade facet cuts and brilliant light dispersion that add a spark of pure luxury.",
+        mat_zircon_tag: "Diamond Precision Cut",
+        mat_plating_title: "18K Gold & Rhodium",
+        mat_plating_desc: "Durable hypoallergenic plating ensuring lasting mirror shine and skin comfort.",
+        mat_plating_tag: "Hypoallergenic Luxury",
+        quality_badge_craft: "100% Handcrafted Artisan Pieces",
+        quality_badge_hypo: "Hypoallergenic Plating",
+        quality_badge_delivery: "Careful Worldwide Delivery"
     });
 }
 

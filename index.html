@@ -18,14 +18,14 @@
         rel="stylesheet">
 
     <!-- Стили -->
-    <link rel="stylesheet" href="style.css?v=14.0">
+    <link rel="stylesheet" href="style.css?v=15.0">
 
     <!-- Скрипты -->
-    <script defer src="translations.js"></script>
-    <script defer src="utils.js"></script>
-    <script defer src="components.js"></script>
-    <script defer src="products-data.js?v=5"></script>
-    <script defer src="script.js?v=5"></script>
+    <script defer src="translations.js?v=6"></script>
+    <script defer src="utils.js?v=6"></script>
+    <script defer src="components.js?v=6"></script>
+    <script defer src="products-data.js?v=6"></script>
+    <script defer src="script.js?v=6"></script>
 </head>
 
 <body>
@@ -34,27 +34,81 @@
     <!-- Навигация (Загружается динамически) -->
     <header id="mainHeader"></header>
 
-    <!-- Главный блок (Hero) -->
-    <section class="hero" id="heroSection">
-        <!-- Декоративный фоновый оверлей -->
-        <div class="hero-overlay"></div>
+    <!-- Главный блок (Hero Slider) -->
+    <section class="hero hero-slider-section" id="heroSection">
+        <div class="hero-slides-wrapper" id="heroSlidesWrapper">
+            <!-- Slide 1 -->
+            <div class="hero-slide active" data-slide="0" style="--bg-image: url('assets/products/summer/0014_White-Sea-Pearl/necklaces/0014-1_main.webp');">
+                <div class="hero-slide-bg"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="badge-sparkle">✦</span>
+                        <span data-i18n="hero_slide1_badge">100% Ручная работа • Натуральные минералы</span>
+                    </div>
+                    <h1 class="hero-title">Wild Rose <span class="jewel-text">Jewel</span></h1>
+                    <p class="hero-tagline" data-i18n="hero_slide1_desc">Авторские украшения ручной работы, вдохновленные дикой красотой природы</p>
+                    <div class="hero-buttons">
+                        <a href="catalog.html" class="btn-primary hero-cta" data-i18n="hero_btn_catalog">В каталог <span class="arrow">→</span></a>
+                        <a href="#featured" class="btn-secondary hero-secondary-cta" data-i18n="featured_title">Избранное</a>
+                    </div>
+                </div>
+            </div>
 
-        <div class="hero-content" id="heroContent" style="z-index: 2;">
-            <h1 class="hero-title">Wild Rose <span class="jewel-text">Jewel</span></h1>
-            <p class="hero-tagline" data-i18n="hero_tagline">Украшения с дикой душой</p>
-            <div class="hero-buttons">
-                <a href="catalog.html" class="btn-primary hero-cta" data-i18n="hero_btn_catalog">В каталог <span class="arrow">→</span></a>
+            <!-- Slide 2 -->
+            <div class="hero-slide" data-slide="1" style="--bg-image: url('assets/products/symbol/0002_The-White-Lion/sets/0002-5_main.webp');">
+                <div class="hero-slide-bg"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="badge-sparkle">✦</span>
+                        <span data-i18n="hero_slide2_badge">Флагманская серия • Энергия камней</span>
+                    </div>
+                    <h1 class="hero-title" data-i18n="hero_slide2_title">Коллекция Символы</h1>
+                    <p class="hero-tagline" data-i18n="hero_slide2_desc">Глубина смыслов, природная гармония и акцент на вашей уникальности</p>
+                    <div class="hero-buttons">
+                        <a href="catalog.html?season=symbol" class="btn-primary hero-cta" data-i18n="hero_btn_catalog">Смотреть серию <span class="arrow">→</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="hero-slide" data-slide="2" style="--bg-image: url('assets/products/spring/0005_Pearl-fly-bracelet/bracelets/0005-2_look.webp');">
+                <div class="hero-slide-bg"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="badge-sparkle">✦</span>
+                        <span data-i18n="hero_slide3_badge">Вечная элегантность • Позолота 18K & Родий</span>
+                    </div>
+                    <h1 class="hero-title" data-i18n="hero_slide3_title">Органический жемчуг</h1>
+                    <p class="hero-tagline" data-i18n="hero_slide3_desc">Неповторимый барочный жемчуг и благородное сияние гипоаллергенных металлов</p>
+                    <div class="hero-buttons">
+                        <a href="catalog.html?category=bracelets" class="btn-primary hero-cta" data-i18n="hero_btn_catalog">Выбрать изделие <span class="arrow">→</span></a>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Контролы слайдера -->
+        <div class="hero-controls">
+            <button class="hero-arrow prev" id="heroPrevBtn" aria-label="Предыдущий слайд">‹</button>
+            <div class="hero-dots" id="heroDots">
+                <button class="hero-dot active" data-index="0" aria-label="Слайд 1"></button>
+                <button class="hero-dot" data-index="1" aria-label="Слайд 2"></button>
+                <button class="hero-dot" data-index="2" aria-label="Слайд 3"></button>
+            </div>
+            <button class="hero-arrow next" id="heroNextBtn" aria-label="Следующий слайд">›</button>
+        </div>
+
         <!-- Цитата Наталии -->
-        <div class="author-quote" style="z-index: 2;">
+        <div class="author-quote" style="z-index: 3;">
             <p data-i18n="author_quote">«В каждом камне — шепот природы, в каждом изгибе — капля вашей истории.»</p>
             <span class="author-name" data-i18n="author_name">— Наталия, создатель бренда</span>
         </div>
 
         <!-- Индикатор скролла -->
-        <div class="scroll-indicator">
+        <div class="scroll-indicator" style="z-index: 3;">
             <div class="mouse">
                 <div class="wheel"></div>
             </div>
@@ -63,7 +117,7 @@
     </section>
 
     <!-- Избранные изделия (Featured Showcase) -->
-    <section id="featured" class="featured-section">
+    <section id="featured" class="featured-section reveal-on-scroll">
         <div class="container">
             <div class="section-title">
                 <h2 data-i18n="featured_title">Избранные изделия</h2>
@@ -81,8 +135,89 @@
         </div>
     </section>
 
+    <!-- Философия минералов и материалов -->
+    <section id="philosophy" class="philosophy-section reveal-on-scroll">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-i18n="philosophy_title">Философия природных материалов</h2>
+                <div class="underline"></div>
+                <p class="section-subtitle" data-i18n="philosophy_subtitle">Мы создаем украшения исключительно из отборных натуральных минералов, жемчуга и премиальных металлов</p>
+            </div>
+
+            <!-- Бейджи преимуществ -->
+            <div class="quality-badges-row">
+                <div class="quality-badge-item">
+                    <span class="qb-icon">✨</span>
+                    <span class="qb-text" data-i18n="quality_badge_craft">100% Ручная авторская работа</span>
+                </div>
+                <div class="quality-badge-item">
+                    <span class="qb-icon">🛡️</span>
+                    <span class="qb-text" data-i18n="quality_badge_hypo">Гипоаллергенное покрытие</span>
+                </div>
+                <div class="quality-badge-item">
+                    <span class="qb-icon">📦</span>
+                    <span class="qb-text" data-i18n="quality_badge_delivery">Бережная доставка по миру</span>
+                </div>
+            </div>
+
+            <div class="materials-grid">
+                <!-- Карта 1: Жемчуг -->
+                <div class="material-card glassmorphism-card">
+                    <div class="material-card-media">
+                        <img loading="lazy" src="assets/products/summer/0014_White-Sea-Pearl/necklaces/0014-1_main.webp" alt="Органический жемчуг">
+                        <span class="material-tag" data-i18n="mat_pearl_tag">Барочный и культивированный жемчуг</span>
+                    </div>
+                    <div class="material-card-body">
+                        <div class="material-icon">🦪</div>
+                        <h3 data-i18n="mat_pearl_title">Органический жемчуг</h3>
+                        <p data-i18n="mat_pearl_desc">Природная асимметрия, глубинное перламутровое свечение и непреходящая элегантность барочных форм.</p>
+                    </div>
+                </div>
+
+                <!-- Карта 2: Минералы -->
+                <div class="material-card glassmorphism-card">
+                    <div class="material-card-media">
+                        <img loading="lazy" src="assets/products/spring/0001_bablgam/rings/0001-4_main.webp" alt="Энергия минералов">
+                        <span class="material-tag" data-i18n="mat_minerals_tag">100% Натуральные камни</span>
+                    </div>
+                    <div class="material-card-body">
+                        <div class="material-icon">💎</div>
+                        <h3 data-i18n="mat_minerals_title">Энергия минералов</h3>
+                        <p data-i18n="mat_minerals_desc">Розовый кварц, лунный камень, агаты и аметисты — каждый камень хранит миллионы лет природной гармонии.</p>
+                    </div>
+                </div>
+
+                <!-- Карта 3: Цирконы -->
+                <div class="material-card glassmorphism-card">
+                    <div class="material-card-media">
+                        <img loading="lazy" src="assets/products/symbol/0012_Mishka/earrings/0012-3_main.webp" alt="Ювелирный циркон">
+                        <span class="material-tag" data-i18n="mat_zircon_tag">Премиальная огранка</span>
+                    </div>
+                    <div class="material-card-body">
+                        <div class="material-icon">✨</div>
+                        <h3 data-i18n="mat_zircon_title">Ювелирный циркон</h3>
+                        <p data-i18n="mat_zircon_desc">Бриллиантовая огранка и непревзойденная игра света, создающая акцент роскоши в каждой детали.</p>
+                    </div>
+                </div>
+
+                <!-- Карта 4: Позолота и Родий -->
+                <div class="material-card glassmorphism-card">
+                    <div class="material-card-media">
+                        <img loading="lazy" src="assets/products/symbol/0011_Cleopatra/necklaces/0011-1_main.webp" alt="Позолота 18K и Родий">
+                        <span class="material-tag" data-i18n="mat_plating_tag">Гипоаллергенный сплав</span>
+                    </div>
+                    <div class="material-card-body">
+                        <div class="material-icon">👑</div>
+                        <h3 data-i18n="mat_plating_title">Позолота 18K и Родий</h3>
+                        <p data-i18n="mat_plating_desc">Стойкое гипоаллергенное покрытие, защищающее от потемнения и обеспечивающее зеркальный блеск.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Категории товаров / Коллекции -->
-    <section id="catalog" class="collections">
+    <section id="catalog" class="collections reveal-on-scroll">
         <div class="container">
             <div class="section-title">
                 <h2 data-i18n="collections_title">Наши Коллекции</h2>
@@ -151,7 +286,7 @@
     </section>
 
     <!-- О создателе -->
-    <section id="about" class="about">
+    <section id="about" class="about reveal-on-scroll">
         <div class="container">
             <div class="about-content">
                 <div class="about-image">
@@ -169,7 +304,7 @@
     </section>
 
     <!-- Фирменная упаковка -->
-    <section id="packaging" class="packaging-section">
+    <section id="packaging" class="packaging-section reveal-on-scroll">
         <div class="container">
             <div class="section-title">
                 <h2 data-i18n="packaging_title">Премиальная упаковка</h2>
@@ -234,7 +369,7 @@
     </section>
 
     <!-- Ответы на вопросы (FAQ) -->
-    <section id="faq" class="faq">
+    <section id="faq" class="faq reveal-on-scroll">
         <div class="container">
             <div class="section-title">
                 <h2 data-i18n="faq_title">Вопросы и ответы</h2>

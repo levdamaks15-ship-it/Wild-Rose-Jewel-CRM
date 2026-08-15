@@ -263,6 +263,8 @@ const WRJ_APP = {
         this.initHeaderLogic();
         this.initCartDrawer();
         this.initSidebarLogic();
+        this.initHeroSlider();
+        this.initScrollReveal();
         this.initCatalogLogic();
         this.initFeaturedShowcase();
         this.initDynamicCards();
@@ -863,6 +865,126 @@ const WRJ_APP = {
                 };
             }
         });
+    },
+
+    initHeroSlider: function() {
+        const sliderWrapper = document.getElementById('heroSlidesWrapper');
+        if (!sliderWrapper) return;
+
+        const slides = sliderWrapper.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.hero-dot');
+        const prevBtn = document.getElementById('heroPrevBtn');
+        const nextBtn = document.getElementById('heroNextBtn');
+        
+        if (slides.length <= 1) return;
+
+        let currentIndex = 0;
+        let slideInterval = null;
+        let isPaused = false;
+
+        const showSlide = (index) => {
+            currentIndex = (index + slides.length) % slides.length;
+            slides.forEach((slide, i) => {
+                if (i === currentIndex) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            dots.forEach((dot, i) => {
+                if (i === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        };
+
+        const nextSlide = () => showSlide(currentIndex + 1);
+        const prevSlide = () => showSlide(currentIndex - 1);
+
+        const resetTimer = () => {
+            if (slideInterval) clearInterval(slideInterval);
+            startTimer();
+        };
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                resetTimer();
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                resetTimer();
+            });
+        }
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                showSlide(i);
+                resetTimer();
+            });
+        });
+
+        const startTimer = () => {
+            slideInterval = setInterval(() => {
+                if (!isPaused) nextSlide();
+            }, 6000);
+        };
+
+        const heroSection = document.getElementById('heroSection');
+        if (heroSection) {
+            heroSection.addEventListener('mouseenter', () => { isPaused = true; });
+            heroSection.addEventListener('mouseleave', () => { isPaused = false; });
+
+            // Touch swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            heroSection.addEventListener('touchstart', (e) => {
+                if (e.changedTouches && e.changedTouches.length > 0) {
+                    touchStartX = e.changedTouches[0].screenX;
+                }
+            }, { passive: true });
+
+            heroSection.addEventListener('touchend', (e) => {
+                if (e.changedTouches && e.changedTouches.length > 0) {
+                    touchEndX = e.changedTouches[0].screenX;
+                    const diff = touchStartX - touchEndX;
+                    if (Math.abs(diff) > 40) {
+                        if (diff > 0) nextSlide();
+                        else prevSlide();
+                        resetTimer();
+                    }
+                }
+            }, { passive: true });
+        }
+
+        startTimer();
+    },
+
+    initScrollReveal: function() {
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        if (revealElements.length === 0) return;
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+            revealElements.forEach(el => observer.observe(el));
+        } else {
+            revealElements.forEach(el => el.classList.add('is-revealed'));
+        }
     },
 
     initCookieBanner: function() {
