@@ -507,13 +507,19 @@ header.scrolled .header-nav {
 
 .hero {
     height: 100vh;
+    min-height: 650px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    background: var(--brand-cream);
-    /* Убираем темную подложку, чтобы не было черной линии на стыке */
+    background-color: var(--brand-cream);
+    background-image: 
+        radial-gradient(ellipse at center, rgba(249, 247, 240, 0.75) 0%, rgba(244, 238, 224, 0.92) 70%, rgba(235, 226, 208, 0.98) 100%),
+        url('assets/rose_bg.png');
+    background-position: center;
+    background-size: cover, 450px;
+    background-repeat: no-repeat, repeat;
     border-bottom: 1px solid var(--border-color) !important;
     box-shadow: none !important;
 }
@@ -526,32 +532,12 @@ header.scrolled .header-nav {
     font-family: var(--font-heading);
     font-size: clamp(8rem, 20vw, 25rem);
     font-weight: 700;
-    color: rgba(138, 21, 27, 0.04);
+    color: rgba(138, 21, 27, 0.03);
     white-space: nowrap;
     z-index: 0;
     pointer-events: none;
     user-select: none;
     letter-spacing: -0.02em;
-}
-
-.hero-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: translate(-50%, -50%);
-    opacity: 0.8 !important;
-    /* Базовая прозрачность */
-    z-index: 0;
-    transition: opacity 0.5s ease-in-out;
-    /* Время для затухания */
-}
-
-.hero-video.fading {
-    opacity: 0 !important;
-    /* Уход в фон в конце цикла */
 }
 
 .hero-overlay {
@@ -560,8 +546,8 @@ header.scrolled .header-nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(249, 247, 240, 0.25);
-    /* Однородная легкая дымка цвета бренда */
+    background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.5) 0%, rgba(249, 247, 240, 0) 65%);
+    pointer-events: none;
     z-index: 1;
 }
 
