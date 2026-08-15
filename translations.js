@@ -6,7 +6,6 @@ const WRJ_TRANSLATIONS = {
     ru: {
         nav_home: "Главная",
         nav_catalog: "Каталог",
-        nav_lookbook: "Образы",
         nav_about: "О нас",
         nav_faq: "Ответы",
         btn_details: "Узнать подробности",
@@ -41,7 +40,6 @@ const WRJ_TRANSLATIONS = {
         hero_ru_title: "Мастерская Дикая Роза",
         hero_tagline: "Украшения с дикой душой",
         hero_btn_catalog: "В каталог",
-        hero_btn_lookbook: "Смотреть образы",
         author_quote: "«В каждом камне — шепот природы, в каждом изгибе — капля вашей истории.»",
         author_name: "— Наталия, создатель бренда",
         scroll_text: "Листайте вниз",
@@ -77,12 +75,10 @@ const WRJ_TRANSLATIONS = {
 
         // Titles
         catalog_main_title: "Каталог украшений",
-        lookbook_main_title: "Каталог образов",
 
         // Meta
         meta_index: "Мастерская Дикая Роза - эксклюзивные украшения ручной работы из натуральных камней.",
         meta_catalog: "Каталог украшений Мастерской Дикая Роза. Ручная работа, натуральные камни.",
-        meta_lookbook: "Каталог образов Мастерской Дикая Роза. Посмотрите, как наши изделия дополняют ваш стиль.",
         
         // New items
         logo_name: "Мастерская Дикая Роза",
@@ -91,14 +87,11 @@ const WRJ_TRANSLATIONS = {
         footer_inn: "ИНН: 101501509497",
         footer_privacy: "Политика конфиденциальности",
         footer_copyright: "© 2026 Мастерская Дикая Роза / Wild Rose Jewel. Все права защищены. Сделано с любовью.",
-        empty_lookbook: "Нет образов для выбранного фильтра",
-        coming_soon: "Скоро здесь будет новая коллекция...",
-        look_btn: "Образ"
+        coming_soon: "Скоро здесь будет новая коллекция..."
     },
     en: {
         nav_home: "Home",
         nav_catalog: "Catalog",
-        nav_lookbook: "Lookbook",
         nav_about: "About Us",
         nav_faq: "FAQ",
         btn_details: "Details",
@@ -129,7 +122,6 @@ const WRJ_TRANSLATIONS = {
         hero_ru_title: "Wild Rose Workshop",
         hero_tagline: "Jewelry with a wild soul",
         hero_btn_catalog: "To Catalog",
-        hero_btn_lookbook: "View Looks",
         author_quote: "«In every stone — the whisper of nature, in every curve — a drop of your story.»",
         author_name: "— Natalia, Brand Creator",
         scroll_text: "Scroll Down",
@@ -165,12 +157,10 @@ const WRJ_TRANSLATIONS = {
 
         // Titles
         catalog_main_title: "Jewelry Catalog",
-        lookbook_main_title: "Lookbook Catalog",
 
         // Meta
         meta_index: "Wild Rose Workshop - exclusive handmade jewelry from natural stones.",
         meta_catalog: "Wild Rose Jewelry Catalog. Handmade, natural stones.",
-        meta_lookbook: "Wild Rose Lookbook. See how our products complement your style.",
 
         // New items
         logo_name: "Wild Rose Workshop",
@@ -179,14 +169,11 @@ const WRJ_TRANSLATIONS = {
         footer_inn: "Tax ID: 101501509497",
         footer_privacy: "Privacy Policy",
         footer_copyright: "© 2026 Wild Rose Workshop / Wild Rose Jewel. All rights reserved. Made with love.",
-        empty_lookbook: "No looks found for this filter",
-        coming_soon: "New collection coming soon...",
-        look_btn: "Look"
+        coming_soon: "New collection coming soon..."
     },
     kk: {
         nav_home: "Басты бет",
         nav_catalog: "Каталог",
-        nav_lookbook: "Бейнелер",
         nav_about: "Біз туралы",
         nav_faq: "Сұрақ-жауап",
         btn_details: "Толығырақ",
@@ -221,7 +208,6 @@ const WRJ_TRANSLATIONS = {
         hero_ru_title: "Жабайы раушан шеберханасы",
         hero_tagline: "Жабайы жанды әшекейлер",
         hero_btn_catalog: "Каталогқа",
-        hero_btn_lookbook: "Бейнелерді көру",
         author_quote: "«Әр таста — табиғат сыбыры, әр иілімде — сіздің тарихыңыздың тамшысы.»",
         author_name: "— Наталия, бренд негізін қалаушы",
         scroll_text: "Төмен қарай жылжыңыз",
@@ -257,12 +243,10 @@ const WRJ_TRANSLATIONS = {
 
         // Titles
         catalog_main_title: "Зергерлік бұйымдар каталогы",
-        lookbook_main_title: "Бейнелер каталогы",
 
         // Meta
         meta_index: "Жабайы раушан шеберханасы - табиғи тастардан жасалған эксклюзивті қолдан жасалған әшекейлер.",
         meta_catalog: "Жабайы раушан зергерлік бұйымдар каталогы. Қолдан жасалған, табиғи тастар.",
-        meta_lookbook: "Жабайы раушан бейнелері. Біздің өнімдер сіздің стиліңізді қалай толықтыратынын көріңіз.",
 
         // New items
         logo_name: "Жабайы раушан шеберханасы",
@@ -271,9 +255,7 @@ const WRJ_TRANSLATIONS = {
         footer_inn: "ЖСН: 101501509497",
         footer_privacy: "Құпиялылық саясаты",
         footer_copyright: "© 2026 Жабайы раушан шеберханасы / Wild Rose Jewel. Барлық құқықтар қорғалған. Махаббатпен жасалған.",
-        empty_lookbook: "Таңдалған фильтр үшін бейнелер табылмады",
         coming_soon: "Жақында мұнда жаңа топтама болады...",
-        look_btn: "Бейне",
 
         // Quick order & Search & Packaging
         btn_quick_order: "WhatsApp-пен тапсырыс",

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const files = ['index.html', 'catalog.html', 'lookbook.html'];
+const files = ['index.html', 'catalog.html'];
 
 for (const f of files) {
     if (!fs.existsSync(f)) continue;

@@ -100,7 +100,7 @@ const WRJ_UTILS = {
     /**
      * Валидация всей базы данных (Health Check)
      */
-    runHealthCheck: function(products, looks) {
+    runHealthCheck: function(products) {
         console.group('%c[WRJ HEALTH CHECK]', 'color: #c09a53; font-weight: bold; font-size: 14px;');
         
         let errors = 0;
@@ -127,20 +127,6 @@ const WRJ_UTILS = {
                     console.warn(`⚠️ Product ${p.id} uses non-WebP format: ${p.mainImage}`);
                     warnings++;
                 }
-            });
-        }
-
-        if (looks) {
-            console.log(`🖼️ Total Looks: ${looks.length}`);
-            looks.forEach(l => {
-                if (!l.id) console.error(`❌ Look missing ID`);
-                l.hotspots.forEach(hs => {
-                    const linked = products.find(p => p.id === hs.productId);
-                    if (!linked) {
-                        console.error(`❌ Look ${l.id} refers to non-existent product: ${hs.productId}`);
-                        errors++;
-                    }
-                });
             });
         }
 

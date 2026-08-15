@@ -71,32 +71,15 @@ a {
     transition: var(--transition-smooth);
 }
 
-/* Фикс для страниц каталога и образов (чтобы не уползал под фиксированный хедер) */
+/* Фикс для страницы каталога (чтобы не уползал под фиксированный хедер) */
 .catalog-page {
     padding-top: 100px;
-}
-
-.lookbook-page {
-    padding-top: 100px;
-    /* Как в каталоге */
 }
 
 .catalog-page .page-header {
     padding-top: 50px;
     padding-bottom: 20px;
     text-align: center;
-}
-
-.lookbook-page .page-header {
-    /* Осевая центровка и подгон под размер фразы */
-    padding-top: 50px;
-    padding-bottom: 20px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: auto;
-    /* Снимаем глобальные ограничения */
 }
 
 /* --- Layout --- */
@@ -118,8 +101,7 @@ body {
     width: 100%;
 }
 
-.catalog-page .container,
-.lookbook-page .container {
+.catalog-page .container {
     max-width: 1400px;
 }
 
@@ -903,95 +885,12 @@ header.scrolled .header-nav {
 
 
 
-.album-viewport {
-    height: calc(100vh - 255px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.thumbnails-sidebar,
-.filters-sidebar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.thumbnails-sidebar img {
-    display: block;
-    margin: 0 auto;
-}
-
 .season-btn,
 .filter-btn {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-}
-
-footer {
-    background: var(--brand-cream);
-    color: var(--brand-burgundy);
-    padding: 40px 0 20px;
-    /* Сделали компактнее: верх 40, низ 20 */
-    border-top: 2px solid var(--brand-gold);
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
-    margin-bottom: 30px;
-    align-items: flex-start !important;
-    /* Убираем центрирование, чтобы выровнять по тексту */
-}
-
-.footer-logo img {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    filter: none;
-    margin-bottom: 20px;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
-    margin-bottom: 30px;
-    align-items: flex-start !important;
-}
-
-.footer-links-aligned {
-    padding-top: 120px;
-}
-
-/* Одинаковый шрифт для всего подвала */
-footer,
-footer * {
-    font-family: var(--font-body) !important;
-    font-size: 0.95rem !important;
-}
-
-footer strong {
-    font-weight: 600 !important;
-    color: var(--brand-burgundy);
-}
-
-/* Удаление 'призраков', растягивающих страницу */
-
-
-.look-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2000;
 }
 
 .footer-links ul {
@@ -1094,15 +993,6 @@ footer {
 .catalog-section {
     padding: 20px 0 80px;
     /* Подняли категории выше (сверху 20px вместо 80px) */
-}
-
-.lookbook-page .catalog-section {
-    padding-top: 20px;
-    padding-bottom: 40px;
-}
-
-.look-filters-section {
-    padding: 10px 0;
 }
 
 /* --- Сезонные фильтры --- */
@@ -1316,66 +1206,7 @@ footer {
     font-size: 1.1rem;
 }
 
-/* Минималистичная кнопка "ОБРАЗ" в углу карточки */
-.look-link {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(138, 21, 27, 0.8);
-    /* Чуть прозрачнее */
-    backdrop-filter: blur(4px);
-    color: #fff;
-    padding: 5px 10px;
-    /* Уменьшили отступы */
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.65rem;
-    /* Уменьшили шрифт */
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-radius: 20px;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(5px);
-    transition: var(--transition-smooth);
-    z-index: 10;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-}
 
-.product-card:hover .look-link {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.look-link:hover {
-    background: var(--brand-gold);
-}
-
-.eye-icon {
-    width: 10px;
-    /* Уменьшили иконку */
-    height: 10px;
-    border: 1px solid currentColor;
-    border-radius: 50% 10%;
-    position: relative;
-    transform: rotate(45deg);
-    display: block;
-}
-
-.eye-icon::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 3px;
-    /* Уменьшили зрачок */
-    height: 3px;
-    background: currentColor;
-    border-radius: 50%;
-}
 
 /* --- Packaging Banner --- */
 .packaging-banner {
@@ -1572,118 +1403,7 @@ footer {
     background: #cba87c;
 }
 
-/* --- Lookbook Page --- */
-.look-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 50px;
-    margin-bottom: 80px;
-    background: rgba(44, 26, 26, 0.6);
-    border: 1px solid var(--border-color);
-    padding: 30px;
-    border-radius: 4px;
-}
 
-.look-item.reverse {
-    flex-direction: row-reverse;
-}
-
-.look-item .look-image {
-    flex: 1;
-    max-width: 400px;
-}
-
-.look-item .look-image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.look-item .look-content {
-    flex: 1;
-    max-width: 500px;
-}
-
-.look-item .look-content h2 {
-    color: var(--brand-gold);
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-}
-
-.look-speech {
-    color: var(--brand-cream);
-    font-size: 1.1rem;
-    font-style: italic;
-    margin-bottom: 30px;
-    line-height: 1.8;
-}
-
-/* --- Look Modal --- */
-.look-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(30, 17, 17, 0.95);
-    z-index: 3000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: var(--transition-smooth);
-}
-
-.look-modal.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.look-modal .close-modal {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    color: var(--brand-gold);
-    font-size: 3rem;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-}
-
-.look-modal .close-modal:hover {
-    color: #fff;
-    transform: rotate(90deg);
-}
-
-.look-modal .modal-content {
-    text-align: center;
-    max-width: 90%;
-    max-height: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.look-modal .modal-content img {
-    max-height: 70vh;
-    border: 2px solid var(--brand-gold);
-    box-shadow: 0 0 40px rgba(192, 154, 83, 0.2);
-    border-radius: 4px;
-}
-
-.look-modal .modal-caption {
-    display: none;
-    margin-top: 20px;
-    color: var(--brand-cream);
-    font-size: 1.2rem;
-    font-family: var(--font-heading);
-    font-style: italic;
-    max-width: 600px;
-}
 
 /* --- Responsive --- */
 
@@ -1924,35 +1644,6 @@ footer {
         /* Идеальное попадание, подтвержденное ранее */
     }
 
-    .lookbook-page .page-header {
-        padding: 10px 0 15px !important;
-        /* Идеальный баланс (копия с каталога) */
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        min-height: auto !important;
-        text-align: center !important;
-    }
-
-    .lookbook-page .page-header .section-title {
-        margin-bottom: 0 !important;
-        /* Убираем гигантский отступ снизу */
-    }
-
-    .lookbook-page .page-header h1 {
-        font-size: 1.6rem !important;
-        margin-bottom: 2px !important;
-        line-height: 1.1 !important;
-        gap: 15px;
-    }
-
-    .lookbook-page .page-header h1::before,
-    .lookbook-page .page-header h1::after {
-        flex: 0 1 40px;
-        transform: translateY(0.15em) !important;
-        /* Идеальное оптическое смещение */
-    }
-
     .sidebar-menu {
         width: 280px;
         border-right: 2px solid var(--brand-gold);
@@ -2000,20 +1691,8 @@ footer {
         width: 100%;
     }
 
-    .look-item,
-    .look-item.reverse {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
-
-    .look-modal .modal-content img {
-        max-width: 100%;
-    }
-
-    /* --- Catalog & Lookbook Page Mobile fixes --- */
-    .catalog-page,
-    .lookbook-page {
+    /* --- Catalog Page Mobile fixes --- */
+    .catalog-page {
         padding-top: 70px;
         /* Было 100px, теперь аккуратно под хедер 65px */
     }
@@ -2126,10 +1805,6 @@ footer {
         height: auto !important;
     }
 
-    .lookbook-page .filter-bar {
-        margin-bottom: 5px;
-    }
-
     .season-btn.active,
     .filter-btn.active {
         background: var(--brand-burgundy) !important;
@@ -2160,368 +1835,7 @@ footer {
 
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
-/* --- Smart Lookbook UI additions --- */
-.look-filters-section {
-    border-bottom: none;
-    /* Убрали линию */
-    padding: 0;
-}
 
-@media (min-width: 769px) {
-    .lookbook-page .season-filter {
-        margin-bottom: 4px;
-        padding-bottom: 4px;
-    }
-
-    .lookbook-page .filter-bar {
-        margin-bottom: 10px;
-    }
-}
-
-/* --- 3D Album Logic (One View) --- */
-.lookbook-main-area {
-    display: flex;
-    flex-direction: row;
-    /* Навигация слева */
-    align-items: center;
-    /* Центрируем всё по вертикали */
-    justify-content: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 0;
-}
-
-.album-viewport {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 20px;
-    height: 600px;
-    position: relative;
-    flex: 1;
-    perspective: 1500px;
-}
-
-.album-book {
-    position: relative;
-    width: 440px;
-    height: 580px;
-    transform-style: preserve-3d;
-}
-
-.album-thumbnails-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* Центрируем по вертикали относительно колоды */
-    align-items: center;
-    gap: 10px;
-    padding: 0 15px;
-    width: 80px;
-    height: 500px;
-    overflow-y: auto;
-    scrollbar-width: none;
-    z-index: 100;
-}
-
-.album-thumbnails-bottom::-webkit-scrollbar {
-    display: none;
-}
-
-/* Все старые переопределения для лукбука удалены для полной синхронизации с главным каталогом */
-
-@media (min-width: 769px) {
-    .lookbook-page .season-filter {
-        margin-bottom: 40px !important;
-    }
-}
-
-.look-thumb {
-    width: 45px;
-    height: 60px;
-    border-radius: 3px;
-    flex-shrink: 0;
-    overflow: hidden;
-    cursor: pointer;
-    border: 1px solid rgba(192, 154, 83, 0.15);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0.5;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.look-thumb:hover {
-    opacity: 1;
-    transform: translateY(-5px);
-    border-color: var(--brand-gold);
-}
-
-.look-thumb.active {
-    border-color: var(--brand-gold);
-    opacity: 1;
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.look-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.look-card {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
-    cursor: grab;
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s ease;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(192, 154, 83, 0.1);
-}
-
-.look-card:active {
-    cursor: grabbing;
-}
-
-/* Кнопки навигации */
-.album-nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: auto;
-    height: auto;
-    background: transparent;
-    /* Убрали круг */
-    border: none;
-    color: var(--brand-burgundy);
-    /* Бордовый символ */
-    font-size: 2.8rem;
-    /* Крупнее и изящнее */
-    font-weight: 300;
-    cursor: pointer;
-    z-index: 200;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    padding: 0;
-    opacity: 0.7;
-}
-
-.album-nav-btn:hover {
-    color: var(--brand-gold);
-    opacity: 1;
-    transform: translateY(-50%) scale(1.15);
-}
-
-.album-nav-btn.prev:hover {
-    transform: translateY(-50%) scale(1.15) translateX(-5px);
-    /* Легкое смещение влево */
-}
-
-.album-nav-btn.next:hover {
-    transform: translateY(-50%) scale(1.15) translateX(5px);
-    /* Легкое смещение вправо */
-}
-
-.album-nav-btn.prev {
-    left: calc(50% - 270px);
-}
-
-.album-nav-btn.next {
-    right: calc(50% - 270px);
-}
-
-@media (max-width: 768px) {
-    .album-nav-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 1rem;
-    }
-
-    .album-nav-btn.prev {
-        left: -45px;
-    }
-
-    .album-nav-btn.next {
-        right: -45px;
-    }
-}
-
-/* Stack: Top, Middle, Bottom */
-.look-card.top {
-    z-index: 10;
-    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-    opacity: 1;
-}
-
-.look-card.mid {
-    z-index: 5;
-    transform: translate3d(0, -15px, -20px) scale(1) rotate(1deg);
-    opacity: 0.95;
-}
-
-.look-card.bottom {
-    z-index: 1;
-    transform: translate3d(0, -60px, -80px) scale(0.9) rotate(-1.5deg);
-    opacity: 0.5;
-}
-
-.look-card.hidden {
-    opacity: 0;
-    pointer-events: none;
-    transform: translate3d(0, -100px, -150px) scale(0.8);
-}
-
-/* Swipe Exit Animations */
-.look-card.exit-right {
-    transform: translate3d(150%, -50px, 0) rotate(30deg) !important;
-    opacity: 0 !important;
-}
-
-.look-card.exit-left {
-    transform: translate3d(-150%, -50px, 0) rotate(-30deg) !important;
-    opacity: 0 !important;
-}
-
-.look-card-image {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-.look-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Кнопка быстрой покупки на карточке образа */
-.look-card-buy {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 48px;
-    height: 48px;
-    background: rgba(44, 26, 26, 0.4); /* Темная подложка для читаемости на любом фото */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 1000;
-    padding: 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.look-card-buy:hover {
-    background: var(--brand-gold);
-    transform: scale(1.15) rotate(-5deg);
-    border-color: var(--brand-gold-light);
-    color: var(--brand-text);
-}
-
-.look-card-buy svg {
-    width: 22px;
-    height: 22px;
-    fill: currentColor;
-}
-
-.look-card-buy.added {
-    background: var(--brand-burgundy);
-    border-color: var(--brand-burgundy);
-    color: #fff;
-}
-
-
-.look-card-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 30px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
-    color: #fff;
-    pointer-events: none;
-    transform: translateY(20px);
-    opacity: 0;
-    transition: all 0.5s ease 0.2s;
-}
-
-.look-card.top .look-card-info {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.look-card-info .season-tag {
-    font-family: 'Great Vibes', cursive;
-    font-size: clamp(1.4rem, 4vw, 1.8rem);
-    color: var(--brand-gold-light);
-    display: block;
-    margin-bottom: 2px;
-    opacity: 1;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-.look-card-info h3 {
-    font-size: clamp(1.4rem, 4vw, 2.2rem);
-    margin-bottom: 12px;
-    letter-spacing: -0.01em;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    line-height: 1.1;
-}
-
-.look-card-info p {
-    display: none;
-    /* Убрали описание для чистоты стиля */
-}
-
-@media (max-width: 768px) {
-    .lookbook-main-area {
-        flex-direction: column-reverse;
-        /* На мобилках миниатюры снизу */
-        align-items: center;
-    }
-
-    .album-thumbnails-left {
-        flex-direction: row;
-        width: 100%;
-        height: auto;
-        padding: 10px 0;
-        overflow-x: auto;
-    }
-
-    .album-viewport {
-        height: 480px;
-        padding: 0;
-        margin-top: -30px;
-        /* Приподнимаем карточки на мобильных */
-    }
-
-    .album-book {
-        width: 290px;
-        height: 400px;
-    }
-}
-
-@media (max-width: 768px) {
-    .look-explorer-container {
-        margin-top: 20px;
-    }
-}
 
 /* --- Language Switcher --- */
 .lang-switcher {

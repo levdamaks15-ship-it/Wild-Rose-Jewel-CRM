@@ -16,7 +16,6 @@ const WRJ_COMPONENTS = {
                     <ul>
                         <li><a href="index.html" data-i18n="nav_home">Главная</a></li>
                         <li><a href="catalog.html" data-i18n="nav_catalog">Каталог</a></li>
-                        <li><a href="lookbook.html" data-i18n="nav_lookbook">Образы</a></li>
                         <li><a href="index.html#about" data-i18n="nav_about">О нас</a></li>
                         <li><a href="index.html#faq" data-i18n="nav_faq">Ответы</a></li>
                     </ul>
@@ -50,7 +49,6 @@ const WRJ_COMPONENTS = {
                 <ul class="sidebar-links">
                     <li><a href="index.html" data-i18n="nav_home">Главная</a></li>
                     <li><a href="catalog.html" data-i18n="nav_catalog">Каталог</a></li>
-                    <li><a href="lookbook.html" data-i18n="nav_lookbook">Образы</a></li>
                     <li><a href="index.html#about" class="page-link" data-i18n="nav_about">О нас</a></li>
                     <li><a href="index.html#faq" class="page-link" data-i18n="nav_faq">Ответы</a></li>
                 </ul>
@@ -95,9 +93,6 @@ const WRJ_COMPONENTS = {
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.301-.15-1.767-.872-2.04-.971-.272-.1-.47-.15-.665.15-.195.3-.757.942-.927 1.137-.17.194-.339.219-.64.07-.3-.15-1.263-.465-2.403-1.485-.888-.792-1.487-1.77-1.662-2.07-.174-.3-.019-.462.13-.61.135-.133.301-.35.452-.52.15-.174.198-.298.3-.497.101-.198.05-.371-.026-.52-.075-.149-.665-1.604-.911-2.198-.239-.575-.483-.498-.665-.507-.172-.008-.368-.01-.564-.01-.196 0-.516.075-.785.371-.27.298-1.026 1.003-1.026 2.446 0 1.443 1.05 2.84 1.196 3.037.147.198 2.067 3.155 5.006 4.43.7.303 1.246.484 1.673.619.704.224 1.345.193 1.851.118.564-.084 1.767-.721 2.017-1.417.25-.694.25-1.289.175-1.416-.075-.126-.276-.198-.57-.348h-.001zm-5.437 7.02c-1.802 0-3.57-.487-5.11-1.405L2.8 21.042l1.085-3.992a9.61 9.61 0 01-1.278-4.83c0-5.304 4.316-9.617 9.632-9.617 2.578 0 5.002 1.002 6.824 2.825a9.61 9.61 0 012.822 6.827c0 5.304-4.314 9.617-9.63 9.617h-.001zM12.03 0C5.385 0 .012 5.371.012 12.013c0 2.126.552 4.197 1.604 6.02L0 24l6.143-1.61c1.766 1.025 3.774 1.566 5.86 1.566h.01C18.667 23.956 24 18.585 24 11.933c0-3.226-1.257-6.257-3.535-8.536A11.94 11.94 0 0012.03 0z"/></svg>
                         </a>
                     </div>
-                </div>1.61c1.766 1.025 3.774 1.566 5.86 1.566h.01C18.667 23.956 24 18.585 24 11.933c0-3.226-1.257-6.257-3.535-8.536A11.94 11.94 0 0012.03 0z"/></svg>
-                        </a>
-                    </div>
                 </div>
 
             </div>
@@ -109,17 +104,6 @@ const WRJ_COMPONENTS = {
     `,
 
     common: `
-        <!-- Модальное окно Образы -->
-
-        <!-- Модальное окно Образы -->
-        <div id="lookModal" class="look-modal">
-            <span class="close-modal" id="closeLookModal">&times;</span>
-            <div class="modal-content">
-                <img id="lookModalImg" src="" alt="Образ модели">
-                <div class="modal-caption" id="lookModalCaption"></div>
-            </div>
-        </div>
-        
         <!-- Оверлей корзины -->
         <div class="cart-overlay" id="cartOverlay"></div>
         <!-- Боковая панель корзины -->

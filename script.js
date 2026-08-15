@@ -251,7 +251,7 @@ const WRJ_APP = {
 
         // 1. Проверка здоровья данных
         if (typeof WRJ_UTILS !== 'undefined' && typeof productsData !== 'undefined') {
-            WRJ_UTILS.runHealthCheck(productsData, typeof looksData !== 'undefined' ? looksData : null);
+            WRJ_UTILS.runHealthCheck(productsData);
         }
 
         // 2. Язык и параметры
@@ -264,7 +264,6 @@ const WRJ_APP = {
         this.initCartDrawer();
         this.initSidebarLogic();
         this.initCatalogLogic();
-        this.initAlbumLogic();
         this.initDynamicCards();
         this.initCookieBanner();
         this.initVideoLoop();
@@ -594,7 +593,6 @@ const WRJ_APP = {
                 card.innerHTML = `
                     <div class="product-image">
                         <img src="${p.mainImage}" alt="${WRJ_UTILS.sanitize(name)}" loading="lazy">
-                        ${p.lookModel ? `<div class="look-link" data-model="${p.lookModel}"><span>${WRJ_UTILS.t('look_btn', lang)}</span></div>` : ''}
                     </div>
                     <div class="product-info">
                         <h3>${collection}${WRJ_UTILS.sanitize(name)}</h3>
@@ -687,7 +685,6 @@ const WRJ_APP = {
         });
 
         render();
-        this.initLookModal(grid);
     },
 
     toggleAtmosphere: function(show) {
@@ -742,236 +739,7 @@ const WRJ_APP = {
         }
     },
 
-    initLookModal: function(grid) {
-        const modal = document.getElementById('lookModal');
-        const img = document.getElementById('lookModalImg');
-        const caption = document.getElementById('lookModalCaption');
-        
-        if (!grid || !modal) return;
 
-        grid.addEventListener('click', (e) => {
-            const link = e.target.closest('.look-link');
-            if (link) {
-                img.src = link.getAttribute('data-model');
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
-
-        const close = () => { modal.classList.remove('active'); document.body.style.overflow = ''; };
-        document.getElementById('closeLookModal')?.addEventListener('click', close);
-        modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
-    },
-
-    initAlbumLogic: function() {
-        const album = document.getElementById('luxuryAlbum');
-        const filterBtns = document.querySelectorAll('#lookFilters .filter-btn');
-        const seasonNavItems = document.querySelectorAll('#lookSeasons .season-btn');
-
-        if (!album || typeof productsData === 'undefined') return;
-
-        const lang = this.state.currentLang;
-        
-        // --- ДИНАМИЧЕСКАЯ ГЕНЕРАЦИЯ ОБРАЗОВ ---
-        // Собираем все товары, у которых есть фото "в образе" (lookModel)
-        const dynamicLooks = productsData
-            .filter(p => p.lookModel)
-            .map(p => {
-                const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
-                
-                // Тэглайн: либо коллекция, либо просто указание сезона
-                let tagline = p.collection || "";
-                if (!tagline) {
-                    const seasonKey = 'season_' + p.season;
-                    tagline = WRJ_UTILS.t(seasonKey, lang);
-                }
-
-                return {
-                    id: `look-${p.id}`,
-                    productId: p.id,
-                    title: t.name || p.name,
-                    tagline: tagline,
-                    speech: t.lookCaption || p.lookCaption || "",
-                    backgroundImage: p.lookModel,
-                    season: p.season,
-                    category: p.category,
-                    translations: p.translations // сохраняем для мультиязычности
-                };
-            });
-
-        // Применяем переводы к фильтрам образа
-        document.querySelectorAll('#lookFilters .filter-btn, #lookSeasons .season-btn').forEach(b => {
-             const filterKey = b.getAttribute('data-filter') ? 'filter_' + b.getAttribute('data-filter') : null;
-             const seasonKey = b.getAttribute('data-season') ? 'season_' + b.getAttribute('data-season') : null;
-             const key = filterKey || seasonKey;
-             if(key) {
-                 b.textContent = WRJ_UTILS.t(key, lang);
-             }
-        });
-
-        let filteredLooks = [];
-        let currentIndex = 0;
-        let isAnimating = false;
-
-        const render = () => {
-            filteredLooks = dynamicLooks.filter(look => {
-                const matchSeason = look.season === this.state.currentSeason || !look.season;
-                const matchCategory = this.state.currentCategory === 'all' || look.category === this.state.currentCategory;
-                return matchSeason && matchCategory;
-            });
-
-            album.innerHTML = '';
-            if (filteredLooks.length === 0) {
-                album.innerHTML = `<div style="text-align:center; padding-top:100px; opacity:0.5;">${WRJ_UTILS.t('empty_lookbook', lang)}</div>`;
-                return;
-            }
-
-            filteredLooks.forEach((look, idx) => {
-                const card = document.createElement('div');
-                card.className = 'look-card';
-                card.dataset.index = idx;
-                
-                // Мультиязычность данных образа
-                const t = look.translations && look.translations[lang] ? look.translations[lang] : look;
-                const title = t.title || look.title;
-                const tagline = t.tagline || look.tagline;
-                const speech = t.speech || look.speech;
-
-                const cartIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>`;
-
-                card.innerHTML = `
-                    <button class="look-card-buy" onclick="event.stopPropagation(); WRJ_APP.quickBuy('${look.productId}')" aria-label="Add to cart">
-                        ${cartIcon}
-                    </button>
-                    <div class="look-card-image">
-                        <img src="${look.backgroundImage}" alt="${WRJ_UTILS.sanitize(title)}">
-                    </div>
-                    <div class="look-card-info">
-                        <span class="season-tag">${WRJ_UTILS.sanitize(tagline)}</span>
-                        <h3>${WRJ_UTILS.sanitize(title)}</h3>
-                        <p>${WRJ_UTILS.sanitize(speech)}</p>
-                    </div>
-                `;
-                
-                album.appendChild(card);
-            });
-
-            updateStack();
-        };
-
-        const updateStack = () => {
-            const cards = album.querySelectorAll('.look-card');
-            const total = filteredLooks.length;
-            if (total === 0) return;
-
-            cards.forEach((card, i) => {
-                const idx = parseInt(card.dataset.index);
-                card.classList.remove('top', 'mid', 'bottom', 'hidden', 'exit-right', 'exit-left');
-
-                let pos = (idx - currentIndex + total) % total;
-
-                if (pos === 0) {
-                    card.classList.add('top');
-                } else if (pos === 1) {
-                    card.classList.add('mid');
-                } else if (pos === 2) {
-                    card.classList.add('bottom');
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-        };
-
-        const prevCard = () => {
-            if (isAnimating || filteredLooks.length <= 1) return;
-            isAnimating = true;
-
-            const topCard = album.querySelector('.look-card.top');
-            if (topCard) {
-                topCard.classList.add('hidden');
-                
-                currentIndex = (currentIndex - 1 + filteredLooks.length) % filteredLooks.length;
-                updateStack();
-
-                setTimeout(() => {
-                    isAnimating = false;
-                }, 500);
-            }
-        };
-
-        const nextCard = () => {
-            if (isAnimating || filteredLooks.length <= 1) return;
-            isAnimating = true;
-
-            const topCard = album.querySelector('.look-card.top');
-            if (topCard) {
-                topCard.classList.add('exit-right');
-                
-                const midCard = album.querySelector('.look-card.mid');
-                if (midCard) {
-                    midCard.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                    midCard.classList.remove('mid');
-                    midCard.classList.add('top');
-                }
-
-                setTimeout(() => {
-                    currentIndex = (currentIndex + 1) % filteredLooks.length;
-                    updateStack();
-                }, 300);
-
-                setTimeout(() => {
-                    isAnimating = false;
-                }, 600);
-            } else {
-                isAnimating = false;
-            }
-        };
-
-        album.addEventListener('click', (e) => {
-            if (e.target.closest('.look-card-info')) return;
-            nextCard();
-        });
-
-        let startX = 0;
-        album.addEventListener('mousedown', (e) => startX = e.clientX);
-        album.addEventListener('mouseup', (e) => {
-            const diffX = e.clientX - startX;
-            if (diffX < -50) nextCard();
-            if (diffX > 50) prevCard(); 
-        });
-
-        album.addEventListener('touchstart', (e) => startX = e.touches[0].clientX, {passive: true});
-        album.addEventListener('touchend', (e) => {
-            const diffX = e.changedTouches[0].clientX - startX;
-            if (diffX < -50) nextCard();
-            if (diffX > 50) prevCard(); 
-        });
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                this.state.currentCategory = btn.getAttribute('data-filter');
-                currentIndex = 0;
-                render();
-            });
-        });
-
-        seasonNavItems.forEach(item => {
-            item.addEventListener('click', () => {
-                seasonNavItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-                this.state.currentSeason = item.getAttribute('data-season');
-                currentIndex = 0;
-                render();
-            });
-        });
-
-        document.getElementById('prevCard')?.addEventListener('click', prevCard);
-        document.getElementById('nextCardBtn')?.addEventListener('click', nextCard);
-
-        render();
-    },
 
 
     initDynamicCards: function() {
