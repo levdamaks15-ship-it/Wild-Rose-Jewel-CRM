@@ -1520,8 +1520,6 @@ footer {
 }
 
 /* --- Scroll Indicator --- */
-
-
 .scroll-indicator {
     position: absolute;
     bottom: 30px;
@@ -1533,25 +1531,31 @@ footer {
     gap: 12px;
     opacity: 1;
     transition: opacity 0.3s ease;
+    z-index: 3;
+    pointer-events: none;
 }
 
 .mouse {
     width: 22px;
     height: 38px;
-    border: 1.5px solid var(--brand-burgundy);
+    border: 1.5px solid rgba(255, 255, 255, 0.65);
     border-radius: 20px;
     position: relative;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .wheel {
     width: 2px;
     height: 6px;
-    background: var(--brand-burgundy);
+    background: var(--brand-gold-light);
     position: absolute;
     top: 6px;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 2px;
+    box-shadow: 0 0 8px rgba(214, 183, 122, 0.9);
     animation: scrollWheel 2s ease-in-out infinite;
 }
 
@@ -1576,8 +1580,9 @@ footer {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.25em;
-    color: var(--brand-burgundy);
+    color: rgba(255, 255, 255, 0.85);
     font-weight: 600;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 
@@ -1591,16 +1596,19 @@ footer {
     position: absolute;
     bottom: 120px;
     right: 50px;
-    max-width: 400px;
+    max-width: 420px;
     text-align: right;
     font-family: var(--font-heading);
     font-style: italic;
-    color: var(--brand-text);
+    color: rgba(255, 255, 255, 0.95);
     font-size: 1.35rem;
     line-height: 1.6;
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 1s ease forwards 1s;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 0, 0, 0.6);
+    z-index: 3;
+    pointer-events: none;
 }
 
 /* Оптимизация для мобильных устройств: разделяем цитату и индикатор */
@@ -1623,11 +1631,13 @@ footer {
     display: block;
     font-family: var(--font-body);
     font-style: normal;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-top: 15px;
-    color: var(--brand-burgundy) !important;
+    letter-spacing: 0.18em;
+    margin-top: 14px;
+    color: var(--brand-gold-light) !important;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95), 0 0 15px rgba(192, 154, 83, 0.4);
 }
 
 @keyframes fadeInUp {
