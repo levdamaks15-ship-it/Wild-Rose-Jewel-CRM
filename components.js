@@ -21,7 +21,7 @@ const WRJ_COMPONENTS = {
                     </ul>
                 </div>
                 <div class="sticky-brand">
-                    <span data-i18n="logo_name">Мастерская Дикая Роза</span>
+                    <span data-i18n="logo_name">Wild Rose Jewel</span>
                 </div>
             </div>
             <div class="header-right">
@@ -98,7 +98,7 @@ const WRJ_COMPONENTS = {
             </div>
 
             <div class="copyright">
-                <p data-i18n="footer_copyright">© 2026 Мастерская Дикая Роза / Wild Rose Jewel. Все права защищены. Сделано с любовью.</p>
+                <p data-i18n="footer_copyright">© 2026 Wild Rose Jewel. Все права защищены. Сделано с любовью.</p>
             </div>
         </div>
     `,

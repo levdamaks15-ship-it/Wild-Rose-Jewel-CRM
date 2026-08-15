@@ -6,16 +6,16 @@ const WRJ_TRANSLATIONS = {
     ru: {
         nav_home: "Главная",
         nav_catalog: "Каталог",
-        nav_about: "О нас",
+        nav_about: "О бренде",
         nav_faq: "Ответы",
-        btn_details: "Узнать подробности",
+        btn_details: "Подробнее",
         btn_cart_add: "В корзину",
         btn_cart_added: "Убрать из корзины",
         cart_title: "Ваша корзина",
         cart_empty: "Корзина пуста",
         cart_total: "Итого:",
         order_btn: "Оформить заказ в WhatsApp",
-        order_msg_title: "🌟 *Новый заказ из Мастерской:*",
+        order_msg_title: "🌟 *Новый заказ Wild Rose Jewel:*",
         order_msg_total: "Общая сумма:",
         legal_title: "Правовая информация",
         cart_checkout: "Оформить в WhatsApp",
@@ -37,33 +37,38 @@ const WRJ_TRANSLATIONS = {
         whatsapp_message_total: "\nИтого: ",
         
         // Hero
-        hero_ru_title: "Мастерская Дикая Роза",
         hero_tagline: "Украшения с дикой душой",
         hero_btn_catalog: "В каталог",
         author_quote: "«В каждом камне — шепот природы, в каждом изгибе — капля вашей истории.»",
         author_name: "— Наталия, создатель бренда",
         scroll_text: "Листайте вниз",
 
-        // Sections
+        // Featured & Collections
+        featured_title: "Избранные изделия",
+        featured_subtitle: "Флагманские украшения ручной работы из редких минералов и органического жемчуга",
+        view_all: "Смотреть все",
         collections_title: "Наши Коллекции",
-        about_title: "Сердце Дикой Розы",
-        about_p1: "Здравствуйте! Меня зовут Наталия, и каждое украшение, которое вы видите здесь, создано моими руками. Для меня это не просто бизнес — это способ поделиться любовью к природе и искусству.",
-        about_p2: "Я использую только натуральные камни и качественные материалы, чтобы каждое изделие радовало вас долгие годы.",
+        collections_subtitle: "Изысканные формы для каждого сезона и настроения",
+        
+        // About
+        about_title: "Сердце Wild Rose Jewel",
+        about_p1: "Здравствуйте! Меня зовут Наталия, и каждое украшение, которое вы видите здесь, создано моими руками. Для меня это не просто творчество — это способ передать неповторимую красоту природы и подчеркнуть вашу индивидуальность.",
+        about_p2: "Я использую только натуральные камни, культивированный жемчуг и премиальную фурнитуру с гипоаллергенным родиевым и позолоченным покрытием.",
+        
+        // FAQ
         faq_title: "Вопросы и ответы",
-
-        // FAQ Items
         faq_q1: "Как узнать цену или заказать изделие?",
-        faq_a1: "Выберите понравившееся украшение в каталоге и нажмите кнопку «Оформить заказ в WhatsApp». Мы обсудим все детали покупки и доставки.",
+        faq_a1: "Выберите понравившееся украшение в каталоге и нажмите кнопку «Оформить заказ в WhatsApp». Мы ответим на все вопросы, покажем видео изделия и согласуем детали доставки.",
         faq_q2: "Из каких материалов выполнены украшения?",
-        faq_a2: "Мы используем только натуральные камни, жемчуг и качественную фурнитуру из латуни с родиевым или позолоченном покрытием.",
-        faq_q3: "Есть ли доставка в другие города?",
-        faq_a3: "Да, мы бережно упаковываем и отправляем украшения СДЭКом или Почтой России в любую точку мира.",
-        faq_q5: "Как ухаживать за родиевым покрытием?",
-        faq_a5: "Избегайте прямого контакта с водой (душ, бассейн), парфюмом и кремами. Для очистки достаточно мягко протереть изделие сухой микрофиброй.",
+        faq_a2: "Мы используем только натуральные минералы, барочный и культивированный жемчуг, а также премиальную гипоаллергенную фурнитуру с родиевым покрытием или позолотой 18K/24K.",
+        faq_q3: "Есть ли доставка по Казахстану и в другие страны?",
+        faq_a3: "Да! Мы бережно упаковываем и отправляем заказы курьерскими службами и СДЭК по всему Казахстану, а также Казпочтой и СДЭК по странам СНГ и всему миру.",
+        faq_q5: "Как ухаживать за ювелирным покрытием?",
+        faq_a5: "Избегайте прямого контакта с водой (душ, бассейн), парфюмом и косметикой. Для очистки достаточно бережно протереть изделие мягкой сухой микрофиброй из комплекта.",
         faq_q6: "Как лучше всего хранить украшения?",
-        faq_a6: "Рекомендуем хранить изделия в сухом месте, отдельно друг от друга, чтобы металл и камни не царапались.",
+        faq_a6: "Рекомендуем хранить изделия в сухом месте в фирменной коробочке или мешочке, отдельно друг от друга, чтобы избежать микроцарапин.",
         faq_q7: "Главное правило владельца украшений?",
-        faq_a7: "Украшения должны быть последним, что вы надеваете утром, и первым, что снимаете вечером. Всегда снимайте их перед домашними делами.",
+        faq_a7: "Украшения должны быть последним, что вы надеваете при выходе, и первым, что снимаете дома. Снимайте их перед сном, спортом и водными процедурами.",
 
         // Category Card Taglines
         cat_necklaces_tag: "Акцент на вашей индивидуальности",
@@ -73,26 +78,23 @@ const WRJ_TRANSLATIONS = {
         cat_symbol_tag: "Украшения со смыслом",
         cat_sets_tag: "Гармония в каждом комплекте",
 
-        // Titles
-        catalog_main_title: "Каталог украшений",
-
-        // Meta
-        meta_index: "Мастерская Дикая Роза - эксклюзивные украшения ручной работы из натуральных камней.",
-        meta_catalog: "Каталог украшений Мастерской Дикая Роза. Ручная работа, натуральные камни.",
+        // Titles & Meta
+        catalog_main_title: "Каталог украшений | Wild Rose Jewel",
+        meta_index: "Wild Rose Jewel - эксклюзивные украшения ручной работы из натуральных камней и жемчуга.",
+        meta_catalog: "Каталог украшений Wild Rose Jewel. Ручная работа, натуральные минералы, доставка по Казахстану и миру.",
         
-        // New items
-        logo_name: "Мастерская Дикая Роза",
-        footer_status: "Статус: Самозанятый гражданин (НПД)",
-        footer_contractor: "Исполнитель: Руденко Наталия Владимировна",
-        footer_inn: "ИНН: 101501509497",
+        // Brand & Footer
+        logo_name: "Wild Rose Jewel",
+        footer_status: "Wild Rose Jewel Studio",
+        footer_contractor: "Дизайнер: Руденко Наталия",
         footer_privacy: "Политика конфиденциальности",
-        footer_copyright: "© 2026 Мастерская Дикая Роза / Wild Rose Jewel. Все права защищены. Сделано с любовью.",
+        footer_copyright: "© 2026 Wild Rose Jewel. Все права защищены. Сделано с любовью.",
         coming_soon: "Скоро здесь будет новая коллекция..."
     },
     en: {
         nav_home: "Home",
         nav_catalog: "Catalog",
-        nav_about: "About Us",
+        nav_about: "About",
         nav_faq: "FAQ",
         btn_details: "Details",
         btn_cart_add: "Add to Cart",
@@ -119,33 +121,38 @@ const WRJ_TRANSLATIONS = {
         whatsapp_message_total: "\nTotal: ",
         
         // Hero
-        hero_ru_title: "Wild Rose Workshop",
         hero_tagline: "Jewelry with a wild soul",
-        hero_btn_catalog: "To Catalog",
+        hero_btn_catalog: "Explore Catalog",
         author_quote: "«In every stone — the whisper of nature, in every curve — a drop of your story.»",
         author_name: "— Natalia, Brand Creator",
         scroll_text: "Scroll Down",
 
-        // Sections
+        // Featured & Collections
+        featured_title: "Featured Creations",
+        featured_subtitle: "Handcrafted statement pieces made with rare gemstones and organic pearls",
+        view_all: "View All",
         collections_title: "Our Collections",
-        about_title: "The Heart of Wild Rose",
-        about_p1: "Hello! My name is Natalia, and every piece of jewelry you see here is created by my hands. For me, it is not just a business — it is a way to share a love for nature and art.",
-        about_p2: "I use only natural stones and high-quality materials so that each product brings you joy for years to come.",
-        faq_title: "Questions and Answers",
+        collections_subtitle: "Exquisite designs for every season and style",
 
-        // FAQ Items
+        // About
+        about_title: "The Heart of Wild Rose Jewel",
+        about_p1: "Hello! My name is Natalia, and every piece of jewelry here is created by my hands. For me, it is not just jewelry — it is a way to celebrate natural beauty and express individuality.",
+        about_p2: "I use only natural gemstones, organic pearls, and hypoallergenic findings with durable rhodium or 18K/24K gold plating.",
+        
+        // FAQ
+        faq_title: "Questions and Answers",
         faq_q1: "How to check the price or order a product?",
-        faq_a1: "Select the jewelry you like in the catalog and click 'Order via WhatsApp'. We will discuss all the details of purchase and shipping.",
+        faq_a1: "Select the jewelry you like in the catalog and click 'Order via WhatsApp'. We will share detailed video previews and coordinate shipping.",
         faq_q2: "What materials are the jewelry made of?",
-        faq_a2: "We use only natural stones, pearls and high-quality brass fittings with rhodium or gold plating.",
-        faq_q3: "Is there international shipping?",
-        faq_a3: "Yes, we carefully pack and ship jewelry via SDEK or Post to anywhere in the world.",
-        faq_q5: "How to care for rhodium-plated jewelry?",
-        faq_a5: "Avoid direct contact with water (shower, pool), perfume, and creams. To clean, simply wipe the piece gently with a dry microfiber cloth.",
+        faq_a2: "We work exclusively with natural gemstones, baroque & freshwater pearls, and premium hypoallergenic brass coated with rhodium or gold plating.",
+        faq_q3: "Is there shipping across Kazakhstan and worldwide?",
+        faq_a3: "Yes! We securely package and ship across Kazakhstan via couriers and SDEK, and internationally via SDEK and Post.",
+        faq_q5: "How to care for plated jewelry?",
+        faq_a5: "Avoid direct contact with water, perfumes, and cosmetics. Gently wipe the piece with the included microfiber jewelry cloth.",
         faq_q6: "What is the best way to store jewelry?",
-        faq_a6: "We recommend storing items in a dry place, preferably separately from each other, to avoid scratches on the metal and stones.",
-        faq_q7: "What is the main rule for a jewelry owner?",
-        faq_a7: "Jewelry should be the last thing you put on in the morning and the first thing you take off in the evening. Always remove them before doing household chores.",
+        faq_a6: "Store your jewelry in a dry place inside our signature box or pouch, separated from other items to avoid micro-scratches.",
+        faq_q7: "What is the main rule for jewelry lovers?",
+        faq_a7: "Jewelry should be the last thing you put on before leaving and the first thing you remove when you return home.",
 
         // Category Card Taglines
         cat_necklaces_tag: "Accentuate your individuality",
@@ -155,20 +162,17 @@ const WRJ_TRANSLATIONS = {
         cat_symbol_tag: "Jewelry with meaning",
         cat_sets_tag: "Harmony in every set",
 
-        // Titles
-        catalog_main_title: "Jewelry Catalog",
+        // Titles & Meta
+        catalog_main_title: "Jewelry Catalog | Wild Rose Jewel",
+        meta_index: "Wild Rose Jewel - exclusive handmade jewelry from natural stones and organic pearls.",
+        meta_catalog: "Wild Rose Jewel Catalog. Handcrafted natural stone jewelry with worldwide delivery.",
 
-        // Meta
-        meta_index: "Wild Rose Workshop - exclusive handmade jewelry from natural stones.",
-        meta_catalog: "Wild Rose Jewelry Catalog. Handmade, natural stones.",
-
-        // New items
-        logo_name: "Wild Rose Workshop",
-        footer_status: "Status: Self-employed",
-        footer_contractor: "Contractor: Natalia V. Rudenko",
-        footer_inn: "Tax ID: 101501509497",
+        // Brand & Footer
+        logo_name: "Wild Rose Jewel",
+        footer_status: "Wild Rose Jewel Studio",
+        footer_contractor: "Designer: Natalia Rudenko",
         footer_privacy: "Privacy Policy",
-        footer_copyright: "© 2026 Wild Rose Workshop / Wild Rose Jewel. All rights reserved. Made with love.",
+        footer_copyright: "© 2026 Wild Rose Jewel. All rights reserved. Made with love.",
         coming_soon: "New collection coming soon..."
     },
     kk: {
@@ -183,7 +187,7 @@ const WRJ_TRANSLATIONS = {
         cart_empty: "Себет бос",
         cart_total: "Барлығы:",
         order_btn: "WhatsApp арқылы тапсырыс беру",
-        order_msg_title: "🌟 *Шеберханадан жаңа тапсырыс:*",
+        order_msg_title: "🌟 *Wild Rose Jewel жаңа тапсырысы:*",
         order_msg_total: "Жалпы сомасы:",
         legal_title: "Құқықтық ақпарат",
         cart_checkout: "WhatsApp арқылы рәсімдеу",
@@ -200,38 +204,43 @@ const WRJ_TRANSLATIONS = {
         filter_rings: "Сақиналар",
         filter_sets: "Жинақтар",
         menu_title: "МӘЗІР",
-        contact_us: "Бізбен байланысыңыз",
+        contact_us: "Байланыс",
         whatsapp_message_intro: "Сәлеметсіз бе! Wild Rose Jewel каталогынан тапсырыс бергім келеді:\n\n",
         whatsapp_message_total: "\nБарлығы: ",
         
         // Hero
-        hero_ru_title: "Жабайы раушан шеберханасы",
         hero_tagline: "Жабайы жанды әшекейлер",
         hero_btn_catalog: "Каталогқа",
         author_quote: "«Әр таста — табиғат сыбыры, әр иілімде — сіздің тарихыңыздың тамшысы.»",
         author_name: "— Наталия, бренд негізін қалаушы",
         scroll_text: "Төмен қарай жылжыңыз",
 
-        // Sections
+        // Featured & Collections
+        featured_title: "Таңдаулы бұйымдар",
+        featured_subtitle: "Сирек минералдар мен табиғи інжуден жасалған эксклюзивті зергерлік бұйымдар",
+        view_all: "Барлығын көру",
         collections_title: "Біздің топтамалар",
-        about_title: "Жабайы раушанның жүрегі",
-        about_p1: "Сәлеметсіз бе! Менің атым Наталия, мұнда көрген әрбір зергерлік бұйым менің қолыммен жасалған. Мен үшін бұл жай бизнес емес — бұл табиғат пен өнерге деген махаббатпен бөлісу тәсілі.",
-        about_p2: "Әрбір бұйым сізді көптеген жылдар бойы қуантуы үшін мен тек табиғи тастарды және сапалы материалдарды пайдаланамын.",
-        faq_title: "Сұрақтар мен жауаптар",
+        collections_subtitle: "Әр мезгіл мен көңіл-күйге арналған талғампаз пішіндер",
 
-        // FAQ Items
+        // About
+        about_title: "Wild Rose Jewel жүрегі",
+        about_p1: "Сәлеметсіз бе! Менің атым Наталия, мұнда көрген әрбір зергерлік бұйым менің қолыммен жасалған. Бұл жай ғана шығармашылық емес — табиғаттың қайталанбас сұлулығын жеткізудің жолы.",
+        about_p2: "Әрбір бұйым ұзақ жылдар қуантуы үшін мен тек табиғи тастарды, інжу-маржандарды және сапалы гипоаллергенді фурнитураны қолданамын.",
+        
+        // FAQ
+        faq_title: "Сұрақтар мен жауаптар",
         faq_q1: "Бағасын қалай білуге немесе бұйымға тапсырыс беруге болады?",
-        faq_a1: "Каталогтан өзіңізге ұнаған зергерлік бұйымды таңдап, «WhatsApp арқылы тапсырыс беру» түймесін басыңыз. Біз сатып алу және жеткізудің барлық егжей-тегжейлерін талқылаймыз.",
+        faq_a1: "Каталогтан ұнаған әшекейді таңдап, «WhatsApp арқылы тапсырыс беру» түймесін басыңыз. Біз бейнешолу жіберіп, жеткізу жайын келісеміз.",
         faq_q2: "Әшекейлер қандай материалдардан жасалған?",
-        faq_a2: "Біз тек табиғи тастарды, інжу-маржандарды және родий немесе алтын жалатылған латуньнен жасалған сапалы фурнитураны қолданамыз.",
-        faq_q3: "Жеткізу қызметі бар ма?",
-        faq_a3: "Иә, біз әшекейлерді мұқият орап, СДЭК немесе Пошта арқылы әлемнің кез келген нүктесіне жібереміз.",
+        faq_a2: "Біз тек табиғи тастарды, барокко және тұщы су інжулерін, сондай-ақ родий немесе 18K/24K алтын жалатылған сапалы латунь фурнитурасын қолданамыз.",
+        faq_q3: "Қазақстан бойынша және шетелге жеткізу бар ма?",
+        faq_a3: "Иә! Біз әшекейлерді мұқият орап, Қазақстан бойынша курьерлік қызметтермен және СДЭК арқылы, ал ТМД және әлемге Қазпошта мен СДЭК арқылы жібереміз.",
         faq_q5: "Родий жалатылған бұйымдарға қалай күтім жасау керек?",
-        faq_a5: "Сумен (душ, бассейн), парфюмериямен және кремдермен тікелей жанасудан аулақ болыңыз. Тазалау үшін бұйымды құрғақ микрофибрамен ақырын сүрту жеткілікті.",
+        faq_a5: "Сумен (душ, бассейн), парфюмериямен және кремдермен тікелей жанасудан сақтаныңыз. Тазалау үшін арнайы микрофибрамен ақырын сүрту жеткілікті.",
         faq_q6: "Әшекейлерді қалай сақтаған дұрыс?",
-        faq_a6: "Металл мен тастар сырылып қалмас үшін бұйымдарды құрғақ жерде, жақсысы бір-бірінен бөлек сақтауды ұсынамыз.",
+        faq_a6: "Металл мен тастар сырылып қалмас үшін бұйымдарды құрғақ жерде, фирмалық қорапта немесе қапшықта бір-бірінен бөлек сақтауды ұсынамыз.",
         faq_q7: "Әшекей иесінің басты ережесі қандай?",
-        faq_a7: "Әшекейлер таңертең ең соңғы киетін және кешке ең бірінші шешетін нәрсе болуы керек. Үй жұмыстарының алдында оларды міндетті түрде шешіңіз.",
+        faq_a7: "Әшекейлер таңертең ең соңғы тағылатын және үйге келгенде ең бірінші шешілетін нәрсе болуы керек.",
 
         // Category Card Taglines
         cat_necklaces_tag: "Даралығыңызды айқындаңыз",
@@ -241,20 +250,17 @@ const WRJ_TRANSLATIONS = {
         cat_symbol_tag: "Терең мағыналы әшекейлер",
         cat_sets_tag: "Әрбір жинақтағы үйлесім",
 
-        // Titles
-        catalog_main_title: "Зергерлік бұйымдар каталогы",
+        // Titles & Meta
+        catalog_main_title: "Зергерлік бұйымдар каталогы | Wild Rose Jewel",
+        meta_index: "Wild Rose Jewel - табиғи тастардан жасалған эксклюзивті қолдан жасалған әшекейлер.",
+        meta_catalog: "Wild Rose Jewel зергерлік бұйымдар каталогы. Қолдан жасалған табиғи тастар, Қазақстан және әлем бойынша жеткізу.",
 
-        // Meta
-        meta_index: "Жабайы раушан шеберханасы - табиғи тастардан жасалған эксклюзивті қолдан жасалған әшекейлер.",
-        meta_catalog: "Жабайы раушан зергерлік бұйымдар каталогы. Қолдан жасалған, табиғи тастар.",
-
-        // New items
-        logo_name: "Жабайы раушан шеберханасы",
-        footer_status: "Статусы: Өзін-өзі жұмыспен қамтыған азамат",
-        footer_contractor: "Орындаушы: Руденко Наталия Владимировна",
-        footer_inn: "ЖСН: 101501509497",
+        // Brand & Footer
+        logo_name: "Wild Rose Jewel",
+        footer_status: "Wild Rose Jewel Studio",
+        footer_contractor: "Дизайнер: Руденко Наталия",
         footer_privacy: "Құпиялылық саясаты",
-        footer_copyright: "© 2026 Жабайы раушан шеберханасы / Wild Rose Jewel. Барлық құқықтар қорғалған. Махаббатпен жасалған.",
+        footer_copyright: "© 2026 Wild Rose Jewel. Барлық құқықтар қорғалған. Махаббатпен жасалған.",
         coming_soon: "Жақында мұнда жаңа топтама болады...",
 
         // Quick order & Search & Packaging
