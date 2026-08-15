@@ -2809,3 +2809,197 @@ footer {
         padding: 20px !important;
     }
 }
+
+/* ==========================================================================
+   LIVE SEARCH & FILTERS
+   ========================================================================== */
+.search-bar-wrap {
+    max-width: 520px;
+    margin: 0 auto 25px;
+    padding: 0 10px;
+}
+
+.search-input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1.5px solid var(--border-color);
+    border-radius: 30px;
+    padding: 6px 18px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    transition: var(--transition-smooth);
+}
+
+.search-input-box:focus-within {
+    border-color: var(--brand-gold);
+    box-shadow: 0 6px 20px rgba(192, 154, 83, 0.18);
+}
+
+.search-icon {
+    color: var(--brand-gold);
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.catalog-search-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--brand-text);
+    padding: 6px 0;
+}
+
+.catalog-search-input::placeholder {
+    color: var(--brand-text-light);
+    opacity: 0.7;
+    font-size: 0.85rem;
+}
+
+.clear-search-btn {
+    background: none;
+    border: none;
+    color: var(--brand-text-light);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    transition: var(--transition-smooth);
+}
+
+.clear-search-btn:hover {
+    color: var(--brand-burgundy);
+}
+
+/* ==========================================================================
+   PRODUCT ACTIONS & QUICK ORDER BUTTON
+   ========================================================================== */
+.product-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.product-actions .add-to-cart-btn {
+    flex: 1;
+    padding: 12px 14px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+}
+
+.btn-quick-order {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #25d366;
+    color: #ffffff;
+    border: 1px solid #25d366;
+    padding: 12px 14px;
+    border-radius: 2px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    white-space: nowrap;
+}
+
+.btn-quick-order:hover {
+    background: #1eb956;
+    border-color: #1eb956;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+}
+
+.btn-quick-order svg {
+    flex-shrink: 0;
+}
+
+@media (max-width: 576px) {
+    .product-actions {
+        flex-direction: column;
+        gap: 6px;
+    }
+    .product-actions .add-to-cart-btn,
+    .btn-quick-order {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+/* ==========================================================================
+   PACKAGING SECTION (UNBOXING EXPERIENCE)
+   ========================================================================== */
+.packaging-section {
+    padding: 90px 0;
+    background: linear-gradient(180deg, var(--brand-cream) 0%, rgba(249, 247, 240, 0.6) 100%);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.packaging-section .section-subtitle {
+    max-width: 650px;
+    margin: 15px auto 0;
+    font-size: 1.05rem;
+    color: var(--brand-text-light);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+.packaging-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    margin: 50px 0 40px;
+}
+
+.packaging-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 35px 25px;
+    text-align: center;
+    transition: var(--transition-smooth);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.packaging-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--brand-gold);
+    box-shadow: 0 15px 40px rgba(192, 154, 83, 0.12);
+}
+
+.packaging-icon {
+    font-size: 2.5rem;
+    margin-bottom: 18px;
+    line-height: 1;
+}
+
+.packaging-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--brand-burgundy);
+    margin-bottom: 12px;
+}
+
+.packaging-card p {
+    font-size: 0.88rem;
+    color: var(--brand-text-light);
+    line-height: 1.55;
+}
+
+.packaging-cta {
+    text-align: center;
+    margin-top: 20px;
+}

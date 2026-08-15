@@ -273,10 +273,65 @@ const WRJ_TRANSLATIONS = {
         footer_copyright: "© 2026 Жабайы раушан шеберханасы / Wild Rose Jewel. Барлық құқықтар қорғалған. Махаббатпен жасалған.",
         empty_lookbook: "Таңдалған фильтр үшін бейнелер табылмады",
         coming_soon: "Жақында мұнда жаңа топтама болады...",
-        look_btn: "Бейне"
+        look_btn: "Бейне",
+
+        // Quick order & Search & Packaging
+        btn_quick_order: "WhatsApp-пен тапсырыс",
+        search_placeholder: "Атауы немесе тасы бойынша іздеу...",
+        search_empty: "Сұраныс бойынша ештеңе табылмады",
+        search_reset: "Барлық тауарларды көрсету",
+        packaging_title: "Фирмалық қаптама",
+        packaging_subtitle: "Әрбір әшекей әр детальдағы қамқорлықпен дайын сыйлық ретінде жасалған",
+        packaging_box_title: "Фирмалық қорап",
+        packaging_box_desc: "Брендтің алтын бедерлі және барқыт төсемі бар сәнді қатты қорап.",
+        packaging_card_title: "Төлқұжат және ашықхат",
+        packaging_card_desc: "Наталияның табиғи тастардың сипаттамасы мен жеке тілектері жазылған авторлық ашықхаты.",
+        packaging_cloth_title: "Күтімге арналған майлық",
+        packaging_cloth_desc: "Родийді, алтын жалатуды жылтыратуға және тастардың жарқылын сақтауға арналған арнайы нәзік микрофибра.",
+        packaging_delivery_title: "Қауіпсіз жеткізу",
+        packaging_delivery_desc: "Жолда бұйымның бүтіндігіне кепілдік беретін сенімді тасымалдау қорабы."
     }
 };
 
+// Дополнительные ключи для RU и EN
+if (WRJ_TRANSLATIONS.ru) {
+    Object.assign(WRJ_TRANSLATIONS.ru, {
+        btn_quick_order: "Быстрый заказ",
+        search_placeholder: "Поиск по названию или камню (жемчуг, аметист...)",
+        search_empty: "По вашему запросу ничего не найдено",
+        search_reset: "Сбросить поиск",
+        packaging_title: "Премиальная упаковка",
+        packaging_subtitle: "Каждое украшение оформляется как готовый подарок — с заботой и любовью в каждой детали",
+        packaging_box_title: "Фирменная коробочка",
+        packaging_box_desc: "Элегантная жесткая коробочка с бархатным ложементом и тиснением золотом.",
+        packaging_card_title: "Паспорт и открытка",
+        packaging_card_desc: "Авторская открытка с описанием камней, свойствами минералов и пожеланием от Наталии.",
+        packaging_cloth_title: "Салфетка для ухода",
+        packaging_cloth_desc: "Специальная микрофибра для деликатной очистки родия, позолоты и камней.",
+        packaging_delivery_title: "Надежная доставка",
+        packaging_delivery_desc: "Плотный защитный бокс гарантирует 100% сохранность при транспортировке."
+    });
+}
+
+if (WRJ_TRANSLATIONS.en) {
+    Object.assign(WRJ_TRANSLATIONS.en, {
+        btn_quick_order: "Quick Order",
+        search_placeholder: "Search by name or stone (pearl, amethyst...)",
+        search_empty: "No products found matching your search",
+        search_reset: "Reset search",
+        packaging_title: "Signature Packaging",
+        packaging_subtitle: "Every piece is crafted and packed as a ready-to-give luxury gift",
+        packaging_box_title: "Signature Box",
+        packaging_box_desc: "Elegant rigid box with velvet bedding and gold foil branding.",
+        packaging_card_title: "Certificate & Card",
+        packaging_card_desc: "Author's certificate with stone details and handwritten wishes from Natalia.",
+        packaging_cloth_title: "Jewelry Care Cloth",
+        packaging_cloth_desc: "Delicate polishing cloth for rhodium, gold, and mineral sparkle.",
+        packaging_delivery_title: "Safe Delivery",
+        packaging_delivery_desc: "Protective shipping container ensuring perfect condition upon arrival."
+    });
+}
+
 const WRJ_CONFIG = {
-    whatsappNumber: "77000000000" // Заглушка, заменить после покупки номера
+    whatsappNumber: "77472722698"
 };

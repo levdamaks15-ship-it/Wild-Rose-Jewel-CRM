@@ -391,6 +391,27 @@ const WRJ_APP = {
         }
     },
 
+    quickOrderWhatsApp: function(productId) {
+        if (typeof productsData === 'undefined') return;
+        const p = productsData.find(item => String(item.id) === String(productId));
+        if (!p) return;
+        
+        const lang = this.state.currentLang;
+        const cur = this.state.currentCurrency;
+        const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
+        const name = t.name || p.name;
+        const material = t.material || p.material;
+        const price = WRJ_UTILS.formatPrice(t.price || p.price, lang, cur);
+        const cleanPhone = String(WRJ_CONFIG.whatsappNumber || '77472722698').replace(/\D/g, '');
+
+        let msg = `Здравствуйте! Хочу оформить заказ:\n\n✨ *${name}*\nАртикул: ${p.id}\n`;
+        if (material) msg += `Материал: ${material}\n`;
+        msg += `Цена: ${price}\n\nПодскажите, есть ли в наличии?`;
+
+        const url = `https://api.whatsapp.com/send/?phone=${cleanPhone}&text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank');
+    },
+
     initVideoLoop: function() {
         const video = document.querySelector('.hero-video');
         if (!video) return;
@@ -470,6 +491,10 @@ const WRJ_APP = {
 
         const filterBtns = document.querySelectorAll('.filter-btn');
         const seasonBtns = document.querySelectorAll('.season-btn');
+        const searchInput = document.getElementById('catalogSearchInput');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        let searchQuery = '';
+
         const lang = this.state.currentLang;
         const cur = this.state.currentCurrency;
 
@@ -493,18 +518,56 @@ const WRJ_APP = {
             grid.innerHTML = '';
             
             // Атмосфера (лепестки)
-            this.toggleAtmosphere(this.state.currentSeason === 'spring');
+            this.toggleAtmosphere(this.state.currentSeason === 'spring' && !searchQuery);
 
-            const filtered = productsData.filter(p => 
-                p.season === this.state.currentSeason && 
-                (this.state.currentCategory === 'all' || p.category === this.state.currentCategory)
-            );
+            const q = searchQuery.toLowerCase().trim();
+
+            const filtered = productsData.filter(p => {
+                // Если есть активный поисковый запрос, ищем по всей базе
+                if (q) {
+                    const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
+                    const searchCorpus = [
+                        t.name || p.name || '',
+                        t.material || p.material || '',
+                        t.collection || p.collection || '',
+                        t.description || p.description || '',
+                        p.category || '',
+                        p.season || '',
+                        p.id || ''
+                    ].join(' ').toLowerCase();
+
+                    const matchesSearch = searchCorpus.includes(q);
+                    const matchesCategory = (this.state.currentCategory === 'all' || p.category === this.state.currentCategory);
+                    return matchesSearch && matchesCategory;
+                }
+
+                // Стандартная фильтрация по сезону и категории
+                return p.season === this.state.currentSeason && 
+                    (this.state.currentCategory === 'all' || p.category === this.state.currentCategory);
+            });
 
             if (filtered.length === 0) {
-                const comingSoon = WRJ_UTILS.t('coming_soon', lang);
-                grid.innerHTML = `<div class="coming-soon-message" style="grid-column: 1/-1; text-align: center; padding: 100px 20px; opacity: 0.7;">
-                    <h2 style="font-family: 'Playfair Display', serif;">${comingSoon}</h2>
-                </div>`;
+                if (q) {
+                    const searchEmpty = WRJ_UTILS.t('search_empty', lang);
+                    const resetText = WRJ_UTILS.t('search_reset', lang);
+                    grid.innerHTML = `
+                        <div class="coming-soon-message search-empty-state" style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                            <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 15px;">${searchEmpty} «${WRJ_UTILS.sanitize(searchQuery)}»</h3>
+                            <button id="resetSearchActionBtn" class="btn-primary" style="margin-top: 10px;">${resetText}</button>
+                        </div>
+                    `;
+                    document.getElementById('resetSearchActionBtn')?.addEventListener('click', () => {
+                        if (searchInput) searchInput.value = '';
+                        searchQuery = '';
+                        if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+                        render();
+                    });
+                } else {
+                    const comingSoon = WRJ_UTILS.t('coming_soon', lang);
+                    grid.innerHTML = `<div class="coming-soon-message" style="grid-column: 1/-1; text-align: center; padding: 100px 20px; opacity: 0.7;">
+                        <h2 style="font-family: 'Playfair Display', serif;">${comingSoon}</h2>
+                    </div>`;
+                }
                 return;
             }
 
@@ -512,7 +575,7 @@ const WRJ_APP = {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.id = `product-${p.id}`;
-                card.style.animation = 'fadeIn 0.5s ease forwards';
+                card.style.animation = 'fadeIn 0.4s ease forwards';
 
                 // Мультиязычность данных товара
                 const t = p.translations && p.translations[lang] ? p.translations[lang] : p;
@@ -526,6 +589,7 @@ const WRJ_APP = {
                 const isAdded = WRJ_CART.has(p.id);
                 const btnText = isAdded ? WRJ_UTILS.t('btn_cart_added', lang) : WRJ_UTILS.t('btn_cart_add', lang);
                 const btnClass = isAdded ? 'btn-secondary add-to-cart-btn added' : 'btn-secondary add-to-cart-btn';
+                const quickOrderText = WRJ_UTILS.t('btn_quick_order', lang);
 
                 card.innerHTML = `
                     <div class="product-image">
@@ -536,13 +600,19 @@ const WRJ_APP = {
                         <h3>${collection}${WRJ_UTILS.sanitize(name)}</h3>
                         <p class="product-material">${WRJ_UTILS.sanitize(material)}</p>
                         <p class="product-price">${sPrice}</p>
-                        <button class="${btnClass}" data-id="${p.id}">${btnText}</button>
+                        <div class="product-actions">
+                            <button class="${btnClass}" data-id="${p.id}">${btnText}</button>
+                            <button class="btn-quick-order" data-id="${p.id}" title="${quickOrderText}">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.301-.15-1.767-.872-2.04-.971-.272-.1-.47-.15-.665.15-.195.3-.757.942-.927 1.137-.17.194-.339.219-.64.07-.3-.15-1.263-.465-2.403-1.485-.888-.792-1.487-1.77-1.662-2.07-.174-.3-.019-.462.13-.61.135-.133.301-.35.452-.52.15-.174.198-.298.3-.497.101-.198.05-.371-.026-.52-.075-.149-.665-1.604-.911-2.198-.239-.575-.483-.498-.665-.507-.172-.008-.368-.01-.564-.01-.196 0-.516.075-.785.371-.27.298-1.026 1.003-1.026 2.446 0 1.443 1.05 2.84 1.196 3.037.147.198 2.067 3.155 5.006 4.43.7.303 1.246.484 1.673.619.704.224 1.345.193 1.851.118.564-.084 1.767-.721 2.017-1.417.25-.694.25-1.289.175-1.416-.075-.126-.276-.198-.57-.348h-.001zm-5.437 7.02c-1.802 0-3.57-.487-5.11-1.405L2.8 21.042l1.085-3.992a9.61 9.61 0 01-1.278-4.83c0-5.304 4.316-9.617 9.632-9.617 2.578 0 5.002 1.002 6.824 2.825a9.61 9.61 0 012.822 6.827c0 5.304-4.314 9.617-9.63 9.617h-.001zM12.03 0C5.385 0 .012 5.371.012 12.013c0 2.126.552 4.197 1.604 6.02L0 24l6.143-1.61c1.766 1.025 3.774 1.566 5.86 1.566h.01C18.667 23.956 24 18.585 24 11.933c0-3.226-1.257-6.257-3.535-8.536A11.94 11.94 0 0012.03 0z"/></svg>
+                                <span>${quickOrderText}</span>
+                            </button>
+                        </div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
 
-            // Биндим кнопки корзины (с логикой переключателя)
+            // Биндим кнопки корзины
             grid.querySelectorAll('.add-to-cart-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const id = e.currentTarget.getAttribute('data-id');
@@ -554,8 +624,36 @@ const WRJ_APP = {
                 });
             });
 
+            // Биндим кнопки быстрого заказа WhatsApp
+            grid.querySelectorAll('.btn-quick-order').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = e.currentTarget.getAttribute('data-id');
+                    WRJ_APP.quickOrderWhatsApp(id);
+                });
+            });
+
             this.handleDeepLink();
         };
+
+        // Слушатель поиска
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                if (clearSearchBtn) {
+                    clearSearchBtn.style.display = searchQuery.trim() ? 'block' : 'none';
+                }
+                render();
+            });
+        }
+
+        if (clearSearchBtn) {
+            clearSearchBtn.addEventListener('click', () => {
+                if (searchInput) searchInput.value = '';
+                searchQuery = '';
+                clearSearchBtn.style.display = 'none';
+                render();
+            });
+        }
 
         const scrollToStart = () => {
             window.scrollTo({
