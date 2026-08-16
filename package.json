@@ -3,6 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -13,6 +16,7 @@
     "seed": "node backend/src/scripts/seed.js"
   },
   "dependencies": {
+    "@vitejs/plugin-react": "^6.0.4",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -22,13 +26,12 @@
     "pg": "^8.13.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.3",
+    "vite": "^8.2.0"
   },
   "devDependencies": {
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.4",
-    "oxlint": "^1.75.0",
-    "vite": "^8.2.0"
+    "oxlint": "^1.75.0"
   }
 }
