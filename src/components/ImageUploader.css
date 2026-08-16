@@ -332,36 +332,49 @@
   display: flex;
   gap: 6px;
   z-index: 5;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.68);
   backdrop-filter: blur(8px);
   padding: 4px;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .uploader-btn-action {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
   border: none;
-  padding: 4px 8px;
+  padding: 6px 10px;
   border-radius: 6px;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
   cursor: pointer;
+  min-height: 34px;
   transition: all 0.2s ease;
 }
 
-.uploader-btn-action:hover {
-  background: rgba(255, 255, 255, 0.25);
+@media (max-width: 768px) {
+  .uploader-btn-action {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    min-height: 38px;
+  }
 }
 
-.uploader-btn-action.delete:hover {
+.uploader-btn-action:hover,
+.uploader-btn-action:active {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.uploader-btn-action.delete:hover,
+.uploader-btn-action.delete:active {
   background: #dc2626;
 }
 
-.uploader-btn-action.replace:hover {
+.uploader-btn-action.replace:hover,
+.uploader-btn-action.replace:active {
   background: var(--color-rose-deep, #9e3d52);
 }
 

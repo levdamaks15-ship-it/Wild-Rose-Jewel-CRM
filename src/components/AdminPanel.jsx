@@ -180,8 +180,70 @@ export const AdminPanel = () => {
   return (
     <div className="admin-wrapper">
       
-      {/* Sidebar Navigation */}
-      <aside className="admin-sidebar">
+      {/* Mobile Top Header (Visible on screens <= 900px) */}
+      <header className="admin-mobile-header">
+        <div className="admin-mobile-brand">
+          <span className="brand-badge">CMS</span>
+          <h2>Wild Rose Studio</h2>
+        </div>
+        <button 
+          type="button"
+          className="admin-mobile-exit-btn" 
+          onClick={() => {
+            window.location.hash = '';
+            if (window.location.pathname === '/admin') {
+              window.history.pushState({}, '', '/');
+            }
+            setCurrentView('store');
+          }}
+          title="Вернуться на сайт"
+        >
+          <span>На сайт</span>
+          <ArrowUp size={14} style={{ transform: 'rotate(45deg)' }} />
+        </button>
+      </header>
+
+      {/* Mobile Horizontal Swipeable Tabs Bar */}
+      <nav className="admin-mobile-tabs" aria-label="Разделы CRM">
+        <button
+          type="button"
+          className={`mobile-tab-btn ${activeTab === 'products' ? 'active' : ''}`}
+          onClick={() => setActiveTab('products')}
+        >
+          <Package size={17} />
+          <span>Товары ({products.length})</span>
+        </button>
+
+        <button
+          type="button"
+          className={`mobile-tab-btn ${activeTab === 'sections' ? 'active' : ''}`}
+          onClick={() => setActiveTab('sections')}
+        >
+          <Layers size={17} />
+          <span>Блоки витрины</span>
+        </button>
+
+        <button
+          type="button"
+          className={`mobile-tab-btn ${activeTab === 'orders' ? 'active' : ''}`}
+          onClick={() => setActiveTab('orders')}
+        >
+          <ShoppingCart size={17} />
+          <span>Заказы ({orders.length})</span>
+        </button>
+
+        <button
+          type="button"
+          className={`mobile-tab-btn ${activeTab === 'integrations' ? 'active' : ''}`}
+          onClick={() => setActiveTab('integrations')}
+        >
+          <FileSpreadsheet size={17} />
+          <span>Диск & CRM</span>
+        </button>
+      </nav>
+
+      {/* Sidebar Navigation (Desktop >= 901px) */}
+      <aside className="admin-sidebar desktop-sidebar">
         <div className="admin-brand">
           <span className="brand-badge">CMS</span>
           <h2>Wild Rose Studio</h2>
@@ -189,19 +251,19 @@ export const AdminPanel = () => {
 
         <nav className="admin-nav">
           <button
-            className={`admin-nav-item ${activeTab === 'sections' ? 'active' : ''}`}
-            onClick={() => setActiveTab('sections')}
-          >
-            <Layers size={18} />
-            <span>Конструктор Блоков</span>
-          </button>
-
-          <button
             className={`admin-nav-item ${activeTab === 'products' ? 'active' : ''}`}
             onClick={() => setActiveTab('products')}
           >
             <Package size={18} />
             <span>Каталог Товаров ({products.length})</span>
+          </button>
+
+          <button
+            className={`admin-nav-item ${activeTab === 'sections' ? 'active' : ''}`}
+            onClick={() => setActiveTab('sections')}
+          >
+            <Layers size={18} />
+            <span>Конструктор Блоков</span>
           </button>
 
           <button
@@ -361,7 +423,20 @@ export const AdminPanel = () => {
             {/* Product Modal/Form */}
             {isAddingProduct && (
               <form className="product-edit-modal" onSubmit={handleSaveProduct}>
-                <h3>{editingProduct ? 'Редактирование изделия' : 'Новое ювелирное изделие'}</h3>
+                <div className="product-modal-header-bar">
+                  <h3>{editingProduct ? 'Редактирование изделия' : 'Новое ювелирное изделие'}</h3>
+                  <button 
+                    type="button" 
+                    className="modal-close-icon-btn"
+                    onClick={() => {
+                      setIsAddingProduct(false);
+                      setEditingProduct(null);
+                    }}
+                    title="Закрыть без сохранения"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
                 
                 <div className="form-grid">
                   <div className="form-group">
@@ -480,7 +555,7 @@ export const AdminPanel = () => {
                       <div>
                         <h4>Галерея изделия (пропорции 1:1 или 4:5, до 5 ракурсов)</h4>
                         <p className="photos-section-sub">
-                          Размер карточек предпросмотра точно соответствует формату фото в каталоге
+                          Нажмите на карточку слота для выбора из галереи или съёмки камерой смартфона
                         </p>
                       </div>
                       <span className="photos-section-badge">
@@ -587,7 +662,7 @@ export const AdminPanel = () => {
                   ></textarea>
                 </div>
 
-                <div className="product-form-actions">
+                <div className="product-form-actions sticky-mobile-footer">
                   <button type="button" className="btn btn-secondary" onClick={() => setIsAddingProduct(false)}>
                     Отмена
                   </button>
@@ -598,8 +673,8 @@ export const AdminPanel = () => {
               </form>
             )}
 
-            {/* Products Table */}
-            <div className="admin-table-wrap">
+            {/* Desktop Products Table */}
+            <div className="admin-table-wrap desktop-table-view">
               <table className="admin-table">
                 <thead>
                   <tr>
@@ -635,10 +710,10 @@ export const AdminPanel = () => {
                       </td>
                       <td>
                         <div className="table-actions">
-                          <button className="action-btn edit" onClick={() => handleEditProduct(prod)}>
+                          <button className="action-btn edit" onClick={() => handleEditProduct(prod)} title="Редактировать">
                             <Edit size={14} />
                           </button>
-                          <button className="action-btn delete" onClick={() => deleteProduct(prod.id)}>
+                          <button className="action-btn delete" onClick={() => deleteProduct(prod.id)} title="Удалить">
                             <Trash2 size={14} />
                           </button>
                         </div>
@@ -648,6 +723,88 @@ export const AdminPanel = () => {
                 </tbody>
               </table>
             </div>
+
+            {/* Mobile Products Cards Grid (Optimized for smartphones) */}
+            <div className="admin-product-cards-mobile">
+              {products.map(prod => (
+                <div key={prod.id} className="mobile-product-card">
+                  <div className="mobile-card-media-wrap" onClick={() => handleEditProduct(prod)}>
+                    <img src={prod.mainImage} alt={prod.title} className="mobile-card-thumb" />
+                    <span className={`mobile-status-badge ${prod.status}`}>
+                      {prod.status === 'in_stock' ? 'В наличии' : prod.status === 'preorder' ? 'Под заказ' : 'Лимит'}
+                    </span>
+                  </div>
+
+                  <div className="mobile-card-content">
+                    <div className="mobile-card-header">
+                      <span className="mobile-card-capsule-tag">{prod.capsule || prod.category}</span>
+                      <strong className="mobile-card-price">{prod.price.toLocaleString('ru-RU')} ₽</strong>
+                    </div>
+
+                    <h4 className="mobile-card-title" onClick={() => handleEditProduct(prod)}>
+                      {prod.title}
+                    </h4>
+
+                    <div className="mobile-card-specs">
+                      {prod.metal && <span className="spec-chip">{prod.metal}</span>}
+                      {prod.stones && <span className="spec-chip stones">{prod.stones}</span>}
+                    </div>
+
+                    <div className="mobile-card-footer">
+                      <button 
+                        type="button" 
+                        className="mobile-btn-edit" 
+                        onClick={() => handleEditProduct(prod)}
+                      >
+                        <Edit size={14} />
+                        <span>Редактировать</span>
+                      </button>
+                      <button 
+                        type="button" 
+                        className="mobile-btn-delete" 
+                        onClick={() => deleteProduct(prod.id)}
+                        title="Удалить изделие"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Floating Action Button (FAB) for Mobile */}
+            {!isAddingProduct && (
+              <button
+                type="button"
+                className="mobile-fab-add"
+                onClick={() => {
+                  setEditingProduct(null);
+                  setProdForm({
+                    title: '',
+                    sku: '',
+                    category: 'necklaces',
+                    capsule: '',
+                    price: '',
+                    oldPrice: '',
+                    status: 'in_stock',
+                    metal: '',
+                    stones: '',
+                    sizes: '',
+                    mainImage: '',
+                    hoverImage: '',
+                    detailImages: [],
+                    story: ''
+                  });
+                  setIsAddingProduct(true);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                aria-label="Добавить ювелирное изделие"
+              >
+                <Plus size={22} />
+                <span>Добавить</span>
+              </button>
+            )}
 
           </div>
         )}

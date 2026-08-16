@@ -433,9 +433,30 @@
 }
 
 @media (max-width: 900px) {
+  .lookbook-editor-overlay {
+    padding: 8px;
+  }
+  .lookbook-editor-modal {
+    max-height: 96vh;
+  }
+  .lookbook-editor-header {
+    padding: 14px 16px;
+  }
   .lookbook-editor-body {
     grid-template-columns: 1fr;
-    padding: 16px;
-    gap: 20px;
+    padding: 14px;
+    gap: 18px;
+    height: auto;
+    max-height: calc(96vh - 130px);
+    overflow-y: auto;
+  }
+  .interactive-image-box {
+    max-height: 280px;
+  }
+  .interactive-canvas-img {
+    max-height: 280px;
+  }
+  .lookbook-editor-footer {
+    padding: 12px 16px;
   }
 }
