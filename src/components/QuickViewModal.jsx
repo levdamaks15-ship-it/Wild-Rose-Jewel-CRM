@@ -1,20 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../context/AppContext';
-import { X, ShoppingBag, ShieldCheck, Truck, RotateCcw, Sparkles } from 'lucide-react';
+import { X, ShoppingBag, ShieldCheck, Truck, ChevronLeft, ChevronRight } from 'lucide-react';
 import './QuickViewModal.css';
 
 export const QuickViewModal = () => {
   const { quickViewProduct, setQuickViewProduct, addToCart } = useApp();
   const [selectedImgIndex, setSelectedImgIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState('');
+  
+  // Touch coordinates for swipe detection
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchEndX = useRef(0);
+  const touchEndY = useRef(0);
+  const isPoppingRef = useRef(false);
+
+  // Sync with browser history so edge swipe-back closes the photo modal instead of closing the tab/page
+  useEffect(() => {
+    if (!quickViewProduct) return;
+
+    // Push virtual modal state to browser history
+    window.history.pushState({ wrj_modal: 'quickview' }, '');
+
+    const handlePopState = () => {
+      isPoppingRef.current = true;
+      setQuickViewProduct(null);
+    };
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('keydown', handleKeyDown);
+
+      // Clean up history entry if closed from UI (not via back button)
+      if (!isPoppingRef.current && window.history.state?.wrj_modal === 'quickview') {
+        window.history.back();
+      }
+      isPoppingRef.current = false;
+    };
+  }, [quickViewProduct?.id]);
 
   // Reset index when product changes
-  React.useEffect(() => {
+  useEffect(() => {
     setSelectedImgIndex(0);
     setSelectedSize('');
   }, [quickViewProduct?.id]);
 
   if (!quickViewProduct) return null;
+
+  const closeModal = () => {
+    setQuickViewProduct(null);
+  };
 
   // Deduplicate images and filter empty
   const rawImages = [
@@ -30,22 +74,75 @@ export const QuickViewModal = () => {
 
   const handleAddToCart = () => {
     addToCart(quickViewProduct, currentSize);
-    setQuickViewProduct(null);
+    closeModal();
+  };
+
+  const handlePrevImage = (e) => {
+    if (e) e.stopPropagation();
+    setSelectedImgIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
+  };
+
+  const handleNextImage = (e) => {
+    if (e) e.stopPropagation();
+    setSelectedImgIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+  };
+
+  // Touch Swipe Handlers for Image Gallery (Left/Right to switch photos, Down to close modal)
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+    touchStartY.current = e.targetTouches[0].clientY;
+    touchEndX.current = e.targetTouches[0].clientX;
+    touchEndY.current = e.targetTouches[0].clientY;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+    touchEndY.current = e.targetTouches[0].clientY;
+  };
+
+  const handleTouchEnd = () => {
+    const diffX = touchEndX.current - touchStartX.current;
+    const diffY = touchEndY.current - touchStartY.current;
+    const absX = Math.abs(diffX);
+    const absY = Math.abs(diffY);
+
+    // Horizontal Swipe (Switch photo) - priority if horizontal movement is greater
+    if (absX > 45 && absX > absY) {
+      if (diffX < 0) {
+        // Swiped Left -> Next Image
+        if (images.length > 1) handleNextImage();
+      } else {
+        // Swiped Right -> Prev Image
+        if (images.length > 1) handlePrevImage();
+      }
+    } 
+    // Vertical Swipe Down (Pull down to dismiss modal)
+    else if (diffY > 80 && absY > absX * 1.4) {
+      closeModal();
+    }
   };
 
   return (
-    <div className="quickview-backdrop" onClick={() => setQuickViewProduct(null)}>
+    <div className="quickview-backdrop" onClick={closeModal}>
       <div className="quickview-modal" onClick={e => e.stopPropagation()}>
         
+        {/* Mobile Pull Handle */}
+        <div className="quickview-drag-pill" title="Потяните вниз, чтобы закрыть" />
+
         {/* Close Button */}
-        <button className="quickview-close" onClick={() => setQuickViewProduct(null)}>
+        <button className="quickview-close" onClick={closeModal} aria-label="Закрыть">
           <X size={22} />
         </button>
 
         <div className="quickview-content">
           
           {/* Gallery Side */}
-          <div className="quickview-gallery">
+          <div 
+            className="quickview-gallery"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <div className="quickview-main-image-wrap">
               <img
                 src={activeImg}
@@ -55,6 +152,31 @@ export const QuickViewModal = () => {
                   e.target.src = 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1000&q=80';
                 }}
               />
+
+              {/* Gallery Arrow Controls */}
+              {images.length > 1 && (
+                <>
+                  <button 
+                    className="qv-gallery-arrow prev" 
+                    onClick={handlePrevImage} 
+                    aria-label="Предыдущее фото"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button 
+                    className="qv-gallery-arrow next" 
+                    onClick={handleNextImage} 
+                    aria-label="Следующее фото"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+
+                  {/* Photo Counter Pill on Image */}
+                  <div className="qv-image-counter">
+                    {selectedImgIndex + 1} / {images.length}
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Thumbnail Row */}
