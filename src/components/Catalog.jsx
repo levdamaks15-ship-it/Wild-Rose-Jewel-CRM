@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../context/AppContext';
-import { ShoppingBag, SlidersHorizontal, Eye, Heart, Check, X, ChevronRight, Sparkles } from 'lucide-react';
+import { ShoppingBag, SlidersHorizontal, Eye, Heart, Check, X, ChevronRight, Sparkles, ArrowUp } from 'lucide-react';
 import './Catalog.css';
 
 export const Catalog = ({ title = "Каталог Изделий", subtitle = "Коллекции и Авторские Работы" }) => {
@@ -10,6 +10,10 @@ export const Catalog = ({ title = "Каталог Изделий", subtitle = "�
   const [filterStones, setFilterStones] = useState('all');
   const [sortBy, setSortBy] = useState('featured');
   const [hoveredProduct, setHoveredProduct] = useState(null);
+  const [showMobileDock, setShowMobileDock] = useState(false);
+
+  const catalogRef = useRef(null);
+  const dockRef = useRef(null);
 
   const categories = [
     { id: 'all', label: 'Все изделия' },
@@ -19,6 +23,48 @@ export const Catalog = ({ title = "Каталог Изделий", subtitle = "�
     { id: 'bracelets', label: 'Браслеты' },
     { id: 'sets', label: 'Комплекты' }
   ];
+
+  // Mobile Bottom Dock Scroll Visibility & Behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!catalogRef.current) return;
+      const rect = catalogRef.current.getBoundingClientRect();
+      // Show dock when user has scrolled into the catalog area
+      const inCatalogView = rect.top < window.innerHeight * 0.4 && rect.bottom > 220;
+      setShowMobileDock(inCatalogView);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Center active category inside the floating dock
+  useEffect(() => {
+    if (dockRef.current) {
+      const activeBtn = dockRef.current.querySelector('.mobile-dock-pill.active');
+      if (activeBtn) {
+        activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+  }, [selectedCategory]);
+
+  const scrollToCatalogTop = () => {
+    if (catalogRef.current) {
+      const topOffset = 70;
+      const elementPosition = catalogRef.current.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - topOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const handleMobileCategorySelect = (catId) => {
+    setSelectedCategory(catId);
+    scrollToCatalogTop();
+  };
 
   // Filtering Logic
   const filteredProducts = products.filter(item => {
@@ -41,7 +87,7 @@ export const Catalog = ({ title = "Каталог Изделий", subtitle = "�
   });
 
   return (
-    <section id="catalog" className="section catalog-section">
+    <section id="catalog" ref={catalogRef} className="section catalog-section">
       <div className="container">
         
         {/* Header */}
@@ -196,6 +242,31 @@ export const Catalog = ({ title = "Каталог Изделий", subtitle = "�
             })}
           </div>
         )}
+
+        {/* Floating Mobile Category Dock (Option 2) */}
+        <div className={`mobile-catalog-dock-wrapper ${showMobileDock ? 'visible' : ''}`}>
+          <div className="mobile-catalog-dock" ref={dockRef}>
+            <div className="mobile-dock-scroll">
+              {categories.map(cat => (
+                <button
+                  key={cat.id}
+                  className={`mobile-dock-pill ${selectedCategory === cat.id ? 'active' : ''}`}
+                  onClick={() => handleMobileCategorySelect(cat.id)}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+            <button 
+              className="mobile-dock-top-btn" 
+              onClick={scrollToCatalogTop}
+              title="Наверх каталога"
+              aria-label="Наверх каталога"
+            >
+              <ArrowUp size={15} />
+            </button>
+          </div>
+        </div>
 
       </div>
     </section>
