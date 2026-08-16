@@ -13,6 +13,12 @@ export const HeroSection = ({ section }) => {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleLookbook = (e) => {
+    e.preventDefault();
+    const el = document.getElementById('lookbook');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   // Featured Hero Highlight Product (e.g. iconic necklace or ring)
   const featuredProduct = products.find(p => p.id === 'wr-001') || products[0];
 
@@ -49,10 +55,14 @@ export const HeroSection = ({ section }) => {
 
           <div className="hero-split-actions">
             <button className="btn btn-primary hero-main-btn" onClick={handleExplore}>
-              <span>{section.buttonText || "Смотреть Коллекцию"}</span>
+              <span>{section.buttonText || "Смотреть Каталог"}</span>
               <ArrowRight size={16} />
             </button>
-            <a href={section?.extraData?.secondaryButtonLink || "#lookbook"} className="hero-link-btn">
+            <a 
+              href={section?.extraData?.secondaryButtonLink || "#lookbook"} 
+              className="btn btn-secondary hero-lookbook-btn"
+              onClick={handleLookbook}
+            >
               <span>{section?.extraData?.secondaryButtonText || "Интерактивный Лукбук"}</span>
               <ArrowUpRight size={15} />
             </a>
