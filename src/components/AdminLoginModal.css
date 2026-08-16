@@ -1,0 +1,162 @@
+/* Admin Login Modal CSS */
+.admin-login-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(18, 14, 15, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+}
+
+.admin-login-modal {
+  position: relative;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  box-sizing: border-box;
+  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.admin-login-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.admin-login-close:hover {
+  color: var(--color-rose-deep);
+  border-color: var(--color-rose-deep);
+  background-color: var(--color-rose-soft);
+}
+
+.admin-login-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-rose-soft) 0%, rgba(155, 44, 71, 0.15) 100%);
+  color: var(--color-rose-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  border: 1px solid rgba(155, 44, 71, 0.2);
+}
+
+.admin-login-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--color-text-main);
+  margin: 0 0 8px;
+}
+
+.admin-login-sub {
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+  margin: 0 0 24px;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-login-input-group {
+  display: flex;
+  justify-content: center;
+}
+
+.admin-pin-input {
+  width: 180px;
+  height: 50px;
+  text-align: center;
+  font-size: 1.6rem;
+  letter-spacing: 0.35em;
+  font-family: monospace;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
+  outline: none;
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.admin-pin-input:focus {
+  border-color: var(--color-rose-deep);
+  box-shadow: 0 0 0 3px rgba(155, 44, 71, 0.15);
+}
+
+.admin-pin-input.input-error {
+  border-color: #d32f2f;
+  animation: shake 0.35s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-4px); }
+}
+
+.admin-login-error {
+  font-size: 0.8rem;
+  color: #d32f2f;
+  font-weight: 500;
+  margin-top: -6px;
+}
+
+.admin-login-submit {
+  width: 100%;
+  padding: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admin-login-footer-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 0.74rem;
+  color: var(--color-text-light);
+}

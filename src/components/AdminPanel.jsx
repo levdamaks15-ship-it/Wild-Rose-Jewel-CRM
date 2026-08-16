@@ -222,7 +222,16 @@ export const AdminPanel = () => {
         </nav>
 
         <div className="admin-sidebar-footer">
-          <button className="btn btn-secondary exit-admin-btn" onClick={() => setCurrentView('store')}>
+          <button 
+            className="btn btn-secondary exit-admin-btn" 
+            onClick={() => {
+              window.location.hash = '';
+              if (window.location.pathname === '/admin') {
+                window.history.pushState({}, '', '/');
+              }
+              setCurrentView('store');
+            }}
+          >
             Вернуться на сайт
           </button>
         </div>

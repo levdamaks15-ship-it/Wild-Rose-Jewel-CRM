@@ -291,7 +291,7 @@ export const JournalSection = ({ section }) => {
 };
 
 // Footer Component
-export const Footer = () => {
+export const Footer = ({ onOpenAdminLogin }) => {
   const { settings, setSelectedCategory } = useApp();
 
   return (
@@ -330,7 +330,17 @@ export const Footer = () => {
       <div className="footer-bottom">
         <div className="container footer-bottom-content">
           <p>© {new Date().getFullYear()} Wild Rose Jewel. Все права защищены.</p>
-          <p className="footer-meta">Сделано с любовью к ювелирному искусству</p>
+          <div className="footer-bottom-right">
+            <button 
+              type="button"
+              className="footer-admin-btn"
+              onClick={onOpenAdminLogin}
+              title="Панель управления (CMS)"
+            >
+              CMS Админка
+            </button>
+            <span className="footer-meta">Сделано с любовью к ювелирному искусству</span>
+          </div>
         </div>
       </div>
     </footer>

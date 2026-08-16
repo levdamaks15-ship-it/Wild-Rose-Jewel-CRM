@@ -75,14 +75,6 @@ export const Header = () => {
 
           {/* Right Nav / Actions */}
           <div className="header-actions">
-            <button
-              className="admin-switch-btn"
-              onClick={() => setCurrentView(currentView === 'admin' ? 'store' : 'admin')}
-              title="Панель администратора"
-            >
-              CMS Админка
-            </button>
-
             <button className="cart-trigger-btn" onClick={() => setIsCartOpen(true)}>
               <ShoppingBag size={20} />
               {cartItemsCount > 0 && <span className="cart-badge-count">{cartItemsCount}</span>}
@@ -113,16 +105,6 @@ export const Header = () => {
           <button onClick={() => handleCategoryClick('earrings')}>Серьги</button>
           <button onClick={() => handleCategoryClick('bracelets')}>Браслеты</button>
           <button onClick={() => handleCategoryClick('sets')}>Комплекты</button>
-        </div>
-
-        <div className="mobile-drawer-footer">
-          <div className="mobile-nav-divider"></div>
-          <button 
-            className="mobile-drawer-cms-btn" 
-            onClick={() => { setCurrentView('admin'); setMobileMenuOpen(false); }}
-          >
-            Панель управления (CMS)
-          </button>
         </div>
       </div>
     </header>
