@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { initDb } from './db.js';
 import { seedDatabase } from './seed.js';
 
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import productsRouter from './routes/products.js';
@@ -25,10 +26,14 @@ app.use(cors());
 app.use(express.json({ limit: '30mb' }));
 app.use(express.urlencoded({ extended: true, limit: '30mb' }));
 
-// Static uploads serving (local fallback)
+// Static uploads serving
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// Request logging in development
+// Serve built React frontend from root dist directory
+const distPath = path.join(__dirname, '../../dist');
+app.use(express.static(distPath));
+
+// Request logging
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
@@ -55,6 +60,19 @@ app.post('/api/init-db', async (req, res) => {
   } catch (err) {
     console.error('Init DB failed:', err);
     res.status(500).json({ error: err.message });
+  }
+});
+
+// Wildcard SPA Handler: send index.html for frontend routes
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: 'API route not found' });
+  }
+  const indexPath = path.join(distPath, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(200).send('Wild Rose Jewel API is running. Build frontend with npm run build.');
   }
 });
 
