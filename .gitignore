@@ -1,25 +1,28 @@
-# Folders
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+frontend/
 scratch/
 .gemini/
-dist/
-node_modules/
 
-# Technical scripts
-check-assets.js
-fix-database.js
-import-gemini-data.js
-sanitize-catalog.js
-sync-products.js
-
-# Temporary / Test files
-*.bak
-*.tmp
-gemini-output.json
-files_list.txt
-image-test.html
-webp-test.html
-
-# IDE / System
-.vscode/
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
-Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+

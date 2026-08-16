@@ -1,28 +1,16 @@
-# Путеводитель по твоему первому сайту 🚀
+# React + Vite
 
-Поздравляю! Мы создали современный веб-интерфейс «с нуля». Вот что мы использовали:
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-### 1. HTML (`index.html`) — «Каркас»
-Это основа сайта. Здесь мы описали заголовки, кнопки и структуру страницы.
+Currently, two official plugins are available:
 
-### 2. CSS (`style.css`) — «Красота»
-Этот файл делает сайт стильным. Мы добавили:
-- **Градиенты и темную тему**: Для современного вида.
-- **Эффект стекла (Glassmorphism)**: Модный эффект для центральной карточки.
-- **Анимации**: Плавающие пятна на фоне и плавные переходы.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-### 3. JavaScript (`script.js`) — «Логика»
-Этот файл оживляет сайт. Мы добавили:
-- Обработку нажатия кнопки «Показать магию ✨».
-- Генерацию случайных вдохновляющих фраз.
-- Визуальные эффекты при клике.
+## React Compiler
 
----
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 🛠 Как посмотреть сайт?
-1. Открой папку: [d:\Antigrav](file:///d:/Antigrav)
-2. Кликни правой кнопкой мыши по файлу `index.html`.
-3. Выбери «Открыть с помощью» → Твой браузер (Google Chrome, Edge или Firefox).
+## Expanding the Oxlint configuration
 
-> **Совет для обучения:**
-> Попробуй изменить цвет фона в `style.css` (строка 2, `--bg-color`) или текст в `index.html`. После изменений просто обнови страницу в браузере (клавиша F5)!
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
