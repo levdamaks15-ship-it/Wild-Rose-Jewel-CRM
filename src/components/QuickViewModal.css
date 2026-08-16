@@ -226,22 +226,25 @@
 
 .qv-price-row {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 12px;
   margin-bottom: 20px;
 }
 
 .qv-price {
   font-family: var(--font-serif);
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, 5vw, 1.8rem);
   font-weight: 600;
   color: var(--color-rose-deep);
+  white-space: nowrap;
 }
 
 .qv-old-price {
-  font-size: 1rem;
+  font-size: 0.95rem;
   text-decoration: line-through;
   color: var(--color-text-light);
+  white-space: nowrap;
 }
 
 .qv-status-badge {
@@ -251,6 +254,7 @@
   background-color: var(--color-rose-soft);
   color: var(--color-rose-deep);
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .qv-story {
