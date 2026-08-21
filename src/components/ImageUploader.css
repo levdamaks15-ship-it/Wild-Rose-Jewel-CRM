@@ -12,13 +12,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 2px;
 }
 
 .uploader-label {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: var(--color-text-dark, #2b2523);
   letter-spacing: 0.02em;
+  flex: 1 1 180px;
+  min-width: 0;
+  line-height: 1.35;
 }
 
 .req-star {
@@ -33,12 +39,15 @@
   background: rgba(184, 91, 107, 0.08);
   border: 1px solid rgba(184, 91, 107, 0.22);
   color: var(--color-rose-deep, #9e3d52);
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 20px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
 .uploader-preset-badge:hover {

@@ -446,6 +446,12 @@
   }
   .lookbook-editor-header h3 {
     font-size: 1.15rem;
+    line-height: 1.25;
+  }
+  .lookbook-editor-header p {
+    font-size: 0.8rem;
+    line-height: 1.35;
+    margin: 0;
   }
   .lookbook-editor-body {
     grid-template-columns: 1fr;
@@ -473,6 +479,44 @@
 }
 
 @media (max-width: 600px) {
+  .lookbook-editor-overlay {
+    padding: 0;
+  }
+  .lookbook-editor-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+    border: none !important;
+    display: flex;
+    flex-direction: column;
+  }
+  .lookbook-editor-header {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+  .lookbook-editor-header h3 {
+    font-size: 1.05rem;
+  }
+  .lookbook-editor-body {
+    flex: 1 1 auto;
+    padding: 12px 14px;
+    padding-bottom: 20px;
+    max-height: none;
+  }
+  .lookbook-editor-footer {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    background: #ffffff;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+    padding: 10px 14px;
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+    gap: 8px;
+  }
   .hotspot-item-body {
     grid-template-columns: 1fr;
   }
