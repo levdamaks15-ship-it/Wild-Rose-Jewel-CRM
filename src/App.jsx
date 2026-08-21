@@ -13,12 +13,14 @@ function App() {
   const { currentView, setCurrentView, sections } = useApp();
   const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
 
-  // Synchronize URL path or hash for standalone admin page (/admin or #/admin)
+  // Synchronize URL path or hash for standalone admin page (/admin or #/admin, #/admin/...)
   useEffect(() => {
     const handleUrlChange = () => {
       const path = window.location.pathname;
       const hash = window.location.hash;
-      if (path === '/admin' || hash === '#/admin' || hash === '#admin') {
+      const isAdminRoute = path.startsWith('/admin') || hash.startsWith('#/admin') || hash.startsWith('#admin');
+      
+      if (isAdminRoute) {
         const isAuth = localStorage.getItem('wrj_admin_auth') === 'true' || sessionStorage.getItem('wrj_admin_auth') === 'true';
         if (isAuth) {
           setIsAdminLoginOpen(false);
@@ -27,7 +29,7 @@ function App() {
           setIsAdminLoginOpen(true);
         }
       } else if (currentView === 'admin') {
-        // If user navigated back away from admin
+        // If user navigated back away from admin completely
         setCurrentView('store');
       }
     };

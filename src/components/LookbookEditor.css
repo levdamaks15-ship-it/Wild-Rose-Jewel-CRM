@@ -430,6 +430,7 @@
   justify-content: flex-end;
   gap: 14px;
   background-color: #faf8f5;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 900px) {
@@ -438,9 +439,13 @@
   }
   .lookbook-editor-modal {
     max-height: 96vh;
+    border-radius: 12px;
   }
   .lookbook-editor-header {
-    padding: 14px 16px;
+    padding: 12px 16px;
+  }
+  .lookbook-editor-header h3 {
+    font-size: 1.15rem;
   }
   .lookbook-editor-body {
     grid-template-columns: 1fr;
@@ -458,5 +463,21 @@
   }
   .lookbook-editor-footer {
     padding: 12px 16px;
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+  }
+  .lookbook-editor-footer .btn {
+    flex: 1 1 120px;
+    min-height: 44px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .hotspot-item-body {
+    grid-template-columns: 1fr;
+  }
+  .admin-form-input,
+  .admin-form-select {
+    font-size: 16px !important;
   }
 }

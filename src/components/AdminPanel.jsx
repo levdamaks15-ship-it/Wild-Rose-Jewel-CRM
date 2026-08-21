@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import {
   Layers, Package, ShoppingCart, Settings, ArrowUp, ArrowDown, Eye, EyeOff,
   Plus, Trash2, Edit, Check, Link, Save, RefreshCw, FileSpreadsheet, HardDrive,
-  SlidersHorizontal, CheckCircle2, AlertCircle, Key, Cloud, Info, X
+  SlidersHorizontal, CheckCircle2, AlertCircle, Key, Cloud, Info, X, ArrowLeft
 } from 'lucide-react';
 import { LookbookEditor } from './LookbookEditor';
 import { ImageUploader } from './ImageUploader';
@@ -26,7 +26,7 @@ export const AdminPanel = () => {
     setCurrentView
   } = useApp();
 
-  const [activeTab, setActiveTab] = useState('sections'); // 'sections', 'products', 'orders', 'integrations'
+  const [activeTab, setActiveTab] = useState('products'); // 'products', 'sections', 'orders', 'integrations'
   const [editingLookbookSection, setEditingLookbookSection] = useState(null);
   const [editingSection, setEditingSection] = useState(null);
   
@@ -54,25 +54,166 @@ export const AdminPanel = () => {
     story: ''
   });
 
-  const handleEditProduct = (prod) => {
-    setEditingProduct(prod.id);
-    setProdForm({
-      title: prod.title,
-      sku: prod.sku,
-      category: prod.category,
-      capsule: prod.capsule,
-      price: prod.price,
-      oldPrice: prod.oldPrice || '',
-      status: prod.status,
-      metal: prod.metal,
-      stones: prod.stones,
-      sizes: (prod.sizes || []).join(', '),
-      mainImage: prod.mainImage,
-      hoverImage: prod.hoverImage || '',
-      detailImages: Array.isArray(prod.detailImages) ? prod.detailImages : [],
-      story: prod.story || ''
-    });
-    setIsAddingProduct(true);
+  // URL Hash & History Synchronizer
+  useEffect(() => {
+    const syncFromHash = () => {
+      const rawHash = window.location.hash || '';
+      if (!rawHash.startsWith('#/admin') && !rawHash.startsWith('#admin')) {
+        return;
+      }
+
+      const cleanHash = rawHash.replace(/^#\/?admin\/?/, '');
+      const [pathPart, queryPart] = cleanHash.split('?');
+      const segments = pathPart ? pathPart.split('/').filter(Boolean) : [];
+      const queryParams = new URLSearchParams(queryPart || '');
+
+      const tab = segments[0] || 'products';
+      const action = segments[1] || null;
+      const itemId = queryParams.get('id');
+
+      if (['sections', 'products', 'orders', 'integrations'].includes(tab)) {
+        setActiveTab(tab);
+      } else {
+        setActiveTab('products');
+      }
+
+      // 1. Tab: products
+      if (tab === 'products') {
+        if (action === 'new') {
+          setEditingProduct(null);
+          setProdForm({
+            title: '',
+            sku: '',
+            category: 'necklaces',
+            capsule: '',
+            price: '',
+            oldPrice: '',
+            status: 'in_stock',
+            metal: '',
+            stones: '',
+            sizes: '',
+            mainImage: '',
+            hoverImage: '',
+            detailImages: [],
+            story: ''
+          });
+          setIsAddingProduct(true);
+        } else if (action === 'edit' && itemId) {
+          const prod = products.find(p => String(p.id) === String(itemId));
+          if (prod) {
+            setEditingProduct(prod.id);
+            setProdForm({
+              title: prod.title,
+              sku: prod.sku,
+              category: prod.category,
+              capsule: prod.capsule,
+              price: prod.price,
+              oldPrice: prod.oldPrice || '',
+              status: prod.status,
+              metal: prod.metal,
+              stones: prod.stones,
+              sizes: (prod.sizes || []).join(', '),
+              mainImage: prod.mainImage,
+              hoverImage: prod.hoverImage || '',
+              detailImages: Array.isArray(prod.detailImages) ? prod.detailImages : [],
+              story: prod.story || ''
+            });
+            setIsAddingProduct(true);
+          }
+        } else {
+          setIsAddingProduct(false);
+          setEditingProduct(null);
+        }
+        setEditingSection(null);
+        setEditingLookbookSection(null);
+      }
+
+      // 2. Tab: sections
+      if (tab === 'sections') {
+        setIsAddingProduct(false);
+        setEditingProduct(null);
+
+        if (action === 'edit' && itemId) {
+          const sec = sections.find(s => String(s.id) === String(itemId));
+          if (sec) {
+            const cloned = JSON.parse(JSON.stringify(sec));
+            if (!cloned.extraData) cloned.extraData = {};
+            setEditingSection(cloned);
+          }
+        } else if (action === 'lookbook' && itemId) {
+          const sec = sections.find(s => String(s.id) === String(itemId));
+          if (sec) {
+            setEditingLookbookSection(sec);
+          }
+        } else {
+          setEditingSection(null);
+          setEditingLookbookSection(null);
+        }
+      }
+
+      // 3. Other tabs
+      if (tab === 'orders' || tab === 'integrations') {
+        setIsAddingProduct(false);
+        setEditingProduct(null);
+        setEditingSection(null);
+        setEditingLookbookSection(null);
+      }
+    };
+
+    // If initial hash has no sub-tab, initialize to #/admin/products
+    if (!window.location.hash || window.location.hash === '#admin' || window.location.hash === '#/admin') {
+      window.history.replaceState(null, '', '#/admin/products');
+    }
+
+    syncFromHash();
+    window.addEventListener('hashchange', syncFromHash);
+    window.addEventListener('popstate', syncFromHash);
+
+    return () => {
+      window.removeEventListener('hashchange', syncFromHash);
+      window.removeEventListener('popstate', syncFromHash);
+    };
+  }, [products, sections]);
+
+  // Navigation handlers with history preservation
+  const switchTab = (tab) => {
+    window.location.hash = `#/admin/${tab}`;
+  };
+
+  const openAddProduct = () => {
+    window.location.hash = '#/admin/products/new';
+  };
+
+  const openEditProduct = (prod) => {
+    window.location.hash = `#/admin/products/edit?id=${prod.id}`;
+  };
+
+  const closeProductModal = () => {
+    window.location.hash = '#/admin/products';
+  };
+
+  const openEditSection = (sec) => {
+    window.location.hash = `#/admin/sections/edit?id=${sec.id}`;
+  };
+
+  const closeEditSectionModal = () => {
+    window.location.hash = '#/admin/sections';
+  };
+
+  const openLookbookEditor = (sec) => {
+    window.location.hash = `#/admin/sections/lookbook?id=${sec.id}`;
+  };
+
+  const closeLookbookEditor = () => {
+    window.location.hash = '#/admin/sections';
+  };
+
+  const handleExitToStore = () => {
+    window.location.hash = '';
+    if (window.location.pathname === '/admin') {
+      window.history.pushState({}, '', '/');
+    }
+    setCurrentView('store');
   };
 
   const handleSaveProduct = (e) => {
@@ -91,68 +232,7 @@ export const AdminPanel = () => {
       addProduct(payload);
     }
 
-    setIsAddingProduct(false);
-    setEditingProduct(null);
-  };
-
-  const handleOpenEditSection = (sec) => {
-    const cloned = JSON.parse(JSON.stringify(sec));
-    if (!cloned.extraData) cloned.extraData = {};
-    
-    if (cloned.type === 'craftsmanship') {
-      if (!cloned.extraData.features || !Array.isArray(cloned.extraData.features)) {
-        cloned.extraData.features = [
-          { num: "925 / 585", label: "Благородные сплавы и проба" },
-          { num: "100%", label: "Ручной отбор натуральных камней" },
-          { num: "Lifetime", label: "Безупречная полировка и сервис" }
-        ];
-      }
-    }
-    
-    if (cloned.type === 'hero') {
-      if (!cloned.extraData.metrics || !Array.isArray(cloned.extraData.metrics)) {
-        cloned.extraData.metrics = [
-          { num: "925°", label: "Проба & Качество" },
-          { num: "100%", label: "Ручной Отбор Камней" },
-          { num: "24 ч", label: "Бережная Отправка" }
-        ];
-      }
-    }
-
-    if (cloned.type === 'journal') {
-      if (!cloned.extraData.gallery || !Array.isArray(cloned.extraData.gallery)) {
-        cloned.extraData.gallery = [
-          {
-            imageUrl: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80",
-            author: "@sofia.atelier",
-            tag: "#WildRoseJewel"
-          },
-          {
-            imageUrl: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80",
-            author: "@elena_muse",
-            tag: "#PearlEssence"
-          },
-          {
-            imageUrl: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80",
-            author: "@anna.jewelry",
-            tag: "#WildRoseRing"
-          },
-          {
-            imageUrl: "https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=600&q=80",
-            author: "@maria_noir",
-            tag: "#GarnetTwilight"
-          }
-        ];
-      }
-      if (!cloned.extraData.accountHandle) {
-        cloned.extraData.accountHandle = "@wildrosejewel";
-      }
-      if (!cloned.extraData.instagramUrl) {
-        cloned.extraData.instagramUrl = "https://instagram.com";
-      }
-    }
-    
-    setEditingSection(cloned);
+    closeProductModal();
   };
 
   const handleTestDriveConnection = async () => {
@@ -182,21 +262,37 @@ export const AdminPanel = () => {
       
       {/* Mobile Top Header (Visible on screens <= 900px) */}
       <header className="admin-mobile-header">
-        <div className="admin-mobile-brand">
-          <span className="brand-badge">CMS</span>
-          <h2>Wild Rose Studio</h2>
+        <div className="admin-mobile-header-left">
+          {/* If inside sub-modal or sub-view, show prominent Back Arrow */}
+          {(isAddingProduct || editingSection || editingLookbookSection) ? (
+            <button
+              type="button"
+              className="admin-mobile-back-btn"
+              onClick={() => {
+                if (window.history.length > 1) {
+                  window.history.back();
+                } else {
+                  switchTab(activeTab);
+                }
+              }}
+              title="Назад в раздел"
+            >
+              <ArrowLeft size={18} />
+              <span>Назад</span>
+            </button>
+          ) : (
+            <div className="admin-mobile-brand">
+              <span className="brand-badge">CMS</span>
+              <h2>Wild Rose CRM</h2>
+            </div>
+          )}
         </div>
+
         <button 
           type="button"
           className="admin-mobile-exit-btn" 
-          onClick={() => {
-            window.location.hash = '';
-            if (window.location.pathname === '/admin') {
-              window.history.pushState({}, '', '/');
-            }
-            setCurrentView('store');
-          }}
-          title="Вернуться на сайт"
+          onClick={handleExitToStore}
+          title="Вернуться на витрину сайта"
         >
           <span>На сайт</span>
           <ArrowUp size={14} style={{ transform: 'rotate(45deg)' }} />
@@ -208,7 +304,7 @@ export const AdminPanel = () => {
         <button
           type="button"
           className={`mobile-tab-btn ${activeTab === 'products' ? 'active' : ''}`}
-          onClick={() => setActiveTab('products')}
+          onClick={() => switchTab('products')}
         >
           <Package size={17} />
           <span>Товары ({products.length})</span>
@@ -217,7 +313,7 @@ export const AdminPanel = () => {
         <button
           type="button"
           className={`mobile-tab-btn ${activeTab === 'sections' ? 'active' : ''}`}
-          onClick={() => setActiveTab('sections')}
+          onClick={() => switchTab('sections')}
         >
           <Layers size={17} />
           <span>Блоки витрины</span>
@@ -226,7 +322,7 @@ export const AdminPanel = () => {
         <button
           type="button"
           className={`mobile-tab-btn ${activeTab === 'orders' ? 'active' : ''}`}
-          onClick={() => setActiveTab('orders')}
+          onClick={() => switchTab('orders')}
         >
           <ShoppingCart size={17} />
           <span>Заказы ({orders.length})</span>
@@ -235,7 +331,7 @@ export const AdminPanel = () => {
         <button
           type="button"
           className={`mobile-tab-btn ${activeTab === 'integrations' ? 'active' : ''}`}
-          onClick={() => setActiveTab('integrations')}
+          onClick={() => switchTab('integrations')}
         >
           <FileSpreadsheet size={17} />
           <span>Диск & CRM</span>
@@ -252,7 +348,7 @@ export const AdminPanel = () => {
         <nav className="admin-nav">
           <button
             className={`admin-nav-item ${activeTab === 'products' ? 'active' : ''}`}
-            onClick={() => setActiveTab('products')}
+            onClick={() => switchTab('products')}
           >
             <Package size={18} />
             <span>Каталог Товаров ({products.length})</span>
@@ -260,7 +356,7 @@ export const AdminPanel = () => {
 
           <button
             className={`admin-nav-item ${activeTab === 'sections' ? 'active' : ''}`}
-            onClick={() => setActiveTab('sections')}
+            onClick={() => switchTab('sections')}
           >
             <Layers size={18} />
             <span>Конструктор Блоков</span>
@@ -268,7 +364,7 @@ export const AdminPanel = () => {
 
           <button
             className={`admin-nav-item ${activeTab === 'orders' ? 'active' : ''}`}
-            onClick={() => setActiveTab('orders')}
+            onClick={() => switchTab('orders')}
           >
             <ShoppingCart size={18} />
             <span>Заказы & CRM ({orders.length})</span>
@@ -276,7 +372,7 @@ export const AdminPanel = () => {
 
           <button
             className={`admin-nav-item ${activeTab === 'integrations' ? 'active' : ''}`}
-            onClick={() => setActiveTab('integrations')}
+            onClick={() => switchTab('integrations')}
           >
             <FileSpreadsheet size={18} />
             <span>Google Drive / Sheets</span>
@@ -286,13 +382,7 @@ export const AdminPanel = () => {
         <div className="admin-sidebar-footer">
           <button 
             className="btn btn-secondary exit-admin-btn" 
-            onClick={() => {
-              window.location.hash = '';
-              if (window.location.pathname === '/admin') {
-                window.history.pushState({}, '', '/');
-              }
-              setCurrentView('store');
-            }}
+            onClick={handleExitToStore}
           >
             Вернуться на сайт
           </button>
@@ -318,65 +408,73 @@ export const AdminPanel = () => {
                   
                   <div className="section-card-left">
                     <span className="section-index">#{index + 1}</span>
-                    <div>
+                    <div className="section-title-wrap">
                       <h4 className="section-name">{section.name}</h4>
                       <span className="section-type-tag">тип: {section.type}</span>
                     </div>
                   </div>
 
                   <div className="section-card-controls">
-                    {/* Lookbook Customizer Button */}
-                    {section.type === 'lookbook' && (
+                    {/* Primary action buttons */}
+                    <div className="control-action-group">
+                      {section.type === 'lookbook' && (
+                        <button
+                          type="button"
+                          className="control-action-btn lookbook-btn"
+                          onClick={() => openLookbookEditor(section)}
+                          title="Настроить фото и интерактивные точки"
+                        >
+                          <SlidersHorizontal size={15} />
+                          <span>Настроить точки</span>
+                        </button>
+                      )}
+
+                      {/* Edit Section Content & Banner Image */}
                       <button
-                        className="control-icon-btn highlight-btn"
-                        onClick={() => setEditingLookbookSection(section)}
-                        title="Настроить фото и интерактивные точки"
-                        style={{ width: 'auto', padding: '0 12px', gap: '6px', color: 'var(--color-rose-deep)', borderColor: 'var(--color-rose-deep)' }}
+                        type="button"
+                        className="control-action-btn content-btn"
+                        onClick={() => openEditSection(section)}
+                        title="Редактировать баннер и текст секции"
                       >
-                        <SlidersHorizontal size={15} />
-                        <span style={{ fontSize: '0.78rem', fontWeight: 600 }}>Настроить точки</span>
+                        <Edit size={14} />
+                        <span>Контент</span>
                       </button>
-                    )}
+                    </div>
 
-                    {/* Edit Section Content & Banner Image */}
-                    <button
-                      className="control-icon-btn"
-                      onClick={() => handleOpenEditSection(section)}
-                      title="Редактировать баннер и текст секции"
-                      style={{ width: 'auto', padding: '0 10px', gap: '5px' }}
-                    >
-                      <Edit size={14} />
-                      <span style={{ fontSize: '0.78rem' }}>Контент</span>
-                    </button>
+                    {/* Ordering & Visibility Controls */}
+                    <div className="control-utility-group">
+                      <button
+                        type="button"
+                        className="control-icon-btn"
+                        disabled={index === 0}
+                        onClick={() => moveSection(index, -1)}
+                        title="Переместить выше"
+                        aria-label="Переместить выше"
+                      >
+                        <ArrowUp size={16} />
+                      </button>
 
-                    {/* Move Up/Down */}
-                    <button
-                      className="control-icon-btn"
-                      disabled={index === 0}
-                      onClick={() => moveSection(index, -1)}
-                      title="Переместить выше"
-                    >
-                      <ArrowUp size={16} />
-                    </button>
+                      <button
+                        type="button"
+                        className="control-icon-btn"
+                        disabled={index === sections.length - 1}
+                        onClick={() => moveSection(index, 1)}
+                        title="Переместить ниже"
+                        aria-label="Переместить ниже"
+                      >
+                        <ArrowDown size={16} />
+                      </button>
 
-                    <button
-                      className="control-icon-btn"
-                      disabled={index === sections.length - 1}
-                      onClick={() => moveSection(index, 1)}
-                      title="Переместить ниже"
-                    >
-                      <ArrowDown size={16} />
-                    </button>
-
-                    {/* Enable / Disable */}
-                    <button
-                      className={`control-toggle-btn ${section.enabled ? 'active' : ''}`}
-                      onClick={() => toggleSection(section.id)}
-                      title={section.enabled ? 'Скрыть секцию' : 'Показать секцию'}
-                    >
-                      {section.enabled ? <Eye size={16} /> : <EyeOff size={16} />}
-                      <span>{section.enabled ? 'Активен' : 'Скрыт'}</span>
-                    </button>
+                      <button
+                        type="button"
+                        className={`control-toggle-btn ${section.enabled ? 'active' : ''}`}
+                        onClick={() => toggleSection(section.id)}
+                        title={section.enabled ? 'Скрыть секцию' : 'Показать секцию'}
+                      >
+                        {section.enabled ? <Eye size={16} /> : <EyeOff size={16} />}
+                        <span>{section.enabled ? 'Активен' : 'Скрыт'}</span>
+                      </button>
+                    </div>
                   </div>
 
                 </div>
@@ -394,29 +492,12 @@ export const AdminPanel = () => {
                 <p>Редактируйте цены, ювелирные характеристики, фото и статусы наличия</p>
               </div>
               <button
-                className="btn btn-primary"
-                onClick={() => {
-                  setEditingProduct(null);
-                  setProdForm({
-                    title: '',
-                    sku: '',
-                    category: 'necklaces',
-                    capsule: '',
-                    price: '',
-                    oldPrice: '',
-                    status: 'in_stock',
-                    metal: '',
-                    stones: '',
-                    sizes: '',
-                    mainImage: '',
-                    hoverImage: '',
-                    story: ''
-                  });
-                  setIsAddingProduct(true);
-                }}
+                type="button"
+                className="btn btn-primary btn-add-product-header"
+                onClick={openAddProduct}
               >
                 <Plus size={16} />
-                Добавить изделие
+                <span>Добавить изделие</span>
               </button>
             </div>
 
@@ -424,15 +505,16 @@ export const AdminPanel = () => {
             {isAddingProduct && (
               <form className="product-edit-modal" onSubmit={handleSaveProduct}>
                 <div className="product-modal-header-bar">
-                  <h3>{editingProduct ? 'Редактирование изделия' : 'Новое ювелирное изделие'}</h3>
+                  <div className="product-modal-title-wrap">
+                    <h3>{editingProduct ? 'Редактирование изделия' : 'Новое ювелирное изделие'}</h3>
+                    <p className="product-modal-sub">Заполните параметры и загрузите фото ракурсов</p>
+                  </div>
                   <button 
                     type="button" 
                     className="modal-close-icon-btn"
-                    onClick={() => {
-                      setIsAddingProduct(false);
-                      setEditingProduct(null);
-                    }}
+                    onClick={closeProductModal}
                     title="Закрыть без сохранения"
+                    aria-label="Закрыть"
                   >
                     <X size={20} />
                   </button>
@@ -663,7 +745,7 @@ export const AdminPanel = () => {
                 </div>
 
                 <div className="product-form-actions sticky-mobile-footer">
-                  <button type="button" className="btn btn-secondary" onClick={() => setIsAddingProduct(false)}>
+                  <button type="button" className="btn btn-secondary" onClick={closeProductModal}>
                     Отмена
                   </button>
                   <button type="submit" className="btn btn-primary">
@@ -710,7 +792,7 @@ export const AdminPanel = () => {
                       </td>
                       <td>
                         <div className="table-actions">
-                          <button className="action-btn edit" onClick={() => handleEditProduct(prod)} title="Редактировать">
+                          <button className="action-btn edit" onClick={() => openEditProduct(prod)} title="Редактировать">
                             <Edit size={14} />
                           </button>
                           <button className="action-btn delete" onClick={() => deleteProduct(prod.id)} title="Удалить">
@@ -728,7 +810,7 @@ export const AdminPanel = () => {
             <div className="admin-product-cards-mobile">
               {products.map(prod => (
                 <div key={prod.id} className="mobile-product-card">
-                  <div className="mobile-card-media-wrap" onClick={() => handleEditProduct(prod)}>
+                  <div className="mobile-card-media-wrap" onClick={() => openEditProduct(prod)}>
                     <img src={prod.mainImage} alt={prod.title} className="mobile-card-thumb" />
                     <span className={`mobile-status-badge ${prod.status}`}>
                       {prod.status === 'in_stock' ? 'В наличии' : prod.status === 'preorder' ? 'Под заказ' : 'Лимит'}
@@ -741,7 +823,7 @@ export const AdminPanel = () => {
                       <strong className="mobile-card-price">{prod.price.toLocaleString('ru-RU')} ₽</strong>
                     </div>
 
-                    <h4 className="mobile-card-title" onClick={() => handleEditProduct(prod)}>
+                    <h4 className="mobile-card-title" onClick={() => openEditProduct(prod)}>
                       {prod.title}
                     </h4>
 
@@ -754,7 +836,7 @@ export const AdminPanel = () => {
                       <button 
                         type="button" 
                         className="mobile-btn-edit" 
-                        onClick={() => handleEditProduct(prod)}
+                        onClick={() => openEditProduct(prod)}
                       >
                         <Edit size={14} />
                         <span>Редактировать</span>
@@ -764,8 +846,9 @@ export const AdminPanel = () => {
                         className="mobile-btn-delete" 
                         onClick={() => deleteProduct(prod.id)}
                         title="Удалить изделие"
+                        aria-label="Удалить изделие"
                       >
-                        <Trash2 size={14} />
+                        <Trash2 size={15} />
                       </button>
                     </div>
                   </div>
@@ -778,27 +861,7 @@ export const AdminPanel = () => {
               <button
                 type="button"
                 className="mobile-fab-add"
-                onClick={() => {
-                  setEditingProduct(null);
-                  setProdForm({
-                    title: '',
-                    sku: '',
-                    category: 'necklaces',
-                    capsule: '',
-                    price: '',
-                    oldPrice: '',
-                    status: 'in_stock',
-                    metal: '',
-                    stones: '',
-                    sizes: '',
-                    mainImage: '',
-                    hoverImage: '',
-                    detailImages: [],
-                    story: ''
-                  });
-                  setIsAddingProduct(true);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
+                onClick={openAddProduct}
                 aria-label="Добавить ювелирное изделие"
               >
                 <Plus size={22} />
@@ -878,7 +941,7 @@ export const AdminPanel = () => {
                   <h4>Режим Хранилища Изображений</h4>
                   <p>Выберите, куда автоматически сохранять оптимизированные WebP фотографии товаров и баннеров.</p>
                   
-                  <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                  <div className="input-with-button" style={{ marginTop: '10px' }}>
                     <select
                       className="admin-form-select"
                       style={{ maxWidth: '380px' }}
@@ -899,12 +962,11 @@ export const AdminPanel = () => {
                   <Key size={28} />
                 </div>
                 <div className="integration-body">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h4>Google Service Account JSON Key (Сервисный аккаунт)</h4>
+                  <div className="integration-header-row">
+                    <h4>Google Service Account JSON Key</h4>
                     <button
                       type="button"
-                      className="btn btn-secondary"
-                      style={{ padding: '4px 10px', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '4px' }}
+                      className="btn btn-secondary guide-toggle-btn"
                       onClick={() => setShowServiceAccountGuide(!showServiceAccountGuide)}
                     >
                       <Info size={13} /> {showServiceAccountGuide ? 'Скрыть инструкцию' : 'Как получить ключ?'}
@@ -1022,13 +1084,13 @@ export const AdminPanel = () => {
       {editingLookbookSection && (
         <LookbookEditor
           section={editingLookbookSection}
-          onClose={() => setEditingLookbookSection(null)}
+          onClose={closeLookbookEditor}
         />
       )}
 
       {/* General Section Content / Banner Editor Modal */}
       {editingSection && (
-        <div className="lookbook-editor-overlay" onClick={() => setEditingSection(null)}>
+        <div className="lookbook-editor-overlay" onClick={closeEditSectionModal}>
           <div className="lookbook-editor-modal section-modal-container" onClick={e => e.stopPropagation()}>
             <div className="lookbook-editor-header">
               <div>
@@ -1040,7 +1102,7 @@ export const AdminPanel = () => {
                   {editingSection.type !== 'craftsmanship' && editingSection.type !== 'hero' && editingSection.type !== 'capsules' && 'Изменение текстов, заголовков и визуального оформления'}
                 </p>
               </div>
-              <button className="control-icon-btn" onClick={() => setEditingSection(null)}>
+              <button className="control-icon-btn" onClick={closeEditSectionModal} aria-label="Закрыть">
                 <X size={20} />
               </button>
             </div>
@@ -1675,14 +1737,14 @@ export const AdminPanel = () => {
             </div>
 
             <div className="lookbook-editor-footer">
-              <button className="btn btn-secondary" onClick={() => setEditingSection(null)}>
+              <button className="btn btn-secondary" onClick={closeEditSectionModal}>
                 Отмена
               </button>
               <button
                 className="btn btn-primary"
                 onClick={() => {
                   updateSection(editingSection.id, editingSection);
-                  setEditingSection(null);
+                  closeEditSectionModal();
                 }}
               >
                 <Check size={16} /> Сохранить изменения
