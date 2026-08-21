@@ -2,7 +2,7 @@ import React from 'react';
 import { useApp } from '../context/AppContext';
 import { 
   Sparkles, Gem, ShieldCheck, Truck, Clock, ArrowRight, 
-  ExternalLink, ChevronRight, Award, Flame, Star, Compass, Anchor
+  ExternalLink, ChevronRight, Award, Flame, Star, Compass, Anchor, ArrowUpRight
 } from 'lucide-react';
 import { handleImageError } from '../utils/imageOptimizer';
 import './StoreFrontSections.css';
