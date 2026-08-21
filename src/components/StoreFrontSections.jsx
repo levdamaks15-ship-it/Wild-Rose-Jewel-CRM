@@ -1,6 +1,10 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Sparkles, ArrowRight, Gem, ShieldCheck, Heart, ArrowUpRight } from 'lucide-react';
+import { 
+  Sparkles, Gem, ShieldCheck, Truck, Clock, ArrowRight, 
+  ExternalLink, ChevronRight, Award, Flame, Star, Compass, Anchor
+} from 'lucide-react';
+import { handleImageError } from '../utils/imageOptimizer';
 import './StoreFrontSections.css';
 
 // Variant 1: Premium Split Editorial Hero Component
@@ -89,6 +93,7 @@ export const HeroSection = ({ section }) => {
               src={section.imageUrl || "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1200&q=85"}
               alt="Wild Rose Editorial Look"
               className="hero-main-photo"
+              onError={handleImageError}
             />
             
             {/* Floating Top Tag */}
@@ -107,6 +112,7 @@ export const HeroSection = ({ section }) => {
                   src={featuredProduct.mainImage}
                   alt={featuredProduct.title}
                   className="floating-card-thumb"
+                  onError={handleImageError}
                 />
                 <div className="floating-card-info">
                   <span className="floating-card-label">Бестселлер коллекции</span>

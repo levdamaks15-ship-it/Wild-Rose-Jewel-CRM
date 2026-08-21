@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { Plus, X } from 'lucide-react';
+import { handleImageError } from '../utils/imageOptimizer';
 import './Lookbook.css';
 
 export const Lookbook = ({
@@ -62,6 +63,7 @@ export const Lookbook = ({
               src={imageUrl} 
               alt="Lookbook" 
               className="lookbook-hero-img"
+              onError={handleImageError}
             />
 
             {/* Interactive Hotspots */}
@@ -110,7 +112,12 @@ export const Lookbook = ({
                         <X size={13} />
                       </button>
 
-                      <img src={product.mainImage} alt={product.title} className="popover-thumb" />
+                      <img 
+                        src={product.mainImage} 
+                        alt={product.title} 
+                        className="popover-thumb" 
+                        onError={handleImageError}
+                      />
                       <div className="popover-details">
                         <span className="popover-capsule">{product.capsule || 'Wild Rose'}</span>
                         <h4 className="popover-title" title={product.title}>{product.title}</h4>
@@ -146,7 +153,12 @@ export const Lookbook = ({
             {/* Mobile Bottom Bar (Overlays bottom of lookbook image flawlessly on phones/tablets) */}
             {activeProduct && (
               <div className="lookbook-mobile-sheet" onClick={e => e.stopPropagation()}>
-                <img src={activeProduct.mainImage} alt={activeProduct.title} className="mobile-sheet-thumb" />
+                <img 
+                  src={activeProduct.mainImage} 
+                  alt={activeProduct.title} 
+                  className="mobile-sheet-thumb" 
+                  onError={handleImageError}
+                />
                 <div className="mobile-sheet-info">
                   <span className="mobile-sheet-capsule">{activeProduct.capsule || 'Wild Rose'}</span>
                   <h4 className="mobile-sheet-title">{activeProduct.title}</h4>

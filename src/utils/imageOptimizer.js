@@ -4,6 +4,15 @@
  * high-detail WebP images tailored for jewelry showcases.
  */
 
+export const DEFAULT_FALLBACK_IMAGE = "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80";
+
+export const handleImageError = (e, fallback = DEFAULT_FALLBACK_IMAGE) => {
+  if (e?.target && e.target.src !== fallback) {
+    e.target.onerror = null;
+    e.target.src = fallback;
+  }
+};
+
 export const OPTIMIZATION_PRESETS = {
   product: {
     maxWidth: 1200,

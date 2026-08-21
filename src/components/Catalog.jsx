@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { ShoppingBag, SlidersHorizontal, Eye, Heart, Check, X, ChevronRight, Sparkles, ArrowUp } from 'lucide-react';
+import { handleImageError } from '../utils/imageOptimizer';
 import './Catalog.css';
 
 export const Catalog = ({ title = "Каталог Изделий", subtitle = "Коллекции и Авторские Работы" }) => {
@@ -189,6 +190,7 @@ export const Catalog = ({ title = "Каталог Изделий", subtitle = "�
                       alt={product.title}
                       className="product-image"
                       loading="lazy"
+                      onError={handleImageError}
                     />
 
                     {/* Badges */}

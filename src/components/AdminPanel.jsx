@@ -8,6 +8,7 @@ import {
 import { LookbookEditor } from './LookbookEditor';
 import { ImageUploader } from './ImageUploader';
 import { api } from '../api/apiClient';
+import { handleImageError } from '../utils/imageOptimizer';
 import './AdminPanel.css';
 
 export const AdminPanel = () => {
@@ -773,7 +774,12 @@ export const AdminPanel = () => {
                   {products.map(prod => (
                     <tr key={prod.id}>
                       <td>
-                        <img src={prod.mainImage} alt={prod.title} className="table-thumb" />
+                        <img 
+                          src={prod.mainImage} 
+                          alt={prod.title} 
+                          className="table-thumb" 
+                          onError={handleImageError}
+                        />
                       </td>
                       <td>
                         <strong>{prod.title}</strong>
@@ -811,7 +817,12 @@ export const AdminPanel = () => {
               {products.map(prod => (
                 <div key={prod.id} className="mobile-product-card">
                   <div className="mobile-card-media-wrap" onClick={() => openEditProduct(prod)}>
-                    <img src={prod.mainImage} alt={prod.title} className="mobile-card-thumb" />
+                    <img 
+                      src={prod.mainImage} 
+                      alt={prod.title} 
+                      className="mobile-card-thumb" 
+                      onError={handleImageError}
+                    />
                     <span className={`mobile-status-badge ${prod.status}`}>
                       {prod.status === 'in_stock' ? 'В наличии' : prod.status === 'preorder' ? 'Под заказ' : 'Лимит'}
                     </span>

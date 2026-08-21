@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { X, Trash2, Plus, Minus, ArrowRight, ShieldCheck, CheckCircle } from 'lucide-react';
+import { handleImageError } from '../utils/imageOptimizer';
 import './CartDrawer.css';
 
 export const CartDrawer = () => {
@@ -156,7 +157,12 @@ export const CartDrawer = () => {
             <div className="cart-items-list">
               {cart.map(item => (
                 <div key={`${item.id}-${item.size}`} className="cart-item">
-                  <img src={item.mainImage} alt={item.title} className="cart-item-thumb" />
+                  <img 
+                    src={item.mainImage} 
+                    alt={item.title} 
+                    className="cart-item-thumb" 
+                    onError={handleImageError}
+                  />
                   
                   <div className="cart-item-info">
                     <h4 className="cart-item-title">{item.title}</h4>
