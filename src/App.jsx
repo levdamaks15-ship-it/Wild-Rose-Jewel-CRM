@@ -10,7 +10,7 @@ import { AdminPanel } from './components/AdminPanel';
 import { AdminLoginModal } from './components/AdminLoginModal';
 
 function App() {
-  const { currentView, setCurrentView, sections } = useApp();
+  const { currentView, setCurrentView, sections, isLoading } = useApp();
   const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
 
   // Synchronize URL path or hash for standalone admin page (/admin or #/admin, #/admin/...)
@@ -69,6 +69,39 @@ function App() {
   // If in Admin Mode, render full CMS standalone interface
   if (currentView === 'admin') {
     return <AdminPanel />;
+  }
+
+  // If initial load on a completely fresh browser without cached data, show elegant branded loading screen
+  const hasCachedSections = Boolean(localStorage.getItem('wrj_cached_sections'));
+  if (isLoading && !hasCachedSections) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        backgroundColor: '#FAF8F5',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#6B1D2F',
+        fontFamily: "'Cormorant Garamond', serif"
+      }}>
+        <span style={{ fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '8px', opacity: 0.7 }}>
+          ATELIER
+        </span>
+        <h1 style={{ fontSize: '32px', fontWeight: '400', letterSpacing: '2px', margin: 0 }}>
+          Wild Rose Jewel
+        </h1>
+        <div style={{
+          marginTop: '24px',
+          width: '28px',
+          height: '28px',
+          border: '2px solid rgba(107, 29, 47, 0.15)',
+          borderTopColor: '#6B1D2F',
+          borderRadius: '50%',
+          animation: 'spin 0.8s linear infinite'
+        }} />
+      </div>
+    );
   }
 
   // Dynamic Section Renderer based on CMS block order and toggle state

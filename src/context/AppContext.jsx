@@ -10,14 +10,47 @@ export const AppProvider = ({ children }) => {
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncError, setSyncError] = useState(null);
 
-  // Products State
-  const [products, setProducts] = useState(initialProducts);
+  // Products State (Loaded from cache or fallback)
+  const [products, setProducts] = useState(() => {
+    try {
+      const cached = localStorage.getItem('wrj_cached_products');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {
+      console.error('Error loading cached products:', e);
+    }
+    return initialProducts;
+  });
 
-  // Homepage Sections State
-  const [sections, setSections] = useState(initialPageSections);
+  // Homepage Sections State (Loaded from cache or fallback)
+  const [sections, setSections] = useState(() => {
+    try {
+      const cached = localStorage.getItem('wrj_cached_sections');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {
+      console.error('Error loading cached sections:', e);
+    }
+    return initialPageSections;
+  });
 
   // Site Settings & Integrations
-  const [settings, setSettings] = useState(initialSiteSettings);
+  const [settings, setSettings] = useState(() => {
+    try {
+      const cached = localStorage.getItem('wrj_cached_settings');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed && Object.keys(parsed).length > 0) return parsed;
+      }
+    } catch (e) {
+      console.error('Error loading cached settings:', e);
+    }
+    return initialSiteSettings;
+  });
 
   // Cart State (Persisted in LocalStorage for client cart convenience)
   const [cart, setCart] = useState(() => {
@@ -46,6 +79,25 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem('wrj_cart', JSON.stringify(cart));
   }, [cart]);
 
+  // Persist Products, Sections & Settings cache for instant flicker-free loading
+  useEffect(() => {
+    if (products && products.length > 0) {
+      try { localStorage.setItem('wrj_cached_products', JSON.stringify(products)); } catch (e) {}
+    }
+  }, [products]);
+
+  useEffect(() => {
+    if (sections && sections.length > 0) {
+      try { localStorage.setItem('wrj_cached_sections', JSON.stringify(sections)); } catch (e) {}
+    }
+  }, [sections]);
+
+  useEffect(() => {
+    if (settings && Object.keys(settings).length > 0) {
+      try { localStorage.setItem('wrj_cached_settings', JSON.stringify(settings)); } catch (e) {}
+    }
+  }, [settings]);
+
   // Initial Fetch Data from Backend DB
   const fetchData = useCallback(async () => {
     setIsLoading(true);
@@ -60,12 +112,15 @@ export const AppProvider = ({ children }) => {
 
       if (fetchedProducts.status === 'fulfilled' && Array.isArray(fetchedProducts.value) && fetchedProducts.value.length > 0) {
         setProducts(fetchedProducts.value);
+        try { localStorage.setItem('wrj_cached_products', JSON.stringify(fetchedProducts.value)); } catch (e) {}
       }
       if (fetchedSections.status === 'fulfilled' && Array.isArray(fetchedSections.value) && fetchedSections.value.length > 0) {
         setSections(fetchedSections.value);
+        try { localStorage.setItem('wrj_cached_sections', JSON.stringify(fetchedSections.value)); } catch (e) {}
       }
       if (fetchedSettings.status === 'fulfilled' && fetchedSettings.value && Object.keys(fetchedSettings.value).length > 0) {
         setSettings(fetchedSettings.value);
+        try { localStorage.setItem('wrj_cached_settings', JSON.stringify(fetchedSettings.value)); } catch (e) {}
       }
       if (fetchedOrders.status === 'fulfilled' && Array.isArray(fetchedOrders.value)) {
         setOrders(fetchedOrders.value);
