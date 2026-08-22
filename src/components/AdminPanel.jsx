@@ -27,13 +27,75 @@ export const AdminPanel = () => {
     setCurrentView
   } = useApp();
 
-  const [activeTab, setActiveTab] = useState('products'); // 'products', 'sections', 'orders', 'integrations'
+  const [activeTab, setActiveTab] = useState('products'); // 'products', 'sections', 'orders', 'integrations', 'footer'
   const [editingLookbookSection, setEditingLookbookSection] = useState(null);
   const [editingSection, setEditingSection] = useState(null);
   
   // Test connection state
   const [testDriveStatus, setTestDriveStatus] = useState({ isTesting: false, message: '', success: null });
   const [showServiceAccountGuide, setShowServiceAccountGuide] = useState(false);
+  
+  // Footer CMS Form State
+  const [footerForm, setFooterForm] = useState({
+    footerBrandTitle: '',
+    footerBrandDesc: '',
+    footerCatalogTitle: 'Каталог',
+    footerConciergeTitle: 'Консьерж-сервис',
+    contactPhone: '',
+    contactEmail: '',
+    telegramUrl: '',
+    whatsappUrl: '',
+    instagramUrl: '',
+    footerCopyright: '',
+    footerMetaText: '',
+    footerAdminBtnText: 'CMS Админка'
+  });
+  const [footerSaveStatus, setFooterSaveStatus] = useState({ show: false, success: null, message: '' });
+
+  // Sync footer form with loaded settings
+  useEffect(() => {
+    if (settings) {
+      setFooterForm({
+        footerBrandTitle: settings.footerBrandTitle ?? settings.brandName ?? 'Wild Rose Jewel',
+        footerBrandDesc: settings.footerBrandDesc ?? 'Авторские ювелирные изделия и талисманы, рожденные в союзе эстетики и страсти.',
+        footerCatalogTitle: settings.footerCatalogTitle ?? 'Каталог',
+        footerConciergeTitle: settings.footerConciergeTitle ?? 'Консьерж-сервис',
+        contactPhone: settings.contactPhone ?? '+7 (999) 000-00-00',
+        contactEmail: settings.contactEmail ?? 'concierge@wildrosejewel.com',
+        telegramUrl: settings.telegramUrl ?? 'https://t.me/wildrosejewel',
+        whatsappUrl: settings.whatsappUrl ?? 'https://wa.me/79990000000',
+        instagramUrl: settings.instagramUrl ?? '',
+        footerCopyright: settings.footerCopyright ?? 'Wild Rose Jewel. Все права защищены.',
+        footerMetaText: settings.footerMetaText ?? 'Сделано с любовью к ювелирному искусству',
+        footerAdminBtnText: settings.footerAdminBtnText ?? 'CMS Админка'
+      });
+    }
+  }, [settings]);
+
+  const handleSaveFooter = async (e) => {
+    if (e) e.preventDefault();
+    try {
+      const updated = {
+        ...settings,
+        ...footerForm
+      };
+      await setSettings(updated);
+      setFooterSaveStatus({
+        show: true,
+        success: true,
+        message: 'Настройки подвала успешно сохранены в базе данных!'
+      });
+      setTimeout(() => {
+        setFooterSaveStatus({ show: false, success: null, message: '' });
+      }, 4000);
+    } catch (err) {
+      setFooterSaveStatus({
+        show: true,
+        success: false,
+        message: 'Ошибка сохранения подвала: ' + (err.message || 'Не удалось обновить')
+      });
+    }
+  };
   
   // Product Form State
   const [editingProduct, setEditingProduct] = useState(null);
@@ -72,7 +134,7 @@ export const AdminPanel = () => {
       const action = segments[1] || null;
       const itemId = queryParams.get('id');
 
-      if (['sections', 'products', 'orders', 'integrations'].includes(tab)) {
+      if (['sections', 'products', 'orders', 'integrations', 'footer'].includes(tab)) {
         setActiveTab(tab);
       } else {
         setActiveTab('products');
@@ -153,7 +215,7 @@ export const AdminPanel = () => {
       }
 
       // 3. Other tabs
-      if (tab === 'orders' || tab === 'integrations') {
+      if (tab === 'orders' || tab === 'integrations' || tab === 'footer') {
         setIsAddingProduct(false);
         setEditingProduct(null);
         setEditingSection(null);
@@ -337,6 +399,15 @@ export const AdminPanel = () => {
           <FileSpreadsheet size={17} />
           <span>Диск & CRM</span>
         </button>
+
+        <button
+          type="button"
+          className={`mobile-tab-btn ${activeTab === 'footer' ? 'active' : ''}`}
+          onClick={() => switchTab('footer')}
+        >
+          <Settings size={17} />
+          <span>Подвал сайта</span>
+        </button>
       </nav>
 
       {/* Sidebar Navigation (Desktop >= 901px) */}
@@ -377,6 +448,14 @@ export const AdminPanel = () => {
           >
             <FileSpreadsheet size={18} />
             <span>Google Drive / Sheets</span>
+          </button>
+
+          <button
+            className={`admin-nav-item ${activeTab === 'footer' ? 'active' : ''}`}
+            onClick={() => switchTab('footer')}
+          >
+            <Settings size={18} />
+            <span>Подвал & Контакты</span>
           </button>
         </nav>
 
@@ -1085,6 +1164,211 @@ export const AdminPanel = () => {
                 </div>
               </div>
 
+            </div>
+          </div>
+        )}
+
+        {/* TAB 5: FOOTER & CONTACTS CMS */}
+        {activeTab === 'footer' && (
+          <div className="admin-tab-pane">
+            <div className="pane-header">
+              <div>
+                <h2>Управление Подвалом Сайта & Контактами</h2>
+                <p>Настройте название бренда, слоган, контакты, соцсети и копирайт в нижней части витрины</p>
+              </div>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleSaveFooter}
+              >
+                <Save size={16} />
+                <span>Сохранить подвал</span>
+              </button>
+            </div>
+
+            {footerSaveStatus.message && (
+              <div
+                style={{
+                  marginBottom: '18px',
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  fontSize: '0.9rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  backgroundColor: footerSaveStatus.success ? '#f0fdf4' : '#fef2f2',
+                  color: footerSaveStatus.success ? '#166534' : '#991b1b',
+                  border: `1px solid ${footerSaveStatus.success ? '#bbf7d0' : '#fecaca'}`
+                }}
+              >
+                {footerSaveStatus.success ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
+                <span>{footerSaveStatus.message}</span>
+              </div>
+            )}
+
+            <div className="footer-editor-grid">
+              {/* CARD 1: Бренд и Описание */}
+              <div className="footer-editor-card">
+                <div className="card-header-bar">
+                  <h3>✦ Колонка 1: Бренд и Манифест</h3>
+                </div>
+                <div className="form-group">
+                  <label>Заголовок / Название бренда в подвале</label>
+                  <input
+                    type="text"
+                    className="editor-input"
+                    value={footerForm.footerBrandTitle}
+                    onChange={e => setFooterForm({ ...footerForm, footerBrandTitle: e.target.value })}
+                    placeholder="Wild Rose Jewel"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Описание бренда / Манифест</label>
+                  <textarea
+                    rows="3"
+                    className="editor-textarea"
+                    value={footerForm.footerBrandDesc}
+                    onChange={e => setFooterForm({ ...footerForm, footerBrandDesc: e.target.value })}
+                    placeholder="Авторские ювелирные изделия и талисманы, рожденные в союзе эстетики и страсти."
+                  />
+                </div>
+              </div>
+
+              {/* CARD 2: Каталог и Меню */}
+              <div className="footer-editor-card">
+                <div className="card-header-bar">
+                  <h3>✦ Колонка 2: Навигация</h3>
+                </div>
+                <div className="form-group">
+                  <label>Заголовок колонки каталога</label>
+                  <input
+                    type="text"
+                    className="editor-input"
+                    value={footerForm.footerCatalogTitle}
+                    onChange={e => setFooterForm({ ...footerForm, footerCatalogTitle: e.target.value })}
+                    placeholder="Каталог"
+                  />
+                  <span style={{ fontSize: '0.75rem', color: '#8c827a', marginTop: '4px', display: 'block' }}>
+                    Ссылки на категории (Колье, Кольца, Серьги, Браслеты) формируются автоматически
+                  </span>
+                </div>
+              </div>
+
+              {/* CARD 3: Контакты и Консьерж */}
+              <div className="footer-editor-card">
+                <div className="card-header-bar">
+                  <h3>✦ Колонка 3: Контакты & Соцсети</h3>
+                </div>
+                <div className="form-group">
+                  <label>Заголовок колонки контактов</label>
+                  <input
+                    type="text"
+                    className="editor-input"
+                    value={footerForm.footerConciergeTitle}
+                    onChange={e => setFooterForm({ ...footerForm, footerConciergeTitle: e.target.value })}
+                    placeholder="Консьерж-сервис"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Контактный телефон</label>
+                  <input
+                    type="text"
+                    className="editor-input"
+                    value={footerForm.contactPhone}
+                    onChange={e => setFooterForm({ ...footerForm, contactPhone: e.target.value })}
+                    placeholder="+7 (999) 000-00-00"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Контактный Email</label>
+                  <input
+                    type="email"
+                    className="editor-input"
+                    value={footerForm.contactEmail}
+                    onChange={e => setFooterForm({ ...footerForm, contactEmail: e.target.value })}
+                    placeholder="concierge@wildrosejewel.com"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Ссылка на Telegram</label>
+                  <input
+                    type="url"
+                    className="editor-input"
+                    value={footerForm.telegramUrl}
+                    onChange={e => setFooterForm({ ...footerForm, telegramUrl: e.target.value })}
+                    placeholder="https://t.me/wildrosejewel"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Ссылка на WhatsApp</label>
+                  <input
+                    type="url"
+                    className="editor-input"
+                    value={footerForm.whatsappUrl}
+                    onChange={e => setFooterForm({ ...footerForm, whatsappUrl: e.target.value })}
+                    placeholder="https://wa.me/79990000000"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Ссылка на Instagram (опционально)</label>
+                  <input
+                    type="url"
+                    className="editor-input"
+                    value={footerForm.instagramUrl}
+                    onChange={e => setFooterForm({ ...footerForm, instagramUrl: e.target.value })}
+                    placeholder="https://instagram.com/wildrosejewel"
+                  />
+                </div>
+              </div>
+
+              {/* CARD 4: Нижняя строка и Копирайт */}
+              <div className="footer-editor-card">
+                <div className="card-header-bar">
+                  <h3>✦ Нижняя строка & Копирайт</h3>
+                </div>
+                <div className="form-group">
+                  <label>Текст копирайта (после знака © и текущего года)</label>
+                  <input
+                    type="text"
+                    className="editor-input"
+                    value={footerForm.footerCopyright}
+                    onChange={e => setFooterForm({ ...footerForm, footerCopyright: e.target.value })}
+                    placeholder="Wild Rose Jewel. Все права защищены."
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Подпись справа</label>
+                  <input
+                    type="text"
+                    className="editor-input"
+                    value={footerForm.footerMetaText}
+                    onChange={e => setFooterForm({ ...footerForm, footerMetaText: e.target.value })}
+                    placeholder="Сделано с любовью к ювелирному искусству"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Текст кнопки входа в админку</label>
+                  <input
+                    type="text"
+                    className="editor-input"
+                    value={footerForm.footerAdminBtnText}
+                    onChange={e => setFooterForm({ ...footerForm, footerAdminBtnText: e.target.value })}
+                    placeholder="CMS Админка"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'flex-end' }}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleSaveFooter}
+                style={{ padding: '12px 28px', fontSize: '0.96rem' }}
+              >
+                <Save size={18} />
+                <span>Сохранить настройки подвала</span>
+              </button>
             </div>
           </div>
         )}

@@ -315,14 +315,18 @@ export const Footer = ({ onOpenAdminLogin }) => {
       <div className="container footer-grid">
         
         <div className="footer-col brand-col">
-          <h3 className="footer-brand-title">Wild Rose Jewel</h3>
+          <h3 className="footer-brand-title">
+            {settings.footerBrandTitle || settings.brandName || 'Wild Rose Jewel'}
+          </h3>
           <p className="footer-brand-desc">
-            Авторские ювелирные изделия и талисманы, рожденные в союзе эстетики и страсти.
+            {settings.footerBrandDesc || 'Авторские ювелирные изделия и талисманы, рожденные в союзе эстетики и страсти.'}
           </p>
         </div>
 
         <div className="footer-col">
-          <h4 className="footer-col-title">Каталог</h4>
+          <h4 className="footer-col-title">
+            {settings.footerCatalogTitle || 'Каталог'}
+          </h4>
           <ul className="footer-links">
             <li><a href="#catalog" onClick={() => setSelectedCategory('necklaces')}>Колье и ожерелья</a></li>
             <li><a href="#catalog" onClick={() => setSelectedCategory('rings')}>Кольца</a></li>
@@ -332,12 +336,33 @@ export const Footer = ({ onOpenAdminLogin }) => {
         </div>
 
         <div className="footer-col">
-          <h4 className="footer-col-title">Консьерж-сервис</h4>
+          <h4 className="footer-col-title">
+            {settings.footerConciergeTitle || 'Консьерж-сервис'}
+          </h4>
           <ul className="footer-links">
-            <li><span>Телефон: {settings.contactPhone}</span></li>
-            <li><span>Email: {settings.contactEmail}</span></li>
-            <li><a href={settings.telegramUrl} target="_blank" rel="noreferrer">Telegram Консультация</a></li>
-            <li><a href={settings.whatsappUrl} target="_blank" rel="noreferrer">WhatsApp Чат</a></li>
+            {settings.contactPhone && <li><span>Телефон: {settings.contactPhone}</span></li>}
+            {settings.contactEmail && <li><span>Email: {settings.contactEmail}</span></li>}
+            {settings.telegramUrl && (
+              <li>
+                <a href={settings.telegramUrl} target="_blank" rel="noreferrer">
+                  Telegram Консультация
+                </a>
+              </li>
+            )}
+            {settings.whatsappUrl && (
+              <li>
+                <a href={settings.whatsappUrl} target="_blank" rel="noreferrer">
+                  WhatsApp Чат
+                </a>
+              </li>
+            )}
+            {settings.instagramUrl && (
+              <li>
+                <a href={settings.instagramUrl} target="_blank" rel="noreferrer">
+                  Instagram
+                </a>
+              </li>
+            )}
           </ul>
         </div>
 
@@ -345,7 +370,9 @@ export const Footer = ({ onOpenAdminLogin }) => {
 
       <div className="footer-bottom">
         <div className="container footer-bottom-content">
-          <p>© {new Date().getFullYear()} Wild Rose Jewel. Все права защищены.</p>
+          <p>
+            © {new Date().getFullYear()} {settings.footerCopyright || `${settings.brandName || 'Wild Rose Jewel'}. Все права защищены.`}
+          </p>
           <div className="footer-bottom-right">
             <button 
               type="button"
@@ -353,9 +380,11 @@ export const Footer = ({ onOpenAdminLogin }) => {
               onClick={onOpenAdminLogin}
               title="Панель управления (CMS)"
             >
-              CMS Админка
+              {settings.footerAdminBtnText || 'CMS Админка'}
             </button>
-            <span className="footer-meta">Сделано с любовью к ювелирному искусству</span>
+            <span className="footer-meta">
+              {settings.footerMetaText || 'Сделано с любовью к ювелирному искусству'}
+            </span>
           </div>
         </div>
       </div>

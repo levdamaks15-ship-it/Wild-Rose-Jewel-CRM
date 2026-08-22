@@ -206,11 +206,20 @@ export const initialPageSections = [
 // Initial Site Settings
 export const initialSiteSettings = {
   brandName: "Wild Rose Jewel",
+  footerBrandTitle: "Wild Rose Jewel",
+  footerBrandDesc: "Авторские ювелирные изделия и талисманы, рожденные в союзе эстетики и страсти.",
+  footerCatalogTitle: "Каталог",
+  footerConciergeTitle: "Консьерж-сервис",
   contactPhone: "+7 (999) 000-00-00",
   contactEmail: "concierge@wildrosejewel.com",
   instagramUrl: "https://instagram.com",
   telegramUrl: "https://t.me/wildrosejewel",
   whatsappUrl: "https://wa.me/79990000000",
+  footerCopyright: "Wild Rose Jewel. Все права защищены.",
+  footerMetaText: "Сделано с любовью к ювелирному искусству",
+  footerAdminBtnText: "CMS Админка",
   googleSheetsWebhookUrl: "", // URL Google Apps Script для автоматической записи заказов
-  googleDriveFolderId: ""
+  googleDriveFolderId: "",
+  storageMode: "auto",
+  googleServiceAccountKey: ""
 };

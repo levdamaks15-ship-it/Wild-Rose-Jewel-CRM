@@ -1594,4 +1594,75 @@
   to { transform: rotate(360deg); }
 }
 
+/* --------------------------------------------------------------------------
+   7. Footer Editor Cards & Grid (Luxury CRM)
+   -------------------------------------------------------------------------- */
+.footer-editor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
+}
 
+@media (max-width: 768px) {
+  .footer-editor-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.footer-editor-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border, #e6ded8);
+  border-radius: var(--radius-md, 12px);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-subtle, 0 2px 8px rgba(0, 0, 0, 0.03));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-editor-card .card-header-bar {
+  border-bottom: 1px solid #f0eae5;
+  padding-bottom: 10px;
+  margin-bottom: 4px;
+}
+
+.footer-editor-card .card-header-bar h3 {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-rose-deep, #7a1d36);
+  margin: 0;
+}
+
+.footer-editor-card .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-editor-card label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-main, #2c2523);
+}
+
+.footer-editor-card .editor-input,
+.footer-editor-card .editor-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border, #e6ded8);
+  border-radius: var(--radius-sm, 6px);
+  font-family: var(--font-sans, inherit);
+  font-size: 0.88rem;
+  color: var(--color-text-main, #2c2523);
+  background-color: #faf9f7;
+  transition: all 0.2s ease;
+}
+
+.footer-editor-card .editor-input:focus,
+.footer-editor-card .editor-textarea:focus {
+  outline: none;
+  border-color: var(--color-rose-deep, #7a1d36);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(122, 29, 54, 0.08);
+}
